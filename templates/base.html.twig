@@ -63,7 +63,7 @@
                                 veuillez d'abord vous <a href="{{ path('app_deconnexion') }}" class="LiensMessage">déconnecter</a>.
                             </p>
                         </div>
-                    {% endif %}
+                    {% else %}
 
                     <div id="Message" style="display:{{ display }}">
                         <div id="EnTeteMessage">
@@ -74,6 +74,7 @@
                             {{ message }}
                         </p>
                     </div>
+                    {% endif %}
 
                 <!-- HEADER -->
 

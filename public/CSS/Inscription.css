@@ -26,9 +26,9 @@ body {
 main {
   width: 80%;
   background-color: #BF7C63AA;
-  margin: 75px auto;
-  height: -moz-fit-content;
-  height: fit-content;
+  margin: 11vh auto;
+  min-height: -moz-fit-content;
+  min-height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;

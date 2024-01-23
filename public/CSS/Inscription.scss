@@ -18,8 +18,8 @@
         main{
             width: 80%;
             background-color: $couleur4 + AA;
-            margin: 75px auto;
-            height: fit-content;
+            margin: 11vh auto;
+            min-height: fit-content;
             @include colonneCentre();
         }
 
