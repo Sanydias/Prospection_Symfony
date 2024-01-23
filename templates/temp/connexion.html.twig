@@ -1,0 +1,118 @@
+<!-- PHP -->
+
+    <?php
+
+        /* CONNEXION À LA BASE DE DONNÉES */
+
+            include('./ConnexionBDD.php');
+
+    ?>
+
+<!-- HTML -->
+
+    <!DOCTYPE html>
+    <html>
+
+        <!-- TÊTE DE PAGE -->
+
+            <head>
+
+                <!-- META -->
+
+                    <meta http-equiv="content-type" content="text/html">
+                    <meta charset="utf-8">
+                    <meta lang="fr">
+                    <meta name="author" content="Sandy DUMAS">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta http-equiv="pragma" content="no-cache">
+                    <meta http-equiv="refresh" content="1800">
+
+                <!-- TITLE -->
+
+                    <title>
+                        Connexion
+                    </title>
+
+                <!-- JQUERY CDN -->
+
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+                <!-- JS -->
+
+                    <script src="./JS/Inscription.js"></script>
+
+                <!-- CSS -->
+
+                    <link rel="stylesheet" href="./CSS/Connexion.css">
+
+            </head>
+
+        <!-- CORPS DE PAGE -->
+
+            <body>
+
+                <!-- HEADER -->  
+
+                    <?php
+
+                        include('./Header.php');
+
+                    ?>
+
+                <!-- MAIN -->
+
+                    <main>
+
+                        <!-- TITRE -->
+
+                            <h2>Connectez-vous</h2>
+                            <hr>
+
+                        <!-- FORM -->
+
+                            <form method="POST" action="./Connexion.php?email=attempt">
+
+                                <!-- GROUPE 1 -->
+
+                                    <div class="DivFormulaireGroupe" id="Groupe1">
+
+                                        <!-- EMAIL -->
+
+                                            <label for="IdEmail" class="DecalerLabel">Email*</label>
+                                            <input type="email" name="email" required class="StyleInput" id="IdEmail" onkeyup="deplaceLabel(this)">
+
+                                        <!-- MOT DE PASSE -->
+
+                                            <label for="IdMotDePasse" class="DecalerLabel">Mot De Passe*</label>
+                                            <div class="AlignementMotDePasse">
+                                                <input type="password" name="mot_de_passe" required class="StyleMotDePasse" id="IdMotDePasse" onkeyup="deplaceLabel(this)">
+                                                <div class="AffichageMotDePasse" onclick="toggleType('MotDePasse')">
+                                                    <img src="./IMG/Icones/show.png" alt="afficher" id="AfficherMotDePasse">
+                                                    <img src="./IMG/Icones/hide.png" alt="cacher" id="CacherMotDePasse">
+                                                </div>
+                                            </div>
+
+                                    </div>
+
+                                <!-- GROUPE BOUTONS -->
+                                
+                                    <div id="DivBoutonsEtapes">
+                                        <input type="submit" value="Valider" id="BoutonValider">
+                                    </div>
+
+                            </form>
+                            
+                    </main>
+
+                <!-- FOOTER -->  
+
+                    <?php
+
+                        include('./Footer.php');
+
+                    ?>
+                
+            </body>
+
+    </html>

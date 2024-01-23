@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block body %}
+    <p>
+        Lorem,
+        ipsum dolor sit amet consectetur adipisicing elit.
+        Labore,
+        sequi accusamus modi fugit earum iste dolorum provident vero natus eius rerum aperiam recusandae necessitatibus!
+        Culpa necessitatibus quidem voluptatem nemo unde!
+    </p>
+        <p>
+            Nom : {{ app.user.nom }}
+        </p>
+        <p>
+            Prénom : {{ app.user.prenom }}
+        </p>
+        <p>
+            Sexe : {{ app.user.sexe }}
+        </p>
+        <p>
+            Date de naissance : {{ app.user.datedenaissance | date('d-m-Y') }}
+        </p>
+        <p>
+            Email : {{ app.user.email }}
+        </p>
+        <p>
+            Pseudo : {{ app.user.pseudo }}
+        </p>
+        <p>
+            Photo de Profil : 
+        </p>
+        {% if app.user.photodeprofil %}
+            <img src="{{asset('IMG/PP/'~  app.user.photodeprofil)}}" alt="photo de profil utilisateur">
+        {% else %}
+            <img src="{{asset('IMG/ICONES/utilisateur.png')}}" alt="photo de profil utilisateur">
+        {% endif %}
+        <p>
+            Droit : {% if app.user.roles == ['ROLE_USER'] %}utilisateur{% else %}administrateur{% endif %}
+        </p>
+        <p>
+            Date de creation du compte : {{ app.user.datedecreationducompte | date('d-m-Y') }}
+        </p>
+{% endblock %} 

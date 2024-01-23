@@ -1,0 +1,337 @@
+@charset "UTF-8";
+/* IMPORTATION DES VARIABLE DE STYLE */
+/* ALL */
+* {
+  border-collapse: collapse;
+}
+
+html, body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* COULEURS */
+/* MIXIN */
+/* HTML */
+body {
+  background-image: url("../IMG/pexels-streetwindy-3297208.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom;
+}
+
+/* MAIN */
+main {
+  width: 80%;
+  background-color: #BF7C63AA;
+  margin: 75px auto;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* TITRE ET ÉTAPES */
+/* TITRE ET HR */
+h2 {
+  margin-bottom: 0;
+  font-size: 50px;
+  color: #F2E3B3;
+}
+
+hr {
+  border: 1px solid #F2E3B3;
+  width: 90%;
+}
+
+/* ÉTAPES */
+#DivListeEtapes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+}
+
+.Etapes {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #735645;
+  color: #F2E3B3;
+}
+
+#Etape1 {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+/* FORM */
+form {
+  width: 90%;
+  padding-bottom: 20px;
+}
+
+.DivFormulaireGroupe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+h3 {
+  color: #F2E3B3;
+  font-size: 30px;
+  margin: 0;
+  -webkit-text-decoration: 1px underline;
+          text-decoration: 1px underline;
+  text-underline-position: from-font;
+}
+
+.DecalerLabel {
+  width: 275px;
+  text-align: start;
+  color: #735645;
+  position: relative;
+  top: 25px;
+  left: 0;
+}
+
+.NonDecaleLabel {
+  width: 275px;
+  text-align: start;
+  color: #F2E3B3;
+  position: relative;
+  top: 25px;
+  left: 0;
+  transform: translate(-25px, -25px) scale(0.9);
+}
+
+.SexeLabel {
+  color: #F2E3B3;
+}
+
+/* GROUPE 1 */
+/* EMAIL */
+.StyleInput, select {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 300px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.StyleInput:focus-visible, select:focus-visible {
+  outline-color: #735645;
+}
+
+/* MOT DE PASSE ET CONFIRMATION */
+.AlignementMotDePasse {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.StyleMotDePasse {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 250px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.StyleMotDePasse:focus-visible {
+  outline-color: #735645;
+}
+
+.AffichageMotDePasse {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 48px;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.AffichageMotDePasse img {
+  height: 13px;
+  width: auto;
+}
+.AffichageMotDePasse #CacherMotDePasse {
+  display: none;
+}
+.AffichageMotDePasse #CacherConfirmationMotDePasse {
+  display: none;
+}
+
+/* GROUPE 2 */
+#Groupe2 {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* PP ET APERCU */
+/* PP */
+#IdPP {
+  background-color: #F2E3B3;
+  border: none;
+  width: 300px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* APERCU */
+#Apercu {
+  width: 320px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#PPSurplus, #Cercle1 {
+  position: absolute;
+}
+
+#Cercle1 {
+  width: 315px;
+  height: 315px;
+  border: 4px dashed #F2E3B3;
+  border-radius: 100%;
+  position: absolute;
+}
+
+/* GROUPE 3 */
+#Groupe3 {
+  display: none;
+}
+
+.DivColonne {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 10px;
+}
+.DivColonne .DecalerLabel {
+  width: 275px;
+}
+.DivColonne .StyleInputNomPrenom {
+  width: 300px;
+}
+
+/* NOM PRÉNOM */
+.DivInputLigne {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.StyleInputNomPrenom {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 125px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+select {
+  padding: 7px;
+}
+
+#utilisateur_form_datedenaissance {
+  flex-direction: row;
+}
+
+/* GROUPE BOUTONS */
+#DivBoutonsEtapes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.BoutonsEtapes {
+  background-color: #735645;
+  color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 175px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.BoutonsEtapes:hover {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+#utilisateur_form_precedent, #utilisateur_form_valider {
+  display: none;
+}
+
+.form_non_valide {
+  background-color: #BF7C63;
+  color: #F2E3B3;
+}
+.form_non_valide:hover {
+  background-color: #BF7C63;
+  color: #F2E3B3;
+}
+
+.LienRedirection {
+  color: #F2E3B3;
+}
+.LienRedirection a {
+  color: #F2E3B3;
+}
+.LienRedirection a:hover {
+  color: #735645;
+}/*# sourceMappingURL=Inscription.css.map */

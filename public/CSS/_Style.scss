@@ -1,0 +1,48 @@
+/* ALL */
+
+    *{
+        border-collapse: collapse;
+    }
+
+    html, body{
+        margin: 0;
+        border: 0;
+        padding: 0;
+    }
+    
+/* COULEURS */
+
+    $noir : #000000;
+    $blanc : #ffffff;
+    $couleur1 : #F2E3B3;
+    $couleur2 : #BF9B7A;
+    $couleur3 : #735645;
+    $couleur4 : #BF7C63;
+
+/* MIXIN */
+
+    @mixin colonne{
+        display: flex;
+        flex-direction: column;
+    }
+
+    @mixin ligne{
+        display: flex;
+        flex-direction: row;
+    }
+
+    @mixin alignement($itemAlign, $justifyContent, $textAlign){
+        align-items: $itemAlign;
+        justify-content: $justifyContent;
+        text-align: $textAlign;
+    }
+
+    @mixin colonneCentre{
+        @include colonne();
+        @include alignement(center, center, center);
+    }
+
+    @mixin ligneCentre{
+        @include ligne();
+        @include alignement(center, center, center);
+    }

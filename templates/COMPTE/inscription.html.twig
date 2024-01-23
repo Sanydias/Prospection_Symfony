@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block javascripts %}<script src="{{asset('JS/Inscription.js')}}"></script>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Inscription.css')}}">{% endblock %}
+
+{% block body %}
+
+    <!-- TITRE ET ÉTAPES -->
+
+        <h2>Inscription</h2>
+        <hr>
+        <div id="DivListeEtapes">
+            <p class="Etapes" id="Etape1">
+                Informations Compte
+            </p>
+            <p class="Etapes" id="Etape2">
+                Informations Publiques
+            </p>
+            <p class="Etapes" id="Etape3">
+                Informations Personnels
+            </p>
+        </div>
+        <hr>
+
+    <!-- FORM -->
+    
+        {{ form_start(form) }}
+
+            <!-- GROUPE 1 -->
+
+                <div class="DivFormulaireGroupe" id="Groupe1">
+
+                    <h3>Informations Compte</h3>
+
+                    <!-- EMAIL -->
+
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+
+                    <!-- MOT DE PASSE -->
+
+                        {{ form_label(form.password) }}
+                        <div class="AlignementMotDePasse">
+                            {{ form_widget(form.password) }}
+                            <div class="AffichageMotDePasse" onclick="toggleType('MotDePasse')">
+                                <img src="/IMG/ICONES/show.png" alt="afficher" id="AfficherMotDePasse">
+                                <img src="/IMG/ICONES/hide.png" alt="cacher" id="CacherMotDePasse">
+                            </div>
+                        </div>
+
+                    <!-- CONFIRMATION MOT DE PASSE -->
+
+                        <label for="IdConfirmationMotDePasse" class="DecalerLabel">Confirmation Mot De Passe*</label>
+                        <div class="AlignementMotDePasse">
+                            <input type="password" name="confirmation_mot_de_passe" required class="StyleMotDePasse" id="IdConfirmationMotDePasse" onkeyup="deplaceLabel(this)" onchange="verificationMotDePasse()">
+                            <div class="AffichageMotDePasse" onclick="toggleType('ConfirmationMotDePasse')">
+                                <img src="/IMG/ICONES/show.png" alt="afficher" id="AfficherConfirmationMotDePasse">
+                                <img src="/IMG/ICONES/hide.png" alt="cacher" id="CacherConfirmationMotDePasse">
+                            </div>
+                        </div>
+
+                </div>
+
+            <!-- GROUPE 2 -->
+
+                <div class="DivFormulaireGroupe" id="Groupe2">
+
+                    <h3>Informations Publiques</h3>
+
+                    <!-- PSEUDO -->
+
+                        {{ form_label(form.pseudo) }}
+                        {{ form_widget(form.pseudo) }}
+
+                    <!-- PP -->
+
+                        {{ form_label(form.photodeprofil) }}
+                        {{ form_widget(form.photodeprofil) }}
+
+                    <!-- APERCU PP -->
+
+                        <div id="Apercu">
+                            <img src="/IMG/Defaut.jpeg" alt="image par défault" id="Previsualisation">
+                            <img src="/IMG/Apercu.png" alt="aperçu" id="PPSurplus">
+                            <div id="Cercle1"></div>
+                        </div>
+
+                </div>
+
+            <!-- GROUPE 3 -->
+
+                <div class="DivFormulaireGroupe" id="Groupe3">
+                    
+                    <h3>Informations Personnels</h3>
+
+                    <!-- NOM PRÉNOM -->
+
+                        <div class="DivInputLigne">
+
+                            <!-- NOM -->
+
+                                <div class="DivColonne">
+                                    {{ form_label(form.nom) }}
+                                    {{ form_widget(form.nom) }}
+                                </div>
+
+                            <!-- PRÉNOM -->
+
+                                <div class="DivColonne">
+                                    {{ form_label(form.prenom) }}
+                                    {{ form_widget(form.prenom) }}
+                                </div>
+
+                        </div>
+
+                    <!-- SEXE -->
+
+                        {{ form_label(form.sexe) }}
+                        {{ form_widget(form.sexe) }}
+
+                    <!-- DATE DE NAISSANCE -->
+
+                        {{ form_label(form.datedenaissance) }}
+                        {{ form_widget(form.datedenaissance) }}
+
+                </div>
+
+            <!-- GROUPE 4 -->
+
+                {# <div class="DivFormulaireGroupe" id="Groupe4">
+
+                    <h3>Préférences</h3>
+
+                    <!-- TYPE PRÉFÉRENCE -->
+
+                        <label for="IdPreference" class="NonDecaleLabel">Type Préférences</label>
+                        <select name="preference" id="IdPreference" onchange="blocPreference(this)">
+                            <option value="" selected>Choisissez le type de Préférences</option>
+                            <option value="region">Région</option>
+                            <option value="departement">Département</option>
+                            <option value="ville">Ville</option>
+                        </select>
+
+                    <!-- PRÉFÉRENCES -->
+
+                        <div class="BlocPreference" id="BlocRegion">
+                                    
+                            <!-- RÉGION -->
+
+                                <label for="IdRegion" class="NonDecaleLabel">Région</label>
+                                <select name="region" id="IdRegion">
+                                    <option value="" selected>Choisissez la région</option>
+                                    <?php
+                                        while ($region = $requeteRegion -> fetch()) {
+                                            
+                                    ?>
+                                    <option value="<?php echo($region["nom_region"]); ?>"><?php echo($region["code_region"]); ?> - <?php echo($region["nom_region"]); ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                        </div>
+
+                        <div class="BlocPreference" id="BlocDepartement">
+                            
+                            <!-- DÉPARTEMENT -->
+
+                                <label for="IdDepartement" class="NonDecaleLabel">Département</label>
+                                <select name="departement" id="IdDepartement">
+                                    <option value="" selected>Choisissez le département</option>
+                                    <?php
+                                        while ($departement = $requeteDepartement -> fetch()) {
+                                            
+                                    ?>
+                                    <option value="<?php echo($departement["nom_departement"]); ?>"><?php echo($departement["code_departement"]); ?> - <?php echo($departement["nom_departement"]); ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                        </div>
+
+                        <div class="BlocPreference" id="BlocVille">
+                            <!-- VILLE -->
+
+                                <label for="IdVille" class="NonDecaleLabel">Ville</label>
+                                <select name="ville" id="IdVille">
+                                    <option value="" selected>Choisissez la ville</option>
+                                    <?php
+                                        while ($ville = $requeteCommune -> fetch()) {
+                                            
+                                    ?>
+                                    <option value="<?php echo($ville["nom_commune_complet"]); ?>"><?php echo($ville["code_postal"]); ?> - <?php echo($ville["nom_commune_complet"]); ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                        </div>
+
+                </div> #}
+
+            <!-- GROUPE BOUTONS -->
+
+                <div id="DivBoutonsEtapes">
+                    {{ form_widget(form.precedent) }}
+                    {{ form_widget(form.suivant) }}
+                    {{ form_widget(form.valider) }}
+                </div>
+
+            <p class="LienRedirection">Déjà un compte ? <a href="/connexion">Connectez-vous</a> !</p>
+
+        {{ form_end(form) }}
+{% endblock %} 

@@ -1,0 +1,177 @@
+@charset "UTF-8";
+/* IMPORTATION DES VARIABLE DE STYLE */
+/* ALL */
+* {
+  border-collapse: collapse;
+}
+
+html, body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* COULEURS */
+/* MIXIN */
+/* HTML */
+body {
+  background-image: url("../IMG/pexels-cosmin-gavris-12683080.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom;
+}
+
+/* MAIN */
+main {
+  width: 80%;
+  min-height: 42vh;
+  background-color: #BF7C63AA;
+  margin: 20vh auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* TITRE ET ÉTAPES */
+/* TITRE ET HR */
+h2 {
+  margin-bottom: 0;
+  font-size: 50px;
+  color: #F2E3B3;
+}
+
+hr {
+  border-color: #F2E3B3;
+  width: 90%;
+}
+
+/* FORM */
+form {
+  width: 90%;
+  padding-bottom: 20px;
+}
+
+.DivFormulaireGroupe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.DecalerLabel {
+  width: 275px;
+  text-align: start;
+  color: #735645;
+  position: relative;
+  top: 25px;
+  left: 0;
+}
+
+/* GROUPE 1 */
+/* EMAIL */
+.StyleInput {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 300px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.StyleInput:focus-visible {
+  outline-color: #735645;
+}
+
+/* MOT DE PASSE ET CONFIRMATION */
+.AlignementMotDePasse {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.StyleMotDePasse {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 250px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.StyleMotDePasse:focus-visible {
+  outline-color: #735645;
+}
+
+.AffichageMotDePasse {
+  background-color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 48px;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.AffichageMotDePasse img {
+  height: 13px;
+  width: auto;
+}
+.AffichageMotDePasse #CacherMotDePasse {
+  display: none;
+}
+.AffichageMotDePasse #CacherConfirmationMotDePasse {
+  display: none;
+}
+
+/* GROUPE BOUTONS */
+#DivBoutonsEtapes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+#BoutonValider {
+  background-color: #735645;
+  color: #F2E3B3;
+  border: none;
+  height: 30px;
+  width: 175px;
+  padding: 1px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+#BoutonValider:hover {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+.LienRedirection {
+  color: #F2E3B3;
+}
+.LienRedirection a {
+  color: #F2E3B3;
+}
+.LienRedirection a:hover {
+  color: #735645;
+}/*# sourceMappingURL=Connexion.css.map */

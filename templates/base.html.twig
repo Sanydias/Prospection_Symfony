@@ -1,17 +1,151 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
 
-        {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<!-- HTML -->  
+
+    <!DOCTYPE html>
+    <html>
+
+        <!-- TÊTE DE PAGE -->
+
+            <head>
+
+                <!-- META -->
+
+                    <meta http-equiv="content-type" content="text/html">
+                    <meta charset="utf-8">
+                    <meta lang="fr">
+                    <meta name="author" content="Sandy DUMAS">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta http-equiv="pragma" content="no-cache">
+                    <meta http-equiv="refresh" content="1800">
+
+                <!-- ICON -->
+
+                    <link rel="icon" href="{{asset('IMG/Logo-Logo.svg')}}">
+
+                <!-- TITLE -->
+
+                    <title>{% block title %}{% endblock %}</title>
+
+                <!-- JQUERY CDN -->
+
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+                <!-- JS -->
+
+                    <script src="{{asset('JS/Header.js')}}"></script>
+                    {% block javascripts %}{% endblock %}
+
+                <!-- CSS -->
+
+                    <link rel="stylesheet" href="{{asset('CSS/HeaderFooter.css')}}">
+                    {% block stylesheets %}{% endblock %}
+
+            </head>
+
+        <!-- CORPS DE PAGE -->
+
+            <body>
+
+                <!-- MESSAGE -->
+
+
+                    {% if app.user and app.request.get('_route') == "app_connexion" %}
+
+                        <div id="Message" style="display:flex">
+                            <div id="EnTeteMessage">
+                                <p>MESSAGE !</p>
+                                <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
+                            </div>
+                            <p id="ContenuMessage">
+                                Vous êtes déjà connecté au compte : <a href="{{ path('app_compte') }}" class="LiensMessage">{{ app.user.userIdentifier }}</a>.<br>
+                                Si vous souhaitez vous connecter à un autre compte,<br>
+                                veuillez d'abord vous <a href="{{ path('app_deconnexion') }}" class="LiensMessage">déconnecter</a>.
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    <div id="Message" style="display:{{ display }}">
+                        <div id="EnTeteMessage">
+                            <p>MESSAGE !</p>
+                            <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
+                        </div>
+                        <p id="ContenuMessage">
+                            {{ message }}
+                        </p>
+                    </div>
+
+                <!-- HEADER -->
+
+                    <header>
+
+                        <!-- LOGO -->
+
+                            <a href="/">
+                                <img src="{{asset('IMG/Logo-Logo.svg')}}" alt="Logo" id="IdMenuLogo">
+                            </a>
+
+                        <!-- COMPTE ET MENU -->
+
+                            <div id="IdBoutons">
+                                
+                                <!-- COMPTE -->
+
+                                    <div class="MenuActuel" id="IdDivBoutonCompte" onclick="decalerMenu(this)">
+                                        <div id="DivBoutonCompte">
+                                            {% if app.user %}
+                                                {% if app.user.photodeprofil %}
+                                                    <img src="{{asset('IMG/PP/' ~ app.user.photodeprofil)}}" alt="Compte" id="IdBoutonCompte" onload="resizeIconeHeader(this)">
+                                                {% else %}
+                                                    <img src="{{asset('IMG/ICONES/utilisateur.png')}}" alt="Compte" id="IdBoutonCompte" onload="resizeIconeHeader(this)">
+                                                {% endif %}
+                                            {% else %}
+                                                <img src="{{asset('IMG/ICONES/utilisateur.png')}}" alt="Compte" id="IdBoutonCompte" onload="resizeIconeHeader(this)">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="DefilementMenu" id="IdCompte">
+                                        {% if app.user %}
+                                            <a href="/compte">Compte</a>
+                                            {% if app.user.roles == 'administrateur' %}
+                                                <a href="/back">Back</a>
+                                            {% endif %}
+                                            <a href="/deconnexion">Déconnexion</a>
+                                        {% else %}
+                                            <a href="/inscription">Inscription</a>
+                                            <a href="/connexion">Connexion</a>
+                                        {% endif %}
+                                    </div>
+                                    
+                                <!-- MENU -->
+
+                                    <div class="MenuActuel" id="IdBoutonMenu" onclick="decalerMenu(this)">
+                                            <img src="{{asset('IMG/ICONES/Menu.png')}}" alt="Menu" id="IdMenuBurger">
+                                            <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Menu Ouvert" id="IdMenuCroix">
+                                    </div>
+                                    <div class="DefilementMenu" id="IdMenu">
+                                        <a href="/Rechercher">Rechercher</a>
+                                        <a href="/QuiSommesNous">Qui Sommes Nous ?</a>
+                                        <a href="/Actualites">Actualités</a>
+                                        <a href="/InformationsLieuxTemporaires">Informations Lieux Temporaires</a>
+                                        <a href="/Contact">Contact</a>
+                                    </div>
+
+                            </div>
+
+                    </header>
+                    <main>
+                        {% if app.request.get('_route') == "nomdelaroute" %}
+                            {# route #} {% include 'inscription.html.twig' %}
+                        {% elseif app.request.get('_route') == "nomdelaroute" %}
+                            {# route #}
+                        {% else %}
+                            {# route #}
+                        {% endif %}
+                        {% block body %}{% endblock %}
+                    </main>
+                <footer>
+                    <p>Copyright 2024 © Sandy DUMAS</p>
+                </footer>
+            </body>
 </html>
