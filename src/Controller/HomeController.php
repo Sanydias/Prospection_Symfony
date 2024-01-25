@@ -38,113 +38,75 @@ class HomeController extends AbstractController
             ]);
         }
 
-    /* INSCRIPTION */
+    /* RECHERCHER */
 
-        #[Route('/inscription/{message?}', name: 'app_inscription')]
-        public function inscription($message, ManagerRegistry $doctrine, SluggerInterface $slugger, UserPasswordHasherInterface $hash, Request $request): Response
+        #[Route('/rechercher', name: 'app_rechercher')]
+        public function rechercher(): Response
         {
+            $message = '';
+            $display = "none";
 
-            /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-                if (isset($message)) {
-                    $display = "flex";
-                }else{
-                        $message = '';
-                        $display = "none";
-                }
-
-            $manager = $doctrine->getManager();
-            $utilisateur = new Utilisateur($request);
-    
-            $form = $this->createForm(UtilisateurFormType::class, $utilisateur,[
-                'action' => $this->generateUrl('app_inscription'),
-                'method' => 'POST',
-            ]);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                $utilisateur = $form->getData();
-                
-                $nom = $form->get("nom")->getData();
-                $nom = strtoupper("$nom");
-                $utilisateur -> setNom($nom);
-
-                $prenom = $form->get("prenom")->getData();
-                $prenom = ucfirst("$prenom");
-                $utilisateur -> setPrenom($prenom);
-
-                $utilisateur -> setSexe($form->get("sexe")->getData());
-
-                $utilisateur -> setDateDeNaissance($form->get("datedenaissance")->getData());
-
-                $utilisateur -> setEmail($form->get("email")->getData());
-
-                $utilisateur -> setPassword($hash->hashPassword($utilisateur, $form->get("password")->getData()));
-
-                $utilisateur -> setPseudo($form->get("pseudo")->getData());
-
-                $photodeprofil = $form->get("photodeprofil")->getData();
-                // this condition is needed because the 'photodeprofil' field is not required
-                // so the PDF file must be processed only when a file is uploaded
-                if ($photodeprofil) {
-                    $originalFilename = pathinfo($photodeprofil->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$photodeprofil->guessExtension();
-    
-                    // Move the file to the directory where brochures are stored
-                    try {
-                        $photodeprofil->move(
-                            $this->getParameter('fileDirectory'),//fileDirectory
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
-                    }
-    
-                    // updates the 'photodeprofilname' property to store the PDF file name
-                    // instead of its contents
-                    $utilisateur -> setPhotoDeProfil($newFilename);
-                }
-                $utilisateur -> setRoles(['ROLE_USER']);
-                $utilisateur -> setDateDeCreationDuCompte(new DateTimeImmutable());
-
-                $manager->persist($utilisateur);
-                $manager->flush();
-
-                $message = "L'utilisateur a bien été créé";
-                return $this->redirectToRoute('app_connexion', ["message" => $message]);
-            }else{
-                //$liste = $doctrine->getRepository(Utilisateur::class)->findBy(['email' => $email]);
-                $message = "Attention, ce mail a déjà été attribué !";
-            }
-
-            return $this->render('compte/inscription.html.twig', [
+            return $this->render("home/rechercher.html.twig", [
                 'display' => $display,
-                'message' => $message,
-                'form' => $form,
+                'message' => $message
             ]);
         }
-    
-                                    
-            /*if ($typeDePreference !== '') {
-                $requeteId = $BDD -> prepare("SELECT id FROM utilisateur WHERE email= :email");
-                $requeteId -> execute(array('email' => $email));
-                $data = $requeteId -> fetch();
-                $id_utilisateur = $data["id"];
-                if ($region) {
-                    $lieu = $region;
-                } elseif ($departement) {
-                    $lieu = $departement;
-                }elseif ($ville) {
-                    $lieu = $ville;
-                }
-                if ($lieu !== '') {
-                        $requeteOptionnel = $BDD -> prepare("INSERT INTO preference (type_preference, lieu, id_utilisateur) VALUES (:type_preference, :lieu, :id_utilisateur)");
-                        $requeteOptionnel -> execute(array( 'type_preference' => $typeDePreference,
-                                                            'lieu' => $lieu,
-                                                            'id_utilisateur' => $id_utilisateur));
-                }
-            }*/
+        
+    /* QUI SOMMES NOUS */
+
+        #[Route('/quisommesnous', name: 'app_qui_sommes_nous')]
+        public function quiSommesNous(): Response
+        {
+            $message = '';
+            $display = "none";
+
+            return $this->render("home/quisommesnous.html.twig", [
+                'display' => $display,
+                'message' => $message
+            ]);
+        }
+
+    /* ACTUALITÉ */
+
+        #[Route('/actualites', name: 'app_actualites')]
+        public function actualite(): Response
+        {
+            $message = '';
+            $display = "none";
+
+            return $this->render("home/actualites.html.twig", [
+                'display' => $display,
+                'message' => $message
+            ]);
+        }
+
+    /* INFORMATIONS SITES TEMPORAIRES */
+
+        #[Route('/informationssitestemporaires', name: 'app_informations_sites_temporaires')]
+        public function informationsSitesTemporaires(): Response
+        {
+            $message = '';
+            $display = "none";
+
+            return $this->render("home/informationssitestemporaires.html.twig", [
+                'display' => $display,
+                'message' => $message
+            ]);
+        }
+
+    /* CONTACT */
+
+        #[Route('/contact', name: 'app_contact')]
+        public function contact(): Response
+        {
+            $message = '';
+            $display = "none";
+
+            return $this->render("home/contact.html.twig", [
+                'display' => $display,
+                'message' => $message
+            ]);
+        }
 
     /* erreur */
 

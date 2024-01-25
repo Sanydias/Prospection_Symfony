@@ -1,0 +1,119 @@
+@charset "UTF-8";
+/* IMPORTATION DES VARIABLE DE STYLE */
+/* ALL */
+* {
+  border-collapse: collapse;
+}
+
+html, body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* COULEURS */
+/* MIXIN */
+/* HTML */
+/* MAIN */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 3px solid #735645;
+}
+
+/* EN TÊTE COMPTE */
+h1 {
+  color: #F2E3B3;
+}
+
+.Ligne {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+.Ligne a {
+  background-color: #735645;
+  color: #F2E3B3;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 20px;
+  width: 100%;
+  border-bottom: 1px solid #F2E3B3;
+}
+.Ligne a:hover {
+  background-color: #BF9B7A;
+  border-bottom: 1px solid #BF9B7A;
+}
+.Ligne .SelectedPage {
+  background-color: #BF9B7A;
+  border-bottom: 1px solid #BF9B7A;
+}
+
+/* CORP COMPTE */
+.ContenuCompte {
+  width: 90%;
+  height: 100%;
+  padding: 20px 5%;
+  background-color: #BF9B7A;
+  color: #F2E3B3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: flex-start;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+.LigneProfil {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.ColonneProfil {
+  margin-left: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: flex-start;
+}
+.ColonneProfil p {
+  margin-top: 0;
+}
+
+/* PROFIL */
+.PPProfil {
+  width: 200px;
+  height: 200px;
+  margin: 20px 75px 20px 0;
+  border: 4px solid #735645;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+hr {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #F2E3B3;
+}
+
+.PseudoProfil {
+  font-size: 30px;
+}
+
+/* PARAMÈTRES */
+.ContenuParametres {
+  width: 100%;
+  min-height: 75vh;
+}/*# sourceMappingURL=Compte.css.map */

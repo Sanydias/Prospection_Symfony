@@ -1,0 +1,45 @@
+{% extends 'compte/compte.html.twig' %}
+
+{% block compte %}
+    <div class="LigneProfil">
+        <div class="PPProfil">
+            {% if app.user.photodeprofil %}
+                <img src="{{asset('IMG/PP/'~  app.user.photodeprofil)}}" alt="photo de profil utilisateur" onload="resizeIconeHeader(this)">
+            {% else %}
+                <img src="{{asset('IMG/ICONES/utilisateur.png')}}" alt="photo de profil utilisateur" onload="resizeIconeHeader(this)">
+            {% endif %}
+        </div>
+        <p class="PseudoProfil">
+            {{ app.user.pseudo }}
+        </p>
+    </div>
+    <hr>
+    <div class="ColonneProfil">
+        <h2>Informations Compte</h2>
+        <p>
+            Email : {{ app.user.email }}
+        </p>
+        <p>
+            Droit : {% if app.user.roles == ['ROLE_USER'] %}utilisateur{% else %}administrateur{% endif %}
+        </p>
+        <p>
+            Date de creation du compte : {{ app.user.datedecreationducompte | date('d-m-Y') }}
+        </p>
+    </div>
+    <hr>
+    <div class="ColonneProfil">
+        <h2>Informations Personnels</h2>
+        <p>
+            Nom : {{ app.user.nom }}
+        </p>
+        <p>
+            Prénom : {{ app.user.prenom }}
+        </p>
+        <p>
+            Sexe : {{ app.user.sexe }}
+        </p>
+        <p>
+            Date de naissance : {{ app.user.datedenaissance | date('d-m-Y') }}
+        </p>
+    </div>
+{% endblock %} 

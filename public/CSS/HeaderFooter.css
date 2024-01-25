@@ -230,9 +230,13 @@ header {
 
 /* FOOTER */
 footer {
-  background-color: #BF9B7A;
-  text-align: center;
-  padding: 10px;
-  color: #F2E3B3;
   height: 7vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #BF9B7A;
+  color: #735645;
 }/*# sourceMappingURL=HeaderFooter.css.map */

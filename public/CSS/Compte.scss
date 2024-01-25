@@ -1,0 +1,100 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style";
+
+/* HTML */
+
+    /* MAIN */
+
+        main{
+            @include colonneCentre();
+            border-bottom: 3px solid $couleur3;
+        }
+
+        /* EN TÊTE COMPTE */
+
+            h1{
+                color: $couleur1;
+            }
+
+            .Ligne{
+                @include ligneCentre();
+                width: 100%;
+                a{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    font-size: 20px;
+                    text-decoration: none;
+                    padding: 20px;
+                    width: 100%;
+                    border-bottom: 1px solid $couleur1;
+                    &:hover{
+                        background-color: $couleur2;
+                        border-bottom: 1px solid $couleur2;
+                    }
+                }
+                .SelectedPage{
+                    background-color: $couleur2;
+                    border-bottom: 1px solid $couleur2;
+                }
+            }
+
+        /* CORP COMPTE */
+
+            .ContenuCompte{
+                width: 90%;
+                height: 100%;
+                padding: 20px 5%;
+                background-color: $couleur2;
+                color: $couleur1;
+                @include colonne();
+                @include alignement(flex-start, flex-start, flex-start);
+            }
+
+            h2{
+                font-weight: normal;
+            }
+
+            .LigneProfil{
+                @include ligne();
+                align-items: center;
+                width: 100%;
+            }
+
+            .ColonneProfil{
+                margin-left: 2%;
+                @include colonne();
+                @include alignement(flex-start, flex-start, flex-start);
+                p{
+                    margin-top: 0;
+                }
+            }
+
+            /* PROFIL */
+
+                .PPProfil{
+                    width: 200px;
+                    height: 200px;
+                    margin: 20px 75px 20px 0;
+                    border: 4px solid $couleur3;
+                    border-radius: 100%;
+                    overflow: hidden;
+                }
+
+                hr{
+                    width: 100%;
+                    border: none;
+                    border-bottom: 1px solid $couleur1;
+                }
+
+                .PseudoProfil{
+                    font-size: 30px;
+                }
+
+            /* PARAMÈTRES */
+    
+                .ContenuParametres{
+                    width: 100%;
+                    min-height: 75vh;
+                }

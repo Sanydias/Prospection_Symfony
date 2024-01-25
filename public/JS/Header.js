@@ -131,10 +131,10 @@
         hauteur = element.height;
         largeur = element.width;
         if (hauteur < largeur) {
-            element.style.height = "auto";
-            element.style.width = "100%";
-        } else {
             element.style.height = "100%";
             element.style.width = "auto";
+        } else {
+            element.style.height = "auto";
+            element.style.width = "100%";
         }
     }

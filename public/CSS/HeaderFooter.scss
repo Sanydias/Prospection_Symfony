@@ -207,9 +207,9 @@
     /* FOOTER */
 
         footer{
-            background-color: $couleur2;
-            text-align: center;
-            padding: 10px;
-            color: $couleur1;
             height: 7vh;
+            padding: 10px;
+            @include colonneCentre();
+            background-color: $couleur2;
+            color: $couleur3;
         }
