@@ -43,9 +43,8 @@
         /* CORP COMPTE */
 
             .ContenuCompte{
-                width: 90%;
+                width: 100%;
                 height: 100%;
-                padding: 20px 5%;
                 background-color: $couleur2;
                 color: $couleur1;
                 @include colonne();
@@ -56,22 +55,28 @@
                 font-weight: normal;
             }
 
-            .LigneProfil{
-                @include ligne();
-                align-items: center;
-                width: 100%;
-            }
-
-            .ColonneProfil{
-                margin-left: 2%;
-                @include colonne();
-                @include alignement(flex-start, flex-start, flex-start);
-                p{
-                    margin-top: 0;
-                }
-            }
-
             /* PROFIL */
+
+                .GroupeProfil{
+                    width: 90%;
+                    height: 100%;
+                    margin: 20px 5%;
+                }
+
+                .LigneProfil{
+                    @include ligne();
+                    align-items: center;
+                    width: 100%;
+                }
+    
+                .ColonneProfil{
+                    margin-left: 2%;
+                    @include colonne();
+                    @include alignement(flex-start, flex-start, flex-start);
+                    p{
+                        margin-top: 0;
+                    }
+                }
 
                 .PPProfil{
                     width: 200px;
@@ -80,6 +85,8 @@
                     border: 4px solid $couleur3;
                     border-radius: 100%;
                     overflow: hidden;
+                    @include colonneCentre();
+                    background-color: $couleur1;
                 }
 
                 hr{
@@ -93,8 +100,39 @@
                 }
 
             /* PARAMÈTRES */
+
+                .GroupeParametres{
+                    height: 100%;
+                    width: 100%;
+                    @include ligne();
+                }
+
+                .MenuParametres{
+                    @include colonne();
+                    width: 20%;
+                    min-height: 75vh;
+                    background-color: $couleur3;
+                    a{
+                        background-color: $couleur3;
+                        color: $couleur1;
+                        font-size: 20px;
+                        text-decoration: none;
+                        padding: 20px;
+                        width: auto;
+                        height: fit-content;
+                        border-right: 1px solid $couleur1;
+                        &:hover{
+                            background-color: $couleur2;
+                            border-right: 1px solid $couleur2;
+                        }
+                    }
+                    .SelectedPage{
+                        background-color: $couleur2;
+                        border-right: 1px solid $couleur2;
+                    }
+                }
     
                 .ContenuParametres{
-                    width: 100%;
+                    width: 80%;
                     min-height: 75vh;
                 }

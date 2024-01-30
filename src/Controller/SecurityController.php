@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\OubliFormType;
 use App\Form\UtilisateurFormType;
 use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
@@ -137,12 +138,58 @@ class SecurityController extends AbstractController
                 'error' => $error
             ]);
         }
+
     /* DÉCONNEXION */
 
         #[Route(path: '/deconnexion', name: 'app_deconnexion')]
         public function logout(): void
         {
             throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        }
+
+    /* OUBLI DE MOT DE PASSE */
+
+        #[Route('/oubli/{message?}', name: 'app_oubli')]
+        public function oubli($message, ManagerRegistry $doctrine, UserPasswordHasherInterface $hash, Request $request): Response
+        {
+
+            /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
+
+                if (isset($message)) {
+                    $display = "flex";
+                }else{
+                        $message = 'none';
+                        $display = "none";
+                }
+
+            $manager = $doctrine->getManager();
+            $getutilisateur = new Utilisateur($request);
+    
+            $form = $this->createForm(OubliFormType::class, $getutilisateur,[
+                'action' => $this->generateUrl('app_oubli'),
+                'method' => 'POST',
+            ]);
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $utilisateur = $doctrine->getRepository(Utilisateur::class)->findOneBy(array('email' => $form->get("email")->getData()));
+                $utilisateur -> setPassword($hash->hashPassword($utilisateur, $form->get("password")->getData()));
+
+                $manager->persist($utilisateur);
+                $manager->flush();
+                $message = "le mot de passe a bien été modifié";
+                $display = "flex";
+                
+                return $this->redirectToRoute('app_connexion', ["message" => $message]);
+            }else{
+                $message = "Attention, l'email ou le code n'est pas valide !";
+            }
+
+            return $this->render('security/oubli.html.twig', [
+                'display' => $display,
+                'message' => $message,
+                'form' => $form
+            ]);
         }
         
 }

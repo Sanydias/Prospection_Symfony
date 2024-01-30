@@ -153,13 +153,17 @@ class CompteController extends AbstractController
 
                     $message = "l'utilisateur ".$utilisateur['prenom']." ".$utilisateur['nom']." a bien été supprimé";
                     $display = "flex";
+                    
+                    $manager =$doctrine->getManager();
+                    $manager->remove($utilisateur);
+                    $manager->flush();
 
-                    return $this->redirectToRoute('app_home', [
-                        'utilisateur' => $utilisateur,
+                    return $this->redirectToRoute('app_deconnexion', [
                         'display' => $display,
                         'message' => $message
                     ]);
                 }
+
 
     /* LISTE COMPTE */
 

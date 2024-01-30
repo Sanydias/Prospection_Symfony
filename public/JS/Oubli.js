@@ -3,44 +3,9 @@
 
     var count = 1;
     var emailValide = "non";
+    var codeValide = "non";
     var motDePasseOk = "non";
-
-/* FONCTION QUI PERMET D'AFFICHER UNE PRÉVISUALISATION DE L'IMAGE INSÉRÉE PAR L'UTILISATEUR */
-
-    function apercu(image) {
-
-        /* SI UN FICHIER EST DÉFINIT ET N'EST PAS VIDE */
-
-            if (image.files && image.files[0]) {
-
-                /* VARIABLE PERMETTANT DE LIRE LE CONTENU D'UN FICHIER STOCKÉE SUR L'ORDINATEUR DE L'UTILISATEUR */
-
-                    var reader = new FileReader();
-                
-                /* PENDANT LE CHARGEMENT DE READER ON RÉCUPÈRE LA BALISE QUI VA SERVIR DE PRÉVISUALISATION */
-
-                    reader.onload = function (element) {
-
-                        /* DÉFINIT L'ATTRIBUT SOURCE DE LA BALISE PREVISUALISATION */
-
-                            $('#Previsualisation').attr('src', element.target.result);
-
-                        /* CHANGEMENT DE LA LARGEUR DE LA BALISE PREVISUALISATION */
-
-                            $('#Previsualisation').width(320);
-
-                        /* CHANGEMENT DE LA HAUTEUR DE LA BALISE PREVISUALISATION */
-
-                            $('#Previsualisation').height(320);
-                    }
-
-                /* LIRE LE FICHIER COMME UNE URL */
-
-                    reader.readAsDataURL(image.files[0]);
-                
-            }
-
-    }
+    var codeDefinit = Math.floor(Math.random() * 99999);
 
 /* FONCTION QUI PERMET DE CHANGER LE TYPE D'INPUT */
 
@@ -53,7 +18,7 @@
                     
                     /* VÉRIFICATION DU TYPE DE L'INPUT */
 
-                        input = document.getElementById('utilisateur_form_password');
+                        input = document.getElementById('oubli_form_password');
                         if (input.getAttribute('type') == 'text') {
                     
                             /* DÉFINITION DU TYPE DE L'INPUT */
@@ -140,40 +105,6 @@
         }
     }
 
-
-/* FONCTION D'AFFICHAGE SI UN TYPE DE PRÉFÉRENCES EST SELECTIONNÉ */
-
-    function blocPreference(option) {
-        region = document.getElementById('BlocRegion');
-        departement = document.getElementById('BlocDepartement');
-        ville = document.getElementById('BlocVille');
-        switch (option.value) {
-            case "region":
-                region.setAttribute("style", "display:flex");
-                departement.setAttribute("style", "display:none");
-                ville.setAttribute("style", "display:none");
-            break;
-        
-            case "departement":
-                region.setAttribute("style", "display:none");
-                departement.setAttribute("style", "display:flex");
-                ville.setAttribute("style", "display:none");
-            break;
-    
-            case "ville":
-                region.setAttribute("style", "display:none");
-                departement.setAttribute("style", "display:none");
-                ville.setAttribute("style", "display:flex");
-            break;
-    
-            default:
-                region.setAttribute("style", "display:none");
-                departement.setAttribute("style", "display:none");
-                ville.setAttribute("style", "display:none");
-            break;
-        }
-    }
-
 /* FONCTION DE SWITCH ENTRE LES ÉTAPES */
 
     function etape(recuperation) {
@@ -182,18 +113,16 @@
 
             var boutonEtape1 = document.getElementById("Etape1");
             var boutonEtape2 = document.getElementById("Etape2");
-            var boutonEtape3 = document.getElementById("Etape3");
             var etape1 = document.getElementById("Groupe1");
             var etape2 = document.getElementById("Groupe2");
-            var etape3 = document.getElementById("Groupe3");
-            var button_previous = document.getElementById("utilisateur_form_precedent");
-            var button_next = document.getElementById("utilisateur_form_suivant");
-            var button_submit = document.getElementById("utilisateur_form_valider");
+            var button_previous = document.getElementById("oubli_form_precedent");
+            var button_next = document.getElementById("oubli_form_suivant");
+            var button_submit = document.getElementById("oubli_form_valider");
             var name = recuperation.getAttribute('id');
                     
         /* DÉCRÉMENTATION SI LE BOUTON CLIQUÉ EST PRÉCÉDENT ET INCRÉMENTATION SI NON */
 
-            if (name == "utilisateur_form_precedent") {
+            if (name == "oubli_form_precedent") {
                 count--;
             }else{
                 count++;
@@ -208,10 +137,8 @@
 
                         boutonEtape1.setAttribute("style", "background-color: #F2E3B3; color: #735645");
                         boutonEtape2.setAttribute("style", "background-color: #735645; color: #F2E3B3");
-                        boutonEtape3.setAttribute("style", "background-color: #735645; color: #F2E3B3");
                         etape1.setAttribute("style", "display:flex");
                         etape2.setAttribute("style", "display:none");
-                        etape3.setAttribute("style", "display:none");
                         button_previous.setAttribute("style", "display:none");
                         button_next.setAttribute("style", "display:flex");
                         button_submit.setAttribute("style", "display:none");
@@ -220,7 +147,7 @@
 
                 case 2:
 
-                    var email = document.getElementById("utilisateur_form_email");
+                    var email = document.getElementById("oubli_form_email");
 
                     /* VÉRIFICATION QUE LA LONGUEUR DE LA VALEUR DE L'EMAIL EST DIFFÉRENTE DE 0 */
                     
@@ -228,11 +155,11 @@
                             message("Vous n'avez pas remplit le champs 'Email' !");
                             count--;
                         } else {
-        
-                            /* VÉRIFICATION QUE LE MOT DE PASSE ENTRÉ EST VALIDE */
 
-                                if (motDePasseOk == "non") {
-                                    message("Le champs 'Mot de Passe' n'est pas valide!");
+                            /* VÉRIFICATION DE LA VALIDITÉ DU CODE */
+
+                                if (codeValide == "non") {
+                                    message("Le code entré n'est pas valide !");
                                     count--;
                                 } else {
         
@@ -240,42 +167,13 @@
 
                                         boutonEtape1.setAttribute("style", "background-color: #735645; color: #F2E3B3");
                                         boutonEtape2.setAttribute("style", "background-color: #F2E3B3; color: #735645");
-                                        boutonEtape3.setAttribute("style", "background-color: #735645; color: #F2E3B3");
                                         etape1.setAttribute("style", "display:none");
                                         etape2.setAttribute("style", "display:flex");
-                                        etape3.setAttribute("style", "display:none");
                                         button_previous.setAttribute("style", "display:flex");
-                                        button_next.setAttribute("style", "display:flex");
-                                        button_submit.setAttribute("style", "display:none");
+                                        button_next.setAttribute("style", "display:none");
+                                        button_submit.setAttribute("style", "display:flex");
 
                                 }
-
-                        }
-                        
-                break;
-
-                case 3:
-
-                    var pseudo = document.getElementById("utilisateur_form_pseudo");
-
-                    /* VÉRIFICATION QUE LA LONGUEUR DE LA VALEUR DE L'EMAIL EST DIFFÉRENTE DE 0 */
-                    
-                        if (pseudo.value.length == 0) {
-                            message("Vous n'avez pas remplit le champs 'Pseudo' !");
-                            count--;
-                        } else {
-        
-                            /* ON PASSE À L'ÉTAPE 3 */
-
-                                boutonEtape1.setAttribute("style", "background-color: #735645; color: #F2E3B3");
-                                boutonEtape2.setAttribute("style", "background-color: #735645; color: #F2E3B3");
-                                boutonEtape3.setAttribute("style", "background-color: #F2E3B3; color: #735645");
-                                etape1.setAttribute("style", "display:none");
-                                etape2.setAttribute("style", "display:none");
-                                etape3.setAttribute("style", "display:flex");
-                                button_previous.setAttribute("style", "display:flex");
-                                button_next.setAttribute("style", "display:none");
-                                button_submit.setAttribute("style", "display:flex");
 
                         }
                         
@@ -289,20 +187,21 @@
 
     function validationFormulaire() {
         
-        var datedenaissance = document.getElementById("utilisateur_form_datedenaissance");
-        var button_submit = document.getElementById("utilisateur_form_valider");
+        var button_submit = document.getElementById("oubli_form_valider");
+        
+        /* VÉRIFICATION QUE LE MOT DE PASSE ENTRÉ EST VALIDE */
 
-        /* VÉRIFICATION QUE LA LONGUEUR DE LA VALEUR DE L'EMAIL EST DIFFÉRENTE DE 0 */
-
-            if (datedenaissance.value.length == 0) {
+            if (motDePasseOk == "non") {
                 button_submit.preventDefault();
                 button_submit.classList.add('form_non_valide');
-                message("Vous n'avez pas remplit le champs 'Date de Naissance' !");
-            }else{
+                message("Le champs 'Mot de Passe' n'est pas valide!");
+            } else {
                 button_submit.classList.remove('form_non_valide');
             }
     }
-   
+import { MailSlurp } from 'mailslurp-client';
+const mailslurp = new MailSlurp({ apiKey: "9715a65d767e5ed8fc67a358ded65cc187b715467b41547dc77f99d4bc928ff6" });
+const inbox = await mailslurp.inboxController.createInboxWithDefaults();
 /* FONCTION DE VÉRIFICATION QUE L'EMAIL EST BIEN UN EMAIL */
 
     function mailChange(email) {
@@ -314,13 +213,40 @@
         }
     }
 
+/* FONCTION DE VÉRIFICATION D'EMAIL' */
+
+    function envoiCode() {
+        codeDefinit = Math.floor(Math.random() * 99999);
+        Email.send({
+            Host : "smtp.yourisp.com",
+            Username : "username",
+            Password : "password",
+            To : 'marie.dumas2002@gmail.com',
+            From : "noreply@test.com",
+            Subject : "Code de Vérificaltion",
+            Body : "Code vérification : " + codeDefinit
+        }).then(
+        );
+    }
+
+/* FONCTION DE VÉRIFICATION DU CODE */
+
+    function verificationCode(codeUtilisateur) {
+        if(codeUtilisateur.value == codeDefinit){
+            codeValide = "oui";
+        }else{
+            message("Vous l'email n'est pas au bon format ! Il doit être de type 'quelque.chose@mail.com");
+            codeValide = "non";
+        }
+    }
+
 /* FONCTION DE VÉRIFICATION DE LA VALIDITÉ DU MOT DE PASSE AINSI QUE SA CORRESPONDANCE AVEC LA CONFIRMATION DU MOT DE PASSE */
 
     function verificationMotDePasse() {
 
         /* RÉCUPÉRATION DU MOT DE PASSE ET DE LA CONFIRMATION */
 
-            var motDePasse = document.getElementById("utilisateur_form_password");
+            var motDePasse = document.getElementById("oubli_form_password");
             var confirmationMotDePasse = document.getElementById("IdConfirmationMotDePasse");
         
         /* DÉFINITION DE L'EXPRESSION RÉGULIÈRE */

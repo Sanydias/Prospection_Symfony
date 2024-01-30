@@ -13,13 +13,13 @@
         <a href="/compte/favoris" {% if app.request.get('_route') == "app_favoris" %}class="SelectedPage"{% endif %} >
             Favoris
         </a>
-        <a href="/compte/achats" {% if app.request.get('_route') == "app_achats" %}class="SelectedPage"{% endif %} >
-            Achats
-        </a>
         <a href="/compte/discussions" {% if app.request.get('_route') == "app_discussions" %}class="SelectedPage"{% endif %} >
             Discussions
         </a>
-        <a href="/compte/parametres/index" {% if app.request.get('_route') == "app_parametre_index" %}class="SelectedPage"{% endif %} >
+        <a href="/compte/achats" {% if app.request.get('_route') == "app_achats" %}class="SelectedPage"{% endif %} >
+            Achats
+        </a>
+        <a href="/compte/parametres/modification" {% if app.request.get('_route') == "app_modification_compte" or app.request.get('_route') == "app_preferences" or app.request.get('_route') == "app_accessibilite" or app.request.get('_route') == "app_confidentialite" or app.request.get('_route') == "app_suppression_compte" %}class="SelectedPage"{% endif %} >
             Paramètres
         </a>
     </div>

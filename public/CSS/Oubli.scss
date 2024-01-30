@@ -1,0 +1,209 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style.scss";
+    
+/* HTML */
+
+    body{
+        background-image: url("../IMG/pexels-juanjo-menta-17871360.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: bottom;
+    }
+
+    /* MAIN */
+
+        main{
+            width: 80%;
+            background-color: $couleur4 + AA;
+            margin: 11vh auto;
+            min-height: fit-content;
+            @include colonneCentre();
+        }
+
+        /* TITRE ET ÉTAPES */
+
+            /* TITRE ET HR */
+
+                h2{
+                    margin-bottom: 0;
+                    font-size: 50px;
+                    color: $couleur1;
+                }
+
+                hr{
+                    border: 1px solid $couleur1;
+                    width: 90%;
+                }
+
+            /* ÉTAPES */
+
+                #DivListeEtapes{
+                    @include ligneCentre();
+                    width: 80%;
+                }
+
+                .Etapes{
+                    width: 100%;
+                    height: 50px;
+                    @include ligneCentre();
+                    background-color: $couleur3;
+                    color: $couleur1;
+                }
+
+                #Etape1{
+                    background-color: $couleur1;
+                    color: $couleur3;
+                }
+
+        /* FORM */
+
+            form{
+                width: 90%;
+                padding-bottom: 20px;
+            }
+
+            .DivFormulaireGroupe{
+                @include colonneCentre();
+            }
+
+            h3{
+                color: $couleur1;
+                font-size: 30px;
+                margin: 0;
+                text-decoration: 1px underline;
+                text-underline-position: from-font;
+            }
+
+            .DecalerLabel{
+                width: 275px;
+                text-align: start;
+                color: $couleur3;
+                position: relative;
+                top: 25px;
+                left: 0;
+            }
+
+            .NonDecaleLabel{
+                width: 275px;
+                text-align: start;
+                color: $couleur1;
+                position: relative;
+                top: 25px;
+                left: 0;
+                transform: translate(-25px, -25px) scale(0.9);
+            }
+
+            /* GROUPE 1 */
+
+                /* EMAIL */
+
+                    .StyleInput{
+                        background-color: $couleur1;
+                        border: none;
+                        height: 30px;
+                        width: 300px;
+                        padding: 1px;
+                        padding-left: 5px;
+                        @include colonne();
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 10px;
+                        &:focus-visible{
+                            outline-color: $couleur3;
+                        }
+                    }
+
+                /* MOT DE PASSE ET CONFIRMATION */
+
+                    .AlignementMotDePasse{
+                        @include ligneCentre();
+                    }
+
+                    .StyleMotDePasse{
+                        background-color: $couleur1;
+                        border: none;
+                        height: 30px;
+                        width: 250px;
+                        padding: 1px;
+                        padding-left: 5px;
+                        @include colonne();
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 10px;
+                        &:focus-visible{
+                            outline-color: $couleur3;
+                        }
+                    }
+
+                    .AffichageMotDePasse{
+                        background-color: $couleur1;
+                        border: none;
+                        height: 30px;
+                        width: 48px;
+                        padding: 1px;
+                        @include colonne();
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 10px;
+                        img{
+                            height: 13px;
+                            width: auto;
+                        }
+                        #CacherMotDePasse{
+                            display: none;
+                        }
+                        #CacherConfirmationMotDePasse{
+                            display: none;
+                        }
+                    }
+
+            /* GROUPE 2 */
+
+                #Groupe2{
+                    display: none;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-evenly;
+                }
+
+            /* GROUPE BOUTONS */
+
+                #DivBoutonsEtapes{
+                    @include ligne();
+                    justify-content: space-evenly;
+                    margin-top: 15px;
+                }
+
+                .BoutonsEtapes{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    border: none;
+                    height: 30px;
+                    width: 175px;
+                    padding: 1px;
+                    padding-left: 5px;
+                    @include colonne();
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 10px;
+                    &:hover{
+                        background-color: $couleur1;
+                        color: $couleur3;
+                    }
+                }
+
+                #oubli_form_precedent, #oubli_form_valider{
+                    display: none;
+                }
+
+                .form_non_valide{
+                    background-color: $couleur4;
+                    color: $couleur1;
+                    &:hover{
+                        background-color: $couleur4;
+                        color: $couleur1;
+                    }
+                }

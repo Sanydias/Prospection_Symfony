@@ -37,20 +37,6 @@ class HomeController extends AbstractController
                 'message' => $message
             ]);
         }
-
-    /* RECHERCHER */
-
-        #[Route('/rechercher', name: 'app_rechercher')]
-        public function rechercher(): Response
-        {
-            $message = '';
-            $display = "none";
-
-            return $this->render("home/rechercher.html.twig", [
-                'display' => $display,
-                'message' => $message
-            ]);
-        }
         
     /* QUI SOMMES NOUS */
 

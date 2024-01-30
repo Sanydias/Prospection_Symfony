@@ -12,20 +12,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SiteController extends AbstractController
 {
-    #[Route('/site/index/{message?}', name: 'app_site')]
-    public function index(): Response
+    #[Route('/site/rechercher', name: 'app_site')]
+    public function index(ManagerRegistry $doctrine, Request $request): Response
     {
+        $message = '';
+        $display = "none";
+                    
+        $manager = $doctrine->getManager();
+        $site = new Site();
+        $form = $this->createForm(SiteFormType::class, $site);
+        $form->handleRequest($request);
 
-        /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-
-            if (isset($message)) {
-                $display = "flex";
-            }else{
-                    $message = '';
-                    $display = "none";
-            }
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($site);
+            $manager->flush();
+            return $this->redirectToRoute('app_site_add');
+        }
+        
         return $this->render('site/index.html.twig', [
+            'form' => $form->createView(),
             'display' => $display,
             'message' => $message
         ]);

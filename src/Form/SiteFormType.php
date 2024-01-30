@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Site;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,15 +14,66 @@ class SiteFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('departement')
-            ->add('commune')
-            ->add('lieuxdit')
-            ->add('interethistorique')
-            ->add('lien')
-            ->add('timer')
-            ->add('type_timer')
-            ->add('temps_initial')
-            ->add('temps_restant')
+            ->add('departement', ChoiceType::class, [
+                'label' => 'Département',
+                'label_attr' => [
+                    'class' => 'NonDecaleLabel',
+                    'required' => false
+                ],
+                'choices'  => [
+                    '' => '',
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme',
+                ],
+                'required' => false
+                ])
+            ->add('commune', ChoiceType::class, [
+                'label' => 'Commune',
+                'label_attr' => [
+                    'class' => 'NonDecaleLabel',
+                    'required' => false
+                ],
+                'choices'  => [
+                    '' => '',
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme',
+                ],
+                'required' => false
+                ])
+            ->add('lieuxdit', ChoiceType::class, [
+                'label' => 'Lieux-dit',
+                'label_attr' => [
+                    'class' => 'NonDecaleLabel',
+                    'required' => false
+                ],
+                'choices'  => [
+                    '' => '',
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme',
+                ],
+                'required' => false
+                ])
+            ->add('interethistorique', ChoiceType::class, [
+                'label' => 'Intérêt Historique',
+                'label_attr' => [
+                    'class' => 'NonDecaleLabel',
+                    'required' => false
+                ],
+                'choices'  => [
+                    '' => '',
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme',
+                ],
+                'required' => false
+                ])
+            ->add('rechercher', SubmitType::class, [
+                'label' => 'Rechercher',
+                'attr' => [
+                    'class' => 'BoutonsEtapes form_non_valide',
+                    'id' => "BoutonValider",
+                    'onclick' => 'validationFormulaire()'
+                ]
+            ])
         ;
     }
 

@@ -3,5 +3,17 @@
 {% block title %}Site{% endblock %}
 
 {% block body %}
-    {{ form(f) }}
+
+    <!-- FORM -->
+    
+        {{ form_start(form) }}
+            {{ form_label(form.departement) }}
+            {{ form_widget(form.departement) }}
+            {{ form_label(form.commune) }}
+            {{ form_widget(form.commune) }}
+            {{ form_label(form.lieuxdit) }}
+            {{ form_widget(form.lieuxdit) }}
+            {{ form_label(form.interethistorique) }}
+            {{ form_widget(form.interethistorique) }}
+        {{ form_end(form) }}
 {% endblock %}

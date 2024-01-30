@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Oubli de Mot de passe{% endblock %}
+
+{% block javascripts %}
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="{{asset('JS/Oubli.js')}}"></script>
+{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Oubli.css')}}">{% endblock %}
+
+{% block body %}
+
+    <!-- TITRE ET ÉTAPES -->
+
+        <h2>Mot de passe oublié ?</h2>
+        <hr>
+        <div id="DivListeEtapes">
+            <p class="Etapes" id="Etape1">
+                Vérifications d'Email
+            </p>
+            <p class="Etapes" id="Etape2">
+                Modification du mot de Passe
+            </p>
+        </div>
+        <hr>
+
+    <!-- FORM -->
+    
+        {{ form_start(form) }}
+
+            <!-- GROUPE 1 -->
+
+                <div class="DivFormulaireGroupe" id="Groupe1">
+
+                    <h3>Vérifications d'Email</h3>
+
+                    <!-- EMAIL -->
+
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+
+                    <!-- CODE -->
+
+                        <label for="IdCodeUtilisateur" class="DecalerLabel required">Code</label>
+                        <div class="AlignementMotDePasse">
+                            <input type="text" name="CodeUtilisateur" class="StyleMotDePasse" id="IdCodeUtilisateur" onkeyup="deplaceLabel(this)" onchange="verificationCode()" required>
+                            <div class="AffichageMotDePasse" onclick="envoiCode()">
+                                Envoyer code
+                            </div>
+                        </div>
+
+
+                </div>
+
+            <!-- GROUPE 2 -->
+
+                <div class="DivFormulaireGroupe" id="Groupe2">
+
+                    <h3>Modification du mot de Passe</h3>
+
+                    <!-- MOT DE PASSE -->
+
+                        {{ form_label(form.password) }}
+                        <div class="AlignementMotDePasse">
+                            {{ form_widget(form.password) }}
+                            <div class="AffichageMotDePasse" onclick="toggleType('MotDePasse')">
+                                <img src="/IMG/ICONES/show.png" alt="afficher" id="AfficherMotDePasse">
+                                <img src="/IMG/ICONES/hide.png" alt="cacher" id="CacherMotDePasse">
+                            </div>
+                        </div>
+
+                    <!-- CONFIRMATION MOT DE PASSE -->
+
+                        <label for="IdConfirmationMotDePasse" class="DecalerLabel required">Confirmation Mot De Passe</label>
+                        <div class="AlignementMotDePasse">
+                            <input type="password" name="confirmation_mot_de_passe" required class="StyleMotDePasse" id="IdConfirmationMotDePasse" onkeyup="deplaceLabel(this)" onchange="verificationMotDePasse()">
+                            <div class="AffichageMotDePasse" onclick="toggleType('ConfirmationMotDePasse')">
+                                <img src="/IMG/ICONES/show.png" alt="afficher" id="AfficherConfirmationMotDePasse">
+                                <img src="/IMG/ICONES/hide.png" alt="cacher" id="CacherConfirmationMotDePasse">
+                            </div>
+                        </div>
+
+                </div>
+                <input type="hidden" name="code" value="8">
+
+            <!-- GROUPE BOUTONS -->
+
+                <div id="DivBoutonsEtapes">
+                    {{ form_widget(form.precedent) }}
+                    {{ form_widget(form.suivant) }}
+                    {{ form_widget(form.valider) }}
+                </div>
+
+        {{ form_end(form) }}
+{% endblock %}

@@ -1,8 +1,26 @@
 {% extends 'compte/compte.html.twig' %}
 
 {% block compte %}
-    <h2>Paramètres</h2>
-    <div class="ContenuParametres">
-        {% block parametres %}{% endblock %}
+    <div class="GroupeParametres">
+        <div class="MenuParametres">
+            <a href="/compte/parametres/modification" {% if app.request.get('_route') == "app_modification_compte" %}class="SelectedPage"{% endif %} >
+                Informations du Compte
+            </a>
+            <a href="/compte/favoris" {% if app.request.get('_route') == "app_preferences" %}class="SelectedPage"{% endif %} >
+                Préférences de recherche
+            </a>
+            <a href="/compte/discussions" {% if app.request.get('_route') == "app_accessibilite" %}class="SelectedPage"{% endif %} >
+                Accessibilité
+            </a>
+            <a href="/compte/achats" {% if app.request.get('_route') == "app_confidentialite" %}class="SelectedPage"{% endif %} >
+                Confidentialité
+            </a>
+            <a href="/compte/parametres/index" {% if app.request.get('_route') == "app_suppression_compte" %}class="SelectedPage"{% endif %} >
+                Supprimer le Compte
+            </a>
+        </div>
+        <div class="ContenuParametres">
+            {% block parametres %}{% endblock %}
+        </div>
     </div>
 {% endblock %} 
