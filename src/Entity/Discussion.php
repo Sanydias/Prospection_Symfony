@@ -15,11 +15,11 @@ class Discussion
 
     #[ORM\ManyToOne(inversedBy: 'discussions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $id_emmeteur = null;
+    private ?Utilisateur $idemmeteur = null;
 
     #[ORM\ManyToOne(inversedBy: 'discussions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $id_recepteur = null;
+    private ?Utilisateur $idrecepteur = null;
 
     #[ORM\Column(length: 500)]
     private ?string $contenu = null;
@@ -31,24 +31,24 @@ class Discussion
 
     public function getIdEmmeteur(): ?Utilisateur
     {
-        return $this->id_emmeteur;
+        return $this->idemmeteur;
     }
 
-    public function setIdEmmeteur(?Utilisateur $id_emmeteur): static
+    public function setIdEmmeteur(?Utilisateur $idemmeteur): static
     {
-        $this->id_emmeteur = $id_emmeteur;
+        $this->idemmeteur = $idemmeteur;
 
         return $this;
     }
 
     public function getIdRecepteur(): ?Utilisateur
     {
-        return $this->id_recepteur;
+        return $this->idrecepteur;
     }
 
-    public function setIdRecepteur(?Utilisateur $id_recepteur): static
+    public function setIdRecepteur(?Utilisateur $idrecepteur): static
     {
-        $this->id_recepteur = $id_recepteur;
+        $this->idrecepteur = $idrecepteur;
 
         return $this;
     }

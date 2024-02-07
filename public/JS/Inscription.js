@@ -32,6 +32,8 @@
                         /* CHANGEMENT DE LA HAUTEUR DE LA BALISE PREVISUALISATION */
 
                             $('#Previsualisation').height(320);
+                            
+                            resizeIconeHeader(document.getElementById("Previsualisation"));
                     }
 
                 /* LIRE LE FICHIER COMME UNE URL */
@@ -325,7 +327,7 @@
         
         /* DÉFINITION DE L'EXPRESSION RÉGULIÈRE */
 
-            var regex = /[^\w\d\s]+/gm;
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s])$/gm;
 
         /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION ONT UNE VALEUR */
 

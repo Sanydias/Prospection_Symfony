@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
                     $originalFilename = pathinfo($photodeprofil->getClientOriginalName(), PATHINFO_FILENAME);
                     // this is needed to safely include the file name as part of the URL
                     $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$photodeprofil->guessExtension();
+                    $newFilename = $safeFilename.'-uniqid-'.uniqid().'.'.$photodeprofil->guessExtension();
     
                     // Move the file to the directory where brochures are stored
                     try {
@@ -93,8 +93,7 @@ class SecurityController extends AbstractController
                 $manager->persist($utilisateur);
                 $manager->flush();
 
-                $message = "L'utilisateur a bien été créé";
-                return $this->redirectToRoute('app_connexion', ["message" => $message]);
+                return $this->redirectToRoute('app_connexion');
             }else{
                 //$liste = $doctrine->getRepository(Utilisateur::class)->findBy(['email' => $email]);
                 $message = "Attention, ce mail a déjà été attribué !";
@@ -109,17 +108,18 @@ class SecurityController extends AbstractController
 
     /* CONNEXION */
 
-        #[Route(path: '/connexion/{message?}', name: 'app_connexion')]
-        public function login($message, AuthenticationUtils $authenticationUtils): Response
+        #[Route(path: '/connexion', name: 'app_connexion')]
+        public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
         {
-
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-
-                if (isset($message)) {
+            
+                $route = $request->headers->get('referer');
+                if( $route == "https://127.0.0.1:8000/inscription"){
+                    $message = "l'utilisateur a été bien ajouté";
                     $display = "flex";
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = "";
+                    $display = "none";
                 }
 
             // if ($this->getUser()) {

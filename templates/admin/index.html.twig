@@ -1,20 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Admin{% endblock %}
+{% block javascripts %}<script src="{{asset('JS/Admin.js')}}"></script>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Admin.css')}}">{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Projets/LaGrandeClasse/prospection_symfony/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Projets/LaGrandeClasse/prospection_symfony/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+    <h1>Admin</h1>
+    <div class="Ligne">
+        <a href="/admin/compte/liste" {%    if app.request.get('_route') == "app_admin_compte_liste" 
+                                            or app.request.get('_route') == "app_admin_compte_modifier" %}class="SelectedPage"{% endif %} >
+            Compte
+        </a>
+        <a href="/admin/site/liste" {%  if app.request.get('_route') == "app_admin_site_liste"
+                                        or app.request.get('_route') == "app_admin_site_ajouter"
+                                        or app.request.get('_route') == "app_admin_site_modifier" %}class="SelectedPage"{% endif %} >
+            Site
+        </a>
+        <a href="/admin/actualité/liste" {% if app.request.get('_route') == "app_admin_actualite_liste" %}class="SelectedPage"{% endif %} >
+            Actualité
+        </a>
+        <a href="/admin/achats/liste" {% if app.request.get('_route') == "app_admin_achats_liste" %}class="SelectedPage"{% endif %} >
+            Achat
+        </a>
+    </div>
+    <div class="ContenuAdmin">
+        <div class="DivBoutonsAdmin">
+            {% if app.request.get('_route') == "app_admin_compte_modifier" %}
+                <a href="/admin/compte/liste" class="BoutonsAdmin">Retour à la liste des comptes</a>
+            {% elseif app.request.get('_route') == "app_admin_site_liste" %}
+                {% if app.request.get('_route') == "app_admin_site_modifier" %}
+                    <a href="/admin/site/liste" class="BoutonsAdmin">Retour à la liste des sites</a>
+                {% endif %} 
+                <a href="/admin/site/ajouter" class="BoutonsAdmin">Ajouter un site</a>
+            {% endif %} 
+        </div>
+        {% block admin %}{% endblock %}
+    </div>
+{% endblock %} 

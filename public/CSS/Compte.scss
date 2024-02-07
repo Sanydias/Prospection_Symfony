@@ -135,4 +135,214 @@
                 .ContenuParametres{
                     width: 80%;
                     min-height: 75vh;
+                    padding: 20px;
+                    @include colonne();
+                    align-items: center;
                 }
+
+                /* MODIFICATION COMPTE */
+
+                    /* FORM */
+
+                        form{
+                            width: 100%;
+                            @include ligne();
+                            justify-content: space-around;
+                            flex-wrap: wrap;
+                        }
+
+                        h3{
+                            color: $couleur1;
+                            font-size: 30px;
+                            margin: 0;
+                            text-decoration: 1px underline;
+                            text-underline-position: from-font;
+                        }
+
+                        .NonDecaleLabel{
+                            width: 275px;
+                            text-align: start;
+                            color: $couleur1;
+                            transform: translate(-20px) scale(0.9);
+                        }
+
+                        .StyleInput{
+                            background-color: $couleur1;
+                            border: none;
+                            height: 30px;
+                            width: 300px;
+                            padding: 1px;
+                            padding-left: 5px;
+                            @include colonne();
+                            align-items: center;
+                            justify-content: center;
+                            margin-bottom: 10px;
+                            &:focus-visible{
+                                outline-color: $couleur3;
+                            }
+                        }
+
+                        .DivBlocColonne{
+                            @include colonne();
+                            align-items: center;
+                            width: 65%;
+                        }
+
+                        /* PP */
+
+                            .DivPP{
+                                @include colonneCentre();
+                                input{
+                                    opacity: 0;
+                                    z-index: -1;
+                                    position: absolute;
+                                    margin: 0;
+                                    padding: 0;
+                                    height: 320px;
+                                    width: 320px;
+                                }
+                                .LabelPP{
+                                    height: 320px;
+                                    width: 320px;
+                                    @include colonneCentre();
+                                    position: absolute;
+                                    z-index: 1;
+                                    background-color: rgba(0, 0, 0, 0.5);
+                                    opacity: 0;
+                                    &:hover{
+                                        opacity: 1;
+                                    }
+                                }
+                            }
+
+                            /* APERCU */
+                            
+                                #Apercu{
+                                    width: 320px;
+                                    height: 320px;
+                                    @include colonneCentre();
+                                    overflow: hidden;
+                                }
+
+                                #PPSurplus, #Cercle1{
+                                    position: absolute;
+                                }
+
+                                #Cercle1{
+                                    width: 315px;
+                                    height: 315px;
+                                    border: 4px dashed $couleur1;
+                                    border-radius: 100%;
+                                }
+
+                        /* NOM PRÉNOM */
+
+                            .DivColonne{
+                                @include colonneCentre();
+                                margin: 0 10px;
+                                .DecalerLabel{
+                                    width: 275px;
+                                }
+                            }
+
+                            .DivInputLigne{
+                                width: 100%;
+                                @include ligne();
+                                justify-content: center;
+                                flex-wrap: wrap;
+                            }
+
+                            .StyleInputNomPrenom{
+                                background-color: $couleur1;
+                                border: none;
+                                height: 30px;
+                                width: 300px;
+                                padding: 1px;
+                                padding-left: 5px;
+                                @include colonne();
+                                align-items: center;
+                                justify-content: center;
+                                margin-bottom: 10px;
+                            }
+
+                            select{
+                                @extend .StyleInput;
+                                padding: 7px;
+                                width: 305px;
+                            }
+
+                            #utilisateur_form_datedenaissance{
+                                flex-direction: row;
+                            }
+
+                            .SexeLabel{
+                                color: $couleur1;
+                            }
+
+                        /* GROUPE BOUTONS */
+
+                            .BoutonsEtapes{
+                                background-color: $couleur3;
+                                color: $couleur1;
+                                border: none;
+                                height: 30px;
+                                width: 175px;
+                                margin: 20px 40%;
+                                padding: 1px;
+                                padding-left: 5px;
+                                @include colonne();
+                                align-items: center;
+                                justify-content: center;
+                                &:hover{
+                                    background-color: $couleur1;
+                                    color: $couleur3;
+                                }
+                            }
+
+                            .form_non_valide{
+                                background-color: $couleur4;
+                                color: $couleur1;
+                                &:hover{
+                                    background-color: $couleur4;
+                                    color: $couleur1;
+                                }
+                            }
+
+                /* SUPPRESSION COMPTE */
+
+                    .BlocSupprimer{
+                        @include colonneCentre();
+                        position: absolute;
+                        top: 40vh;
+                        left: 30%;
+                        width: 40%;
+                        height: 20vh;
+                        background-color: $couleur1;
+                        color: $couleur3;
+                        h3{
+                            margin: 0;
+                        }
+                        .BlocButtons{
+                            @include ligne();
+                            @include alignement(center, space-evenly, center);
+                            width: 50%;
+                            height: fit-content;
+                            .ButtonSupprimer{
+                                background-color: $couleur3;
+                                color: $couleur1;
+                                width: 40px;
+                                border-radius: 10%;
+                                padding: 5px 20px;
+                                text-decoration: none;
+                                &:hover{
+                                    cursor: pointer;
+                                    background-color: $couleur2;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .Hide{
+                        display: none;
+                    }
+                

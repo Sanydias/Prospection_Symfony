@@ -14,14 +14,14 @@ class Preference
     private ?int $id = null;
 
     #[ORM\Column(length: 11)]
-    private ?string $type_preference = null;
+    private ?string $typepreference = null;
 
     #[ORM\Column(length: 50)]
     private ?string $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'preferences')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $id_utilisateur = null;
+    private ?Utilisateur $idutilisateur = null;
 
     public function getId(): ?int
     {
@@ -30,12 +30,12 @@ class Preference
 
     public function getTypePreference(): ?string
     {
-        return $this->type_preference;
+        return $this->typepreference;
     }
 
-    public function setTypePreference(string $type_preference): static
+    public function setTypePreference(string $typepreference): static
     {
-        $this->type_preference = $type_preference;
+        $this->typepreference = $typepreference;
 
         return $this;
     }
@@ -54,12 +54,12 @@ class Preference
 
     public function getIdUtilisateur(): ?Utilisateur
     {
-        return $this->id_utilisateur;
+        return $this->idutilisateur;
     }
 
-    public function setIdUtilisateur(?Utilisateur $id_utilisateur): static
+    public function setIdUtilisateur(?Utilisateur $idutilisateur): static
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->idutilisateur = $idutilisateur;
 
         return $this;
     }

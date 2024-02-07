@@ -1,0 +1,162 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style";
+
+/* HTML */
+
+    /* MAIN */
+
+        main{
+            @include colonneCentre();
+            border-bottom: 3px solid $couleur3;
+        }
+
+        /* EN TÊTE ADMIN */
+
+            h1{
+                color: $couleur1;
+            }
+
+            .Ligne{
+                @include ligneCentre();
+                width: 100%;
+                a{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    font-size: 20px;
+                    text-decoration: none;
+                    padding: 20px;
+                    width: 100%;
+                    border-bottom: 1px solid $couleur1;
+                    &:hover{
+                        background-color: $couleur2;
+                        border-bottom: 1px solid $couleur2;
+                    }
+                }
+                .SelectedPage{
+                    background-color: $couleur2;
+                    border-bottom: 1px solid $couleur2;
+                }
+            }
+
+        /* CORP ADMIN */
+
+            .ContenuAdmin{
+                width: 100%;
+                height: 100%;
+                background-color: $couleur2;
+                color: $couleur1;
+                @include colonne();
+                @include alignement(flex-start, flex-start, flex-start);
+            }
+
+            .DivBoutonsAdmin{
+                @include ligne();
+                @include alignement(center, space-evenly, center);
+                width: 100%;
+                .BoutonsAdmin{
+                    margin: 10px;
+                    margin-bottom: 0;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    text-decoration: none;
+                    &:hover{
+                        background-color: $couleur1;
+                        color: $couleur3;
+                    }
+                }
+            }
+
+            h2{
+                font-weight: normal;
+            }
+
+            .TableauListe{
+                border: 1px solid $couleur3;
+                background-color: $couleur4 + AA;
+                color: $couleur1;
+                thead, tfoot{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                }
+                thead{
+                    position: sticky;
+                    top: 7vh;
+                    z-index: 1;
+                }
+                tfoot{
+                    position: sticky;
+                    bottom: 0;
+                    z-index: 1;
+                }
+                tbody{
+                    tr{
+                        &:nth-child(2n){
+                            background-color: $couleur1;
+                            color: $couleur3;
+                        }
+                        &:hover{
+                            background-color: $couleur2;
+                            color: $couleur1;
+                        }
+                    }
+                }
+                th, td{
+                    padding: 5px 15px;
+                    min-width: 75px;
+                    overflow-wrap: anywhere;
+                    .Icone{
+                        height: 20px;
+                        width: auto;
+                    }
+                }
+            }
+
+            /* LISTE COMPTE */
+            
+                #GroupeListeUtilisateur, #GroupeListeSite{
+                    padding: 0 0 50px 0;
+                    width: 100%;
+                    @include colonneCentre();
+                }
+
+            /* SUPPRESSION COMPTE */
+
+                .BlocSupprimer{
+                    @include colonneCentre();
+                    position: absolute;
+                    top: 40vh;
+                    left: 30%;
+                    width: 40%;
+                    height: 20vh;
+                    background-color: $couleur1;
+                    color: $couleur3;
+                    h3{
+                        margin: 0;
+                    }
+                    .BlocButtons{
+                        @include ligne();
+                        @include alignement(center, space-evenly, center);
+                        width: 50%;
+                        height: fit-content;
+                        .ButtonSupprimer{
+                            background-color: $couleur3;
+                            color: $couleur1;
+                            width: 40px;
+                            border-radius: 10%;
+                            padding: 5px 20px;
+                            text-decoration: none;
+                            &:hover{
+                                cursor: pointer;
+                                background-color: $couleur2;
+                            }
+                        }
+                    }
+                }
+                    
+                .Hide{
+                    display: none;
+                }

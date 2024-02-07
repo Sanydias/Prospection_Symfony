@@ -14,19 +14,19 @@ class Localisation
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $code_commune_insee = null;
+    private ?int $codecommuneinsee = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom_commune_postal = null;
+    private ?string $nomcommunepostal = null;
 
     #[ORM\Column]
-    private ?int $code_postal = null;
+    private ?int $codepostal = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $libelle_acheminement = null;
+    private ?string $libelleacheminement = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $ligne_5 = null;
+    private ?string $ligne5 = null;
 
     #[ORM\Column(length: 15)]
     private ?string $latitude = null;
@@ -35,28 +35,28 @@ class Localisation
     private ?string $longitude = null;
 
     #[ORM\Column]
-    private ?int $code_commune = null;
+    private ?int $codecommune = null;
 
     #[ORM\Column(length: 4, nullable: true)]
     private ?string $article = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom_commune = null;
+    private ?string $nomcommune = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom_commune_complet = null;
+    private ?string $nomcommunecomplet = null;
 
     #[ORM\Column]
-    private ?int $code_departement = null;
+    private ?int $codedepartement = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom_departement = null;
+    private ?string $nomdepartement = null;
 
     #[ORM\Column]
-    private ?int $code_region = null;
+    private ?int $coderegion = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom_region = null;
+    private ?string $nomregion = null;
 
     public function getId(): ?int
     {
@@ -65,60 +65,60 @@ class Localisation
 
     public function getCodeCommuneInsee(): ?int
     {
-        return $this->code_commune_insee;
+        return $this->codecommuneinsee;
     }
 
-    public function setCodeCommuneInsee(int $code_commune_insee): static
+    public function setCodeCommuneInsee(int $codecommuneinsee): static
     {
-        $this->code_commune_insee = $code_commune_insee;
+        $this->codecommuneinsee = $codecommuneinsee;
 
         return $this;
     }
 
     public function getNomCommunePostal(): ?string
     {
-        return $this->nom_commune_postal;
+        return $this->nomcommunepostal;
     }
 
-    public function setNomCommunePostal(string $nom_commune_postal): static
+    public function setNomCommunePostal(string $nomcommunepostal): static
     {
-        $this->nom_commune_postal = $nom_commune_postal;
+        $this->nomcommunepostal = $nomcommunepostal;
 
         return $this;
     }
 
     public function getCodePostal(): ?int
     {
-        return $this->code_postal;
+        return $this->codepostal;
     }
 
-    public function setCodePostal(int $code_postal): static
+    public function setCodePostal(int $codepostal): static
     {
-        $this->code_postal = $code_postal;
+        $this->codepostal = $codepostal;
 
         return $this;
     }
 
     public function getLibelleAcheminement(): ?string
     {
-        return $this->libelle_acheminement;
+        return $this->libelleacheminement;
     }
 
-    public function setLibelleAcheminement(string $libelle_acheminement): static
+    public function setLibelleAcheminement(string $libelleacheminement): static
     {
-        $this->libelle_acheminement = $libelle_acheminement;
+        $this->libelleacheminement = $libelleacheminement;
 
         return $this;
     }
 
     public function getLigne5(): ?string
     {
-        return $this->ligne_5;
+        return $this->ligne5;
     }
 
-    public function setLigne5(?string $ligne_5): static
+    public function setLigne5(?string $ligne5): static
     {
-        $this->ligne_5 = $ligne_5;
+        $this->ligne5 = $ligne5;
 
         return $this;
     }
@@ -149,12 +149,12 @@ class Localisation
 
     public function getCodeCommune(): ?int
     {
-        return $this->code_commune;
+        return $this->codecommune;
     }
 
-    public function setCodeCommune(int $code_commune): static
+    public function setCodeCommune(int $codecommune): static
     {
-        $this->code_commune = $code_commune;
+        $this->codecommune = $codecommune;
 
         return $this;
     }
@@ -173,72 +173,72 @@ class Localisation
 
     public function getNomCommune(): ?string
     {
-        return $this->nom_commune;
+        return $this->nomcommune;
     }
 
-    public function setNomCommune(string $nom_commune): static
+    public function setNomCommune(string $nomcommune): static
     {
-        $this->nom_commune = $nom_commune;
+        $this->nomcommune = $nomcommune;
 
         return $this;
     }
 
     public function getNomCommuneComplet(): ?string
     {
-        return $this->nom_commune_complet;
+        return $this->nomcommunecomplet;
     }
 
-    public function setNomCommuneComplet(string $nom_commune_complet): static
+    public function setNomCommuneComplet(string $nomcommunecomplet): static
     {
-        $this->nom_commune_complet = $nom_commune_complet;
+        $this->nomcommunecomplet = $nomcommunecomplet;
 
         return $this;
     }
 
     public function getCodeDepartement(): ?int
     {
-        return $this->code_departement;
+        return $this->codedepartement;
     }
 
-    public function setCodeDepartement(int $code_departement): static
+    public function setCodeDepartement(int $codedepartement): static
     {
-        $this->code_departement = $code_departement;
+        $this->codedepartement = $codedepartement;
 
         return $this;
     }
 
     public function getNomDepartement(): ?string
     {
-        return $this->nom_departement;
+        return $this->nomdepartement;
     }
 
-    public function setNomDepartement(string $nom_departement): static
+    public function setNomDepartement(string $nomdepartement): static
     {
-        $this->nom_departement = $nom_departement;
+        $this->nomdepartement = $nomdepartement;
 
         return $this;
     }
 
     public function getCodeRegion(): ?int
     {
-        return $this->code_region;
+        return $this->coderegion;
     }
 
-    public function setCodeRegion(int $code_region): static
+    public function setCodeRegion(int $coderegion): static
     {
-        $this->code_region = $code_region;
+        $this->coderegion = $coderegion;
 
         return $this;
     }
 
     public function getNomRegion(): ?string
     {
-        return $this->nom_region;
+        return $this->nomregion;
     }
 
-    public function setNomRegion(string $nom_region): static
+    public function setNomRegion(string $nomregion): static
     {
-        $this->nom_region = $nom_region;
+        $this->nomregion = $nomregion;
 
         return $this;
     }

@@ -29,17 +29,17 @@ class Site
     #[ORM\Column(length: 250, nullable: true)]
     private ?string $lien = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $timer = null;
+    #[ORM\Column]
+    private ?bool $timer = null;
 
     #[ORM\Column(length: 5, nullable: true)]
-    private ?string $type_timer = null;
+    private ?string $typetimer = null;
 
     #[ORM\Column(length: 11, nullable: true)]
-    private ?string $temps_initial = null;
+    private ?string $tempsinitial = null;
 
     #[ORM\Column(length: 11, nullable: true)]
-    private ?string $temps_restant = null;
+    private ?string $tempsrestant = null;
 
     public function getId(): ?int
     {
@@ -106,12 +106,12 @@ class Site
         return $this;
     }
 
-    public function getTimer(): ?int
+    public function getTimer(): ?bool
     {
         return $this->timer;
     }
 
-    public function setTimer(int $timer): static
+    public function setTimer(bool $timer): static
     {
         $this->timer = $timer;
 
@@ -120,36 +120,36 @@ class Site
 
     public function getTypeTimer(): ?string
     {
-        return $this->type_timer;
+        return $this->typetimer;
     }
 
-    public function setTypeTimer(?string $type_timer): static
+    public function setTypeTimer(?string $typetimer): static
     {
-        $this->type_timer = $type_timer;
+        $this->typetimer = $typetimer;
 
         return $this;
     }
 
     public function getTempsInitial(): ?string
     {
-        return $this->temps_initial;
+        return $this->tempsinitial;
     }
 
-    public function setTempsInitial(?string $temps_initial): static
+    public function setTempsInitial(?string $tempsinitial): static
     {
-        $this->temps_initial = $temps_initial;
+        $this->tempsinitial = $tempsinitial;
 
         return $this;
     }
 
     public function getTempsRestant(): ?string
     {
-        return $this->temps_restant;
+        return $this->tempsrestant;
     }
 
-    public function setTempsRestant(?string $temps_restant): static
+    public function setTempsRestant(?string $tempsrestant): static
     {
-        $this->temps_restant = $temps_restant;
+        $this->tempsrestant = $tempsrestant;
 
         return $this;
     }

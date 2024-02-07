@@ -1,0 +1,32 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block admin %}
+    <div id="GroupeListeUtilisateur">
+        <h2>Liste des Comptes</h2>
+        
+        <!-- FORM -->
+        
+            {{ form_start(form) }}
+                <table class="TableauListe">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>{{ form_label(form.roles) }}</th>
+                            <th>Enregistrer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{utilisateur.id}}</td>
+                            <td>{{utilisateur.email}}</td>
+                            <td>{{ form_widget(form.roles) }}</td>
+                            <td>{{ form_widget(form.valider) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            {{ form_end(form) }}
+        
+    </div>
+{% endblock %}

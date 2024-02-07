@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SiteFormType extends AbstractType
+class RechercheSiteFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -54,7 +54,7 @@ class SiteFormType extends AbstractType
                 'required' => false
                 ])
             ->add('interethistorique', ChoiceType::class, [
-                'label' => 'Intérêt Historique',
+                'label' => 'Intrêt Historique',
                 'label_attr' => [
                     'class' => 'NonDecaleLabel',
                     'required' => false

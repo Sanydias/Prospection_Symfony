@@ -21,7 +21,7 @@
                 Email : {{ app.user.email }}
             </p>
             <p>
-                Droit : {% if app.user.roles == ['ROLE_USER'] %}utilisateur{% else %}administrateur{% endif %}
+                Droit : {% if app.user.roles == ['ROLE_USER'] %}utilisateur{% elseif app.user.roles == ['ROLE_ADMIN'] %}administrateur{% endif %}
             </p>
             <p>
                 Date de creation du compte : {{ app.user.datedecreationducompte | date('d-m-Y') }}
@@ -31,10 +31,7 @@
         <div class="ColonneProfil">
             <h2>Informations Personnels</h2>
             <p>
-                Nom : {{ app.user.nom }}
-            </p>
-            <p>
-                Prénom : {{ app.user.prenom }}
+                {{ app.user.prenom }} {{ app.user.nom }}
             </p>
             <p>
                 Sexe : {{ app.user.sexe }}

@@ -17,7 +17,7 @@
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <meta http-equiv="pragma" content="no-cache">
-                    <meta http-equiv="refresh" content="1800">
+                    <meta http-equiv="refresh" content="1800;URL=/deconnexion">
 
                 <!-- ICON -->
 
@@ -50,7 +50,7 @@
                 <!-- MESSAGE -->
 
 
-                    {% if app.user and app.request.get('_route') == "app_connexion" %}
+                    {% if app.user and app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" %}
 
                         <div id="Message" style="display:flex">
                             <div id="EnTeteMessage">
@@ -58,7 +58,7 @@
                                 <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
                             </div>
                             <p id="ContenuMessage">
-                                Vous êtes déjà connecté au compte : <a href="{{ path('app_compte') }}" class="LiensMessage">{{ app.user.userIdentifier }}</a>.<br>
+                                Vous êtes déjà connecté au compte : <a href="{{ path('app_profil') }}" class="LiensMessage">{{ app.user.userIdentifier }}</a>.<br>
                                 Si vous souhaitez vous connecter à un autre compte,<br>
                                 veuillez d'abord vous <a href="{{ path('app_deconnexion') }}" class="LiensMessage">déconnecter</a>.
                             </p>
@@ -108,7 +108,7 @@
                                     <div class="DefilementMenu" id="IdCompte">
                                         {% if app.user %}
                                             <a href="/compte/profil">Compte</a>
-                                            {% if app.user.roles == 'administrateur' %}
+                                            {% if app.user.roles == ['ROLE_ADMIN'] %}
                                                 <a href="/back">Back</a>
                                             {% endif %}
                                             <a href="/deconnexion">Déconnexion</a>

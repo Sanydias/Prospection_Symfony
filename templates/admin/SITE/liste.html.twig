@@ -1,0 +1,78 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block admin %}
+    <div id="GroupeListeSite">
+        <h2>Liste des Sites</h2>
+        <table class="TableauListe">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Département</th>
+                    <th>Commune</th>
+                    <th>Lieux-dit</th>
+                    <th>Interêt Historique</th>
+                    <th>Lien</th>
+                    <th>Timer</th>
+                    <th>Type Timer</th>
+                    <th>Temps Initial</th>
+                    <th>Temps Restant</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for site in liste %}
+                    <tr>
+                        <td>{{site.id}}</td>
+                        <td>{{site.departement}}</td>
+                        <td>{{site.commune}}</td>
+                        <td>{{site.lieuxdit}}</td>
+                        <td>{{site.interethistorique}}</td>
+                        <td>{{site.lien}}</td>
+                        <td>{{site.timer}}</td>
+                        <td>{{site.typetimer}}</td>
+                        <td>{{site.tempsinitial}}</td>
+                        <td>{{site.tempsrestant}}</td>
+                        <td>
+                            <a href="/admin/site/modifier/{{site.id}}">
+                                <img src="{{asset('IMG/ICONES/Modifier.png')}}" alt="modifier" class="Icone">
+                            </a>
+                        </td>
+                        <td>
+                            <a  onclick="suppressionCompte({{site.id}})">
+                                <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
+                            </a>
+                        </td>
+                    </tr>
+                    <div class="BlocSupprimer Hide" id="Bloc{{site.id}}">
+                        <h3>ATTENTION !</h3>
+                        <p>
+                            Cette action est irréversible.<br>
+                            Voulez-vous supprimer le site "{{site.id}}".
+                        </p>
+                        <div class="BlocButtons">
+                            <a href="/admin/compte/supprimer/{{site.id}}" class="ButtonSupprimer">OUI</a>
+                            <a onclick="suppressionCompte({{site.id}})" class="ButtonSupprimer">NON</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Département</th>
+                    <th>Commune</th>
+                    <th>Lieux-dit</th>
+                    <th>Interêt Historique</th>
+                    <th>Lien</th>
+                    <th>Timer</th>
+                    <th>Type Timer</th>
+                    <th>Temps Initial</th>
+                    <th>Temps Restant</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}

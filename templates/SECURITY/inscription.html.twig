@@ -44,8 +44,8 @@
                         <div class="AlignementMotDePasse">
                             {{ form_widget(form.password) }}
                             <div class="AffichageMotDePasse" onclick="toggleType('MotDePasse')">
-                                <img src="/IMG/ICONES/show.png" alt="afficher" id="AfficherMotDePasse">
-                                <img src="/IMG/ICONES/hide.png" alt="cacher" id="CacherMotDePasse">
+                                <img src="/IMG/ICONES/hide.png" alt="afficher" id="AfficherMotDePasse">
+                                <img src="/IMG/ICONES/show.png" alt="cacher" id="CacherMotDePasse">
                             </div>
                         </div>
 
@@ -55,8 +55,8 @@
                         <div class="AlignementMotDePasse">
                             <input type="password" name="confirmation_mot_de_passe" required class="StyleMotDePasse" id="IdConfirmationMotDePasse" onkeyup="deplaceLabel(this)" onchange="verificationMotDePasse()">
                             <div class="AffichageMotDePasse" onclick="toggleType('ConfirmationMotDePasse')">
-                                <img src="/IMG/ICONES/show.png" alt="afficher" id="AfficherConfirmationMotDePasse">
-                                <img src="/IMG/ICONES/hide.png" alt="cacher" id="CacherConfirmationMotDePasse">
+                                <img src="/IMG/ICONES/hide.png" alt="afficher" id="AfficherConfirmationMotDePasse">
+                                <img src="/IMG/ICONES/show.png" alt="cacher" id="CacherConfirmationMotDePasse">
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                     <!-- APERCU PP -->
 
                         <div id="Apercu">
-                            <img src="/IMG/Defaut.jpeg" alt="image par défault" id="Previsualisation">
+                            <img src="/IMG/Defaut.jpeg" alt="image par défault" id="Previsualisation" onload="resizeIconeHeader(this)">
                             <img src="/IMG/Apercu.png" alt="aperçu" id="PPSurplus">
                             <div id="Cercle1"></div>
                         </div>
@@ -98,18 +98,18 @@
 
                         <div class="DivInputLigne">
 
-                            <!-- NOM -->
-
-                                <div class="DivColonne">
-                                    {{ form_label(form.nom) }}
-                                    {{ form_widget(form.nom) }}
-                                </div>
-
                             <!-- PRÉNOM -->
 
                                 <div class="DivColonne">
                                     {{ form_label(form.prenom) }}
                                     {{ form_widget(form.prenom) }}
+                                </div>
+
+                            <!-- NOM -->
+
+                                <div class="DivColonne">
+                                    {{ form_label(form.nom) }}
+                                    {{ form_widget(form.nom) }}
                                 </div>
 
                         </div>

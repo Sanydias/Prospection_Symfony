@@ -2,5 +2,77 @@
 
 
 {% block parametres %}
-    <p>modifications</p>
+
+    <!-- FORM -->
+    
+        {{ form_start(form) }}
+
+            <div class="DivBlocColonne">
+
+                <!-- NOM PRÉNOM -->
+
+                    <div class="DivInputLigne">
+
+                        <!-- PRÉNOM -->
+
+                            <div class="DivColonne">
+                                {{ form_label(form.prenom) }}
+                                {{ form_widget(form.prenom) }}
+                            </div>
+
+                        <!-- NOM -->
+
+                            <div class="DivColonne">
+                                {{ form_label(form.nom) }}
+                                {{ form_widget(form.nom) }}
+                            </div>
+
+                    </div>
+
+                <!-- SEXE -->
+
+                    {{ form_label(form.sexe) }}
+                    {{ form_widget(form.sexe) }}
+
+                <!-- DATE DE NAISSANCE -->
+
+                    {{ form_label(form.datedenaissance) }}
+                    {{ form_widget(form.datedenaissance) }}
+
+                <!-- EMAIL -->
+
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+
+                <!-- PSEUDO -->
+
+                    {{ form_label(form.pseudo) }}
+                    {{ form_widget(form.pseudo) }}
+
+            </div>
+
+            <!-- PP -->
+
+                <div class="DivPP">
+
+                    <label for="modification_utilisateur_form_photodeprofil" class="LabelPP">
+                        <p class="LabelPP">Modifier la Photo de Profil</p>
+                    </label>
+                    {{ form_widget(form.photodeprofil) }}
+
+                    <!-- APERCU PP -->
+
+                        <div id="Apercu">
+                            <img {% if app.user.photodeprofil %}src="{{asset('IMG/PP/' ~ app.user.photodeprofil)}}"{% else %}src="/IMG/Defaut.jpeg"{% endif %} alt="image par défault" id="Previsualisation" onload="resizeIconeHeader(this)">
+                            <img src="/IMG/Apercu.png" alt="aperçu" id="PPSurplus">
+                            <div id="Cercle1"></div>
+                        </div>
+
+                </div>
+
+            <!-- GROUPE BOUTONS -->
+
+                {{ form_widget(form.valider) }}
+
+        {{ form_end(form) }}
 {% endblock %}

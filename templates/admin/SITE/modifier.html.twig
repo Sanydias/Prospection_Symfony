@@ -1,0 +1,41 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block admin %}
+    <div id="GroupeListeSite">
+        <h2>Liste des Sites</h2>
+        {{ form_start(form) }}
+            <table class="TableauListe">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ form_label(form.departement) }}</th>
+                        <th>{{ form_label(form.commune) }}</th>
+                        <th>{{ form_label(form.lieuxdit) }}</th>
+                        <th>{{ form_label(form.interethistorique) }}</th>
+                        <th>{{ form_label(form.lien) }}</th>
+                        <th>{{ form_label(form.timer) }}</th>
+                        <th>{{ form_label(form.typetimer) }}</th>
+                        <th>{{ form_label(form.tempsinitial) }}</th>
+                        <th>{{ form_label(form.tempsrestant) }}</th>
+                        <th>Enregistrer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{site.id}}</td>
+                        <td>{{ form_widget(form.departement) }}</td>
+                        <td>{{ form_widget(form.commune) }}</td>
+                        <td>{{ form_widget(form.lieuxdit) }}</td>
+                        <td>{{ form_widget(form.interethistorique) }}</td>
+                        <td>{{ form_widget(form.lien) }}</td>
+                        <td>{{ form_widget(form.timer) }}</td>
+                        <td>{{ form_widget(form.typetimer) }}</td>
+                        <td>{{ form_widget(form.tempsinitial) }}</td>
+                        <td>{{ form_widget(form.tempsrestant) }}</td>
+                        <td>{{ form_widget(form.valider) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

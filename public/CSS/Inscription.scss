@@ -195,6 +195,7 @@
                             width: 320px;
                             height: 320px;
                             @include colonneCentre();
+                            overflow: hidden;
                         }
 
                         #PPSurplus, #Cercle1{

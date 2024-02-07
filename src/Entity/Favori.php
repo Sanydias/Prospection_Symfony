@@ -15,11 +15,11 @@ class Favori
 
     #[ORM\ManyToOne(inversedBy: 'favoris')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $id_utlisateur = null;
+    private ?Utilisateur $idutlisateur = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Site $id_site = null;
+    private ?Site $idsite = null;
 
     public function getId(): ?int
     {
@@ -28,24 +28,24 @@ class Favori
 
     public function getIdUtlisateur(): ?Utilisateur
     {
-        return $this->id_utlisateur;
+        return $this->idutlisateur;
     }
 
-    public function setIdUtlisateur(?Utilisateur $id_utlisateur): static
+    public function setIdUtlisateur(?Utilisateur $idutlisateur): static
     {
-        $this->id_utlisateur = $id_utlisateur;
+        $this->idutlisateur = $idutlisateur;
 
         return $this;
     }
 
     public function getIdSite(): ?Site
     {
-        return $this->id_site;
+        return $this->idsite;
     }
 
-    public function setIdSite(?Site $id_site): static
+    public function setIdSite(?Site $idsite): static
     {
-        $this->id_site = $id_site;
+        $this->idsite = $idsite;
 
         return $this;
     }
