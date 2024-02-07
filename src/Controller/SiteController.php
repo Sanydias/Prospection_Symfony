@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Site;
-use App\Form\SiteFormType;
+use App\Form\AjoutSiteFormType;
+use App\Form\RechercheSiteFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class SiteController extends AbstractController
                     
         $manager = $doctrine->getManager();
         $site = new Site();
-        $form = $this->createForm(SiteFormType::class, $site);
+        $form = $this->createForm(RechercheSiteFormType::class, $site);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +52,7 @@ class SiteController extends AbstractController
                     
         $manager = $doctrine->getManager();
         $site = new Site();
-        $form = $this->createForm(SiteFormType::class, $site);
+        $form = $this->createForm(AjoutSiteFormType::class, $site);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

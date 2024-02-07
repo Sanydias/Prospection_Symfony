@@ -45,8 +45,7 @@ class AjoutSiteFormType extends AbstractType
                     'Oui' => 1,
                 ],
                 'attr' => [
-                    'class' => 'BoutonsEtapes form_non_valide',
-                    'onclick' => 'validationFormulaire()'
+                    'class' => 'BoutonsEtapes form_non_valide'
                 ]
             ])
             ->add('typetimer', ChoiceType::class, [
@@ -66,7 +65,7 @@ class AjoutSiteFormType extends AbstractType
                 'label' => 'valider',
                 'attr' => [
                     'class' => 'BoutonsEtapes form_non_valide',
-                    'onclick' => 'validationFormulaire()'
+                    // 'onclick' => 'validationFormulaire()'
                 ]
             ])
         ;

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Site;
 use App\Entity\Utilisateur;
+use App\Form\AjoutSiteFormType;
 use App\Form\ModificationDroitUtilisateurFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -158,7 +159,7 @@ class AdminController extends AbstractController
             $site = $doctrine->getRepository(Site::class)->findOneBy(array('id' => $id));
             
             $manager = $doctrine->getManager();
-            $form = $this->createForm(ModificationDroitUtilisateurFormType::class, $site,[
+            $form = $this->createForm(AjoutSiteFormType::class, $site,[
                 'action' => $this->generateUrl('app_admin_site_modifier', ['id' => $id]),
                 'method' => 'POST',
             ]);
