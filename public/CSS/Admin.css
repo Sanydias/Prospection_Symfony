@@ -142,6 +142,21 @@ h2 {
   text-align: center;
 }
 
+.PPUtilisateurs {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  border: 4px solid #735645;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #F2E3B3;
+}
+
 /* SUPPRESSION COMPTE */
 .BlocSupprimer {
   display: flex;

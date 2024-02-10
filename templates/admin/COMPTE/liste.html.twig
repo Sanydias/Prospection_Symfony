@@ -31,7 +31,15 @@
                         <td>{{utilisateur.datedenaissance | date('d-m-Y')}}</td>
                         <td>{{utilisateur.email}}</td>
                         <td>{{utilisateur.pseudo}}</td>
-                        <td>{{utilisateur.photodeprofil}}</td>
+                        <td>
+                            {% if utilisateur.photodeprofil %}
+                                <div class="PPUtilisateurs">
+                                    <img src="{{asset('IMG/PP/' ~ utilisateur.photodeprofil)}}" alt="photo de profil" onload="resizeIconeHeader(this)">
+                                </div>
+                            {% else %}
+                                AUCUNE
+                            {% endif %}
+                        </td>
                         <td>
                             {% for roles in utilisateur.roles %}
                                 {% if roles is same as ('ROLE_ADMIN') %}
@@ -40,7 +48,7 @@
                                     Utilisateur
                                 {% else %}
                                     Problème avec l'utilisateur.<br>
-                                    action reuqise !
+                                    <red>Action requise !</red>
                                 {% endif %}
                             {% endfor %}
                         </td>
