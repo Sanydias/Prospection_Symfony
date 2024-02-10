@@ -2,11 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SiteRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
+#[ApiResource(
+    description: 'Site of potential old money spots',
+    operations: [
+        new Get(uriTemplate: '/site/{id}'), // Read
+        new GetCollection(uriTemplate: '/site/liste'), //Read
+        new Post(uriTemplate: '/site/ajout'), // create
+        new Put(uriTemplate: '/site/modification/{id}'),// replace (remplace toute les information même inchangé)
+        new Patch(uriTemplate: '/site/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
+        new Delete(uriTemplate: '/site/suppression/{id}') // delete
+    ]
+)]
 class Site
 {
     #[ORM\Id]

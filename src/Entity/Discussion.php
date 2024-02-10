@@ -2,10 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\DiscussionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DiscussionRepository::class)]
+#[ApiResource(
+    description: 'Messages betwin users',
+    operations: [
+        new Get(uriTemplate: '/discussion/{id}'), // Read
+        new GetCollection(uriTemplate: '/discussion/liste'), //Read
+        new Post(uriTemplate: '/discussion/ajout'), // create
+        new Put(uriTemplate: '/discussion/modification/{id}'),// replace (remplace toute les information même inchangé)
+        new Patch(uriTemplate: '/discussion/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
+        new Delete(uriTemplate: '/discussion/suppression/{id}') // delete
+    ]
+)]
 class Discussion
 {
     #[ORM\Id]

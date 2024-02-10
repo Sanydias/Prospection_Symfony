@@ -2,6 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,9 +16,23 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert; 
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[ApiResource(
+    description: 'Account of the users',
+    // normalizationContext: ['groups' => ['user:read']],
+    // denormalizationContext: ['groups' => ['user:write']],
+    operations: [
+        new Get(uriTemplate: '/compte/{id}'), // Read
+        new GetCollection(uriTemplate: '/compte/liste'), //Read
+        new Post(uriTemplate: '/compte/ajout'), // create
+        new Put(uriTemplate: '/compte/modification/{id}'),// replace (remplace toute les information même inchangé)
+        new Patch(uriTemplate: '/compte/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
+        new Delete(uriTemplate: '/compte/suppression/{id}') // delete
+    ]
+)]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,6 +41,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    // #[Groups(['user:read', 'user:write'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -55,13 +77,13 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datedecreationducompte = null;
 
-    #[ORM\OneToMany(mappedBy: 'id_utilisateur', targetEntity: Preference::class)]
+    #[ORM\OneToMany(mappedBy: 'idutilisateur', targetEntity: Preference::class)]
     private Collection $preferences;
 
-    #[ORM\OneToMany(mappedBy: 'id_utlisateur', targetEntity: Favori::class)]
+    #[ORM\OneToMany(mappedBy: 'idutlisateur', targetEntity: Favori::class)]
     private Collection $favoris;
 
-    #[ORM\OneToMany(mappedBy: 'id_emmeteur', targetEntity: Discussion::class)]
+    #[ORM\OneToMany(mappedBy: 'idemmeteur', targetEntity: Discussion::class)]
     private Collection $discussions;
 
     public function __construct()

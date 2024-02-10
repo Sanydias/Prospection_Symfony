@@ -105,7 +105,7 @@
                     }
                 }
                 th, td{
-                    padding: 5px 15px;
+                    padding: 15px 15px;
                     min-width: 75px;
                     overflow-wrap: anywhere;
                     .Icone{
@@ -134,6 +134,7 @@
                     height: 20vh;
                     background-color: $couleur1;
                     color: $couleur3;
+                    z-index: 2;
                     h3{
                         margin: 0;
                     }
@@ -159,4 +160,45 @@
                     
                 .Hide{
                     display: none;
+                }
+
+            /* SITE */
+
+                .StyleInput{
+                    background-color: $couleur1;
+                    color: $couleur3;
+                    border: none;
+                    height: 30px;
+                    // width: 300px;
+                    padding: 1px;
+                    padding-left: 5px;
+                    &:focus-visible{
+                        outline-color: $couleur3;
+                    }
+                }
+
+                .BoutonsEtapes{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    border: none;
+                    height: 30px;
+                    width: 175px;
+                    padding: 1px;
+                    padding-left: 5px;
+                    @include colonne();
+                    align-items: center;
+                    justify-content: center;
+                    &:hover{
+                        background-color: $couleur1;
+                        color: $couleur3;
+                    }
+                }
+
+                .form_non_valide{
+                    background-color: $couleur4;
+                    color: $couleur1;
+                    &:hover{
+                        background-color: $couleur4;
+                        color: $couleur1;
+                    }
                 }

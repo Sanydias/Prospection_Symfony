@@ -33,15 +33,16 @@
                         <td>{{utilisateur.pseudo}}</td>
                         <td>{{utilisateur.photodeprofil}}</td>
                         <td>
-                            {% if utilisateur.roles == ['ROLE_USER'] %}
-                                utilisateur
-                            {% elseif utilisateur.roles == ['ROLE_ADMIN'] %}
-                                Administrateur
-                            {% elseif utilisateur.roles == ['ROLE_TEST'] %}
-                                Test
-                            {% else %}
-                                Nop
-                            {% endif %}
+                            {% for roles in utilisateur.roles %}
+                                {% if roles is same as ('ROLE_ADMIN') %}
+                                    Administrateur
+                                {% elseif roles is same as ('ROLE_USER') %}
+                                    Utilisateur
+                                {% else %}
+                                    Problème avec l'utilisateur.<br>
+                                    action reuqise !
+                                {% endif %}
+                            {% endfor %}
                         </td>
                         <td>{{utilisateur.datedecreationducompte | date('d-m-Y')}}</td>
                         <td>
@@ -50,7 +51,7 @@
                             </a>
                         </td>
                         <td>
-                            <a  onclick="suppressionCompte({{utilisateur.id}})">
+                            <a  onclick="suppressionElement({{utilisateur.id}})">
                                 <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
                             </a>
                         </td>
@@ -63,7 +64,7 @@
                         </p>
                         <div class="BlocButtons">
                             <a href="/admin/compte/supprimer/{{utilisateur.id}}" class="ButtonSupprimer">OUI</a>
-                            <a onclick="suppressionCompte({{utilisateur.id}})" class="ButtonSupprimer">NON</a>
+                            <a onclick="suppressionElement({{utilisateur.id}})" class="ButtonSupprimer">NON</a>
                         </div>
                     </div>
                 {% endfor %}

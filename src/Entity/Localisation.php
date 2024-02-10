@@ -2,10 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\LocalisationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocalisationRepository::class)]
+#[ApiResource(
+    description: 'French places',
+    operations: [
+        new Get(uriTemplate: '/localisation/{id}'), // Read
+        new GetCollection(uriTemplate: '/localisation/liste'), //Read
+        new Post(uriTemplate: '/localisation/ajout'), // create
+        new Put(uriTemplate: '/localisation/modification/{id}'),// replace (remplace toute les information même inchangé)
+        new Patch(uriTemplate: '/localisation/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
+        new Delete(uriTemplate: '/localisation/suppression/{id}') // delete
+    ]
+)]
 class Localisation
 {
     #[ORM\Id]

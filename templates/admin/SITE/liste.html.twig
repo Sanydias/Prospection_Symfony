@@ -39,7 +39,7 @@
                             </a>
                         </td>
                         <td>
-                            <a  onclick="suppressionCompte({{site.id}})">
+                            <a  onclick="suppressionElement({{site.id}})">
                                 <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
                             </a>
                         </td>
@@ -51,8 +51,8 @@
                             Voulez-vous supprimer le site "{{site.id}}".
                         </p>
                         <div class="BlocButtons">
-                            <a href="/admin/compte/supprimer/{{site.id}}" class="ButtonSupprimer">OUI</a>
-                            <a onclick="suppressionCompte({{site.id}})" class="ButtonSupprimer">NON</a>
+                            <a href="/admin/site/supprimer/{{site.id}}" class="ButtonSupprimer">OUI</a>
+                            <a onclick="suppressionElement({{site.id}})" class="ButtonSupprimer">NON</a>
                         </div>
                     </div>
                 {% endfor %}

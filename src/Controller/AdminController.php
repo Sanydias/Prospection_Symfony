@@ -83,7 +83,7 @@ class AdminController extends AbstractController
                 }else if ($form->get("roles")->getData() == 'Utilisateur') {
                     $utilisateur -> setRoles(['ROLE_USER']);
                 }else{
-                    $utilisateur -> setRoles(array('ROLE_TEST'));
+                    $utilisateur -> setRoles(array('ROLE_USER'));
                 }
 
                 $manager->persist($utilisateur);
@@ -148,6 +148,54 @@ class AdminController extends AbstractController
 
         }
         
+    /* AJOUT SITE */
+
+        #[Route('/admin/site/ajouter', name: 'app_admin_site_ajouter')]
+        public function ajouterSite(ManagerRegistry $doctrine, Request $request): Response
+        {
+            $message = 'none';
+            $display = "none";
+                
+            $site = new Site();
+            
+            $manager = $doctrine->getManager();
+            $form = $this->createForm(AjoutSiteFormType::class, $site,[
+                'action' => $this->generateUrl('app_admin_site_ajouter'),
+                'method' => 'POST',
+            ]);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                
+                $site = $form->getData();
+
+                $site -> setDepartement($form->get("departement")->getData());
+                $site -> setCommune($form->get("commune")->getData());
+                $site -> setLieuxdit($form->get("lieuxdit")->getData());
+                $site -> setInterethistorique($form->get("interethistorique")->getData());
+                $site -> setLien($form->get("lien")->getData());
+                $site -> setTimer($form->get("timer")->getData());
+                if ($form->get("timer")->getData() == 1) {
+                    $site -> setTypetimer($form->get("typetimer")->getData());
+                    $site -> setTempsinitial();
+                    $site -> setTempsrestant();
+                }
+
+                $manager->persist($site);
+                $manager->flush();
+
+                $message = "le site à bien été ajouté";
+                $display = "flex";
+                return $this->redirectToRoute('app_admin_site_liste', ["message" => $message]);
+            }
+
+            return $this->render('admin/site/ajouter.html.twig', [
+                'form' => $form,
+                'message' => $message,
+                'display' => $display
+            ]);
+
+        }
+        
     /* MODIFICATION SITE */
 
         #[Route('/admin/site/modifier/{id}', name: 'app_admin_site_modifier')]
@@ -168,12 +216,16 @@ class AdminController extends AbstractController
                 
                 $site = $form->getData();
 
-                if ($form->get("roles")->getData() == 'Administrateur') {
-                    $site -> setRoles(['ROLE_ADMIN']);
-                }else if ($form->get("roles")->getData() == 'Utilisateur') {
-                    $site -> setRoles(['ROLE_USER']);
-                }else{
-                    $site -> setRoles(array('ROLE_TEST'));
+                $site -> setDepartement($form->get("departement")->getData());
+                $site -> setCommune($form->get("commune")->getData());
+                $site -> setLieuxdit($form->get("lieuxdit")->getData());
+                $site -> setInterethistorique($form->get("interethistorique")->getData());
+                $site -> setLien($form->get("lien")->getData());
+                $site -> setTimer($form->get("timer")->getData());
+                if ($form->get("timer")->getData() == 1) {
+                    $site -> setTypetimer($form->get("typetimer")->getData());
+                    $site -> setTempsinitial();
+                    $site -> setTempsrestant();
                 }
 
                 $manager->persist($site);

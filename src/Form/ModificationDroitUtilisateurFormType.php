@@ -19,8 +19,10 @@ class ModificationDroitUtilisateurFormType extends AbstractType
                 'mapped' => false,
                 'choices'  => [
                     'Utilisateur' => 'Utilisateur',
-                    'Administrateur' => 'Administrateur',
-                    'test' => 'test',
+                    'Administrateur' => 'Administrateur'
+                ],
+                'attr' => [
+                    'class' => 'StyleInput'
                 ],
                 'required' => true
                 ])

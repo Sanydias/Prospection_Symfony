@@ -28,10 +28,9 @@
             {% if app.request.get('_route') == "app_admin_compte_modifier" %}
                 <a href="/admin/compte/liste" class="BoutonsAdmin">Retour à la liste des comptes</a>
             {% elseif app.request.get('_route') == "app_admin_site_liste" %}
-                {% if app.request.get('_route') == "app_admin_site_modifier" %}
-                    <a href="/admin/site/liste" class="BoutonsAdmin">Retour à la liste des sites</a>
-                {% endif %} 
                 <a href="/admin/site/ajouter" class="BoutonsAdmin">Ajouter un site</a>
+            {% elseif app.request.get('_route') == "app_admin_site_modifier" or app.request.get('_route') == "app_admin_site_ajouter" %}
+                <a href="/admin/site/liste" class="BoutonsAdmin">Retour à la liste des sites</a>
             {% endif %} 
         </div>
         {% block admin %}{% endblock %}

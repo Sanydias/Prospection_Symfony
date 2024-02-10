@@ -108,8 +108,8 @@
                                     <div class="DefilementMenu" id="IdCompte">
                                         {% if app.user %}
                                             <a href="/compte/profil">Compte</a>
-                                            {% if app.user.roles == ['ROLE_ADMIN'] %}
-                                                <a href="/back">Back</a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href="/admin/compte/liste">Admin</a>
                                             {% endif %}
                                             <a href="/deconnexion">Déconnexion</a>
                                         {% else %}

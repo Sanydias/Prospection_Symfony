@@ -20,9 +20,11 @@
             <p>
                 Email : {{ app.user.email }}
             </p>
-            <p>
-                Droit : {% if app.user.roles == ['ROLE_USER'] %}utilisateur{% elseif app.user.roles == ['ROLE_ADMIN'] %}administrateur{% endif %}
-            </p>
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>
+                    Droit : Administrateur
+                </p>
+            {% endif %}
             <p>
                 Date de creation du compte : {{ app.user.datedecreationducompte | date('d-m-Y') }}
             </p>
@@ -30,12 +32,21 @@
         <hr>
         <div class="ColonneProfil">
             <h2>Informations Personnels</h2>
-            <p>
-                {{ app.user.prenom }} {{ app.user.nom }}
-            </p>
-            <p>
-                Sexe : {{ app.user.sexe }}
-            </p>
+            {% if app.user.prenom %}
+                <p>
+                    Prénom :{{ app.user.prenom }}
+                </p>
+            {% endif %}
+            {% if app.user.nom %}
+                <p>
+                    NOM : {{ app.user.nom }}
+                </p>
+            {% endif %}
+            {% if app.user.sexe %}
+                <p>
+                    Sexe : {{ app.user.sexe }}
+                </p>
+            {% endif %}
             <p>
                 Date de naissance : {{ app.user.datedenaissance | date('d-m-Y') }}
             </p>
