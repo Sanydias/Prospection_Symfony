@@ -1,4 +1,5 @@
 var input = [false, false, false, false];
+var count = 0;
 
 function suppressionElement(id) {
     current = "Bloc"+id;
@@ -67,4 +68,39 @@ function buttonValidation() {
         message("Vous n'avez pas remplit tout les champs requis !");
     }
     validationFormulaire();
+}
+
+function nombreLigne(action){
+    var table_body = document.getElementsByTagName('tbody')[0];
+    var button_suppr = document.getElementById('ButtonRemoveSite');
+    var button_add = document.getElementById('ButtonAddSite');
+    var input_count = document.getElementById('ajout_site_form_count');
+    switch (action) {
+        case 'add':
+            count++;
+            var tr = document.createElement('tr');
+            tr.classList.add("ajout");
+            tr.innerHTML = '<td><input type="text" name="departement_'+ count +'" class="StyleInput" id="departement_' + count + '"></td><td><input type="text" name="commune_' + count + '" class="StyleInput" id="commune_' + count + '"></td><td><input type="text" name="lieuxdit_' + count + '" class="StyleInput" id="lieuxdit_' + count + '"></td><td><input type="text" name="interethistorique_' + count + '" class="StyleInput" id="interethistorique_' + count + '"></td><td><input type="text" name="lien_' + count + '" class="StyleInput" id="lien_' + count + '"></td><td><select name="timer_' + count + '" class="StyleInput" id="timer_' + count + '"><option value="0" selected="selected">Non</option><option value="1">Oui</option></select></td><td class="Hide"><input type="text" name="typetimer_' + count + '" class="StyleInput" id="typetimer_' + count + '"></td>'
+            table_body.lastChild.after(tr);
+            button_suppr.classList.remove('Hide');
+            if (count == 9) {
+                button_add.classList.add('Hide');
+            }
+            break;
+            
+        case 'remove':
+            count--;
+            table_body.lastChild.remove();
+            if (table_body.children.length == 1) {
+                button_suppr.classList.add('Hide');
+            }
+            if (count == 8) {
+                button_add.classList.remove('Hide');
+            }
+            break;
+    
+        default:
+            break;
+    }
+    input_count.value = count;
 }

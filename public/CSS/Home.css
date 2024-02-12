@@ -1,0 +1,148 @@
+@charset "UTF-8";
+/* IMPORTATION DES VARIABLE DE STYLE */
+/* ALL */
+* {
+  border-collapse: collapse;
+}
+
+html, body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* COULEURS */
+/* MIXIN */
+/**
+* @description alignement des flex
+*
+* @param string $itemAlign alignement de manière parrallèle à la direction voulu
+* @param string $justifyContent alignement de manière perpendiculaire à la direction voulu
+* @param string $textAlign alignement du texte de manière horizontale
+* 
+* @return align-items: $itemAlign; justify-content: $justifyContent; text-align: $textAlign;
+*/
+/* HTML */
+/* MAIN */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 84vh;
+}
+
+/* CORP SITE */
+.Hide {
+  display: none;
+}
+
+h1 {
+  color: #F2E3B3;
+}
+
+/* HOME */
+.GroupeHome {
+  width: 100%;
+  min-height: 62vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+/* CARD SITE */
+.CardSite {
+  min-width: 200px;
+  width: 20vw;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #BF9B7A;
+  color: #F2E3B3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.TimerBoutonsFavori {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.BoutonsFavori {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.LiensFavori {
+  padding: 5px;
+  text-decoration: none;
+}
+
+#AjoutFavori > #CoeurPlein, #SuppressionFavori > #CoeurVide {
+  display: none;
+}
+
+#AjoutFavori > #CoeurVide, #SuppressionFavori > #CoeurPlein {
+  display: flex;
+}
+
+#AjoutFavori:hover #CoeurVide {
+  display: none;
+}
+#AjoutFavori:hover #CoeurPlein {
+  display: flex;
+}
+
+#SuppressionFavori:hover #CoeurVide {
+  display: flex;
+}
+#SuppressionFavori:hover #CoeurPlein {
+  display: none;
+}
+
+.IconesFavoris {
+  height: 30px;
+  width: auto;
+}
+
+.BoutonsEtapes {
+  height: 30px;
+  width: 100px;
+  margin: 10px;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #735645;
+  color: #F2E3B3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+.BoutonsEtapes:hover {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+.Limited {
+  margin: 0 15px;
+  color: #735645;
+}/*# sourceMappingURL=Home.css.map */

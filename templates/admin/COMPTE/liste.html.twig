@@ -1,7 +1,7 @@
 {% extends 'admin/index.html.twig' %}
 
 {% block admin %}
-    <div id="GroupeListeutilisateur">
+    <div id="GroupeListeUtilisateur">
         <h2>Liste des Comptes</h2>
         <table class="TableauListe">
             <thead>
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 {% for utilisateur in liste %}
-                    <tr>
+                    <tr class="liste">
                         <td>{{utilisateur.id}}</td>
 
                         <td>{{utilisateur.prenom}}</td>
@@ -41,40 +41,53 @@
                             {% endif %}
                         </td>
                         <td>
+                            {% set est_administrateur = false %}
+                            {% set est_utilisateur = false %}
                             {% for roles in utilisateur.roles %}
                                 {% if roles is same as ('ROLE_ADMIN') %}
-                                    Administrateur
+                                    {% set est_administrateur = true %}
                                 {% elseif roles is same as ('ROLE_USER') %}
-                                    Utilisateur
-                                {% else %}
-                                    Problème avec l'utilisateur.<br>
-                                    <red>Action requise !</red>
+                                    {% set est_utilisateur = true %}
                                 {% endif %}
                             {% endfor %}
+                            {% if est_administrateur %}
+                                Administrateur
+                            {% elseif est_utilisateur %}
+                                Utilisateur
+                            {% else %}
+                                Problème avec l'utilisateur.<br>
+                                <red>Action requise !</red>
+                            {% endif %}
                         </td>
                         <td>{{utilisateur.datedecreationducompte | date('d-m-Y')}}</td>
-                        <td>
-                            <a href="/admin/compte/modifier/{{utilisateur.id}}">
-                                <img src="{{asset('IMG/ICONES/Modifier.png')}}" alt="modifier" class="Icone">
-                            </a>
-                        </td>
-                        <td>
-                            <a  onclick="suppressionElement({{utilisateur.id}})">
-                                <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
-                            </a>
-                        </td>
-                    </tr>
-                    <div class="BlocSupprimer Hide" id="Bloc{{utilisateur.id}}">
-                        <h3>ATTENTION !</h3>
-                        <p>
-                            Cette action est irréversible.<br>
-                            Voulez-vous supprimer le compte "{{utilisateur.id}}".
-                        </p>
-                        <div class="BlocButtons">
-                            <a href="/admin/compte/supprimer/{{utilisateur.id}}" class="ButtonSupprimer">OUI</a>
-                            <a onclick="suppressionElement({{utilisateur.id}})" class="ButtonSupprimer">NON</a>
+                        {% if utilisateur is same as (app.user) %}
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% else %}
+                            <td>
+                                <a href="/admin/compte/modifier/{{utilisateur.id}}">
+                                    <img src="{{asset('IMG/ICONES/Modifier.png')}}" alt="modifier" class="Icone">
+                                </a>
+                            </td>
+                            <td>
+                                <a  onclick="suppressionElement({{utilisateur.id}})">
+                                    <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
+                                </a>
+                            </td>
+                        </tr>
+                        <div class="BlocSupprimer Hide" id="Bloc{{utilisateur.id}}">
+                            <h3>ATTENTION !</h3>
+                            <p>
+                                Cette action est irréversible.<br>
+                                Voulez-vous supprimer le compte "{{utilisateur.id}}".
+                            </p>
+                            <div class="BlocButtons">
+                                <a href="/admin/compte/supprimer/{{utilisateur.id}}" class="ButtonSupprimer">OUI</a>
+                                <a onclick="suppressionElement({{utilisateur.id}})" class="ButtonSupprimer">NON</a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endfor %}
             </tbody>
             <tfoot>

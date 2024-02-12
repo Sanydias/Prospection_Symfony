@@ -13,6 +13,15 @@ html, body {
 
 /* COULEURS */
 /* MIXIN */
+/**
+* @description alignement des flex
+*
+* @param string $itemAlign alignement de manière parrallèle à la direction voulu
+* @param string $justifyContent alignement de manière perpendiculaire à la direction voulu
+* @param string $textAlign alignement du texte de manière horizontale
+* 
+* @return align-items: $itemAlign; justify-content: $justifyContent; text-align: $textAlign;
+*/
 /* HTML */
 body {
   background-image: url("../IMG/pexels-cosmin-gavris-12683080.jpg");
@@ -25,7 +34,7 @@ body {
 /* MAIN */
 main {
   width: 80%;
-  min-height: 42vh;
+  min-height: 43vh;
   background-color: #BF7C63AA;
   margin: 20vh auto;
   display: flex;

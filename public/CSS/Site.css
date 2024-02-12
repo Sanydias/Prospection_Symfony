@@ -1,0 +1,273 @@
+@charset "UTF-8";
+/* IMPORTATION DES VARIABLE DE STYLE */
+/* ALL */
+* {
+  border-collapse: collapse;
+}
+
+html, body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* COULEURS */
+/* MIXIN */
+/**
+* @description alignement des flex
+*
+* @param string $itemAlign alignement de manière parrallèle à la direction voulu
+* @param string $justifyContent alignement de manière perpendiculaire à la direction voulu
+* @param string $textAlign alignement du texte de manière horizontale
+* 
+* @return align-items: $itemAlign; justify-content: $justifyContent; text-align: $textAlign;
+*/
+/* HTML */
+/* MAIN */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 84vh;
+}
+
+/* CORP SITE */
+.Hide {
+  display: none;
+}
+
+h1 {
+  color: #F2E3B3;
+}
+
+/* SITE */
+.GroupeListeSite {
+  width: 100%;
+  min-height: 62vh;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+/* RECHERCHE SITE */
+form {
+  width: 95%;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #BF9B7A;
+  color: #F2E3B3;
+}
+
+.StyleInput {
+  background-color: #F2E3B3;
+  color: #735645;
+  border: none;
+  height: 30px;
+  margin-right: 10px;
+  padding: 1px;
+  padding-left: 5px;
+}
+.StyleInput:focus-visible {
+  outline-color: #735645;
+}
+
+.StyleCheckboxInput {
+  mix-blend-mode: color-burn;
+}
+
+.StyleCheckboxInput:checked {
+  mix-blend-mode: luminosity;
+}
+
+.StyleCheckboxlabel {
+  color: #735645;
+  margin-right: 10px;
+}
+
+#ImgRechercher {
+  display: flex;
+}
+
+#ImgRechercherHover {
+  display: none;
+}
+
+.BoutonsForm {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: none;
+}
+.BoutonsForm:hover #ImgRechercher {
+  display: none;
+}
+.BoutonsForm:hover #ImgRechercherHover {
+  display: flex;
+}
+
+/* CARD SITE */
+.CardSite {
+  min-width: 200px;
+  width: 20vw;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #BF9B7A;
+  color: #F2E3B3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.BoutonsFavori {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.TimerBoutonsFavori {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.LiensFavori {
+  padding: 5px;
+  text-decoration: none;
+}
+
+#AjoutFavori > #CoeurPlein, #SuppressionFavori > #CoeurVide {
+  display: none;
+}
+
+#AjoutFavori > #CoeurVide, #SuppressionFavori > #CoeurPlein {
+  display: flex;
+}
+
+#AjoutFavori:hover #CoeurVide {
+  display: none;
+}
+#AjoutFavori:hover #CoeurPlein {
+  display: flex;
+}
+
+#SuppressionFavori:hover #CoeurVide {
+  display: flex;
+}
+#SuppressionFavori:hover #CoeurPlein {
+  display: none;
+}
+
+.IconesFavoris {
+  height: 30px;
+  width: auto;
+}
+
+h2 {
+  margin: 0 auto;
+  font-size: 30px;
+  font-weight: normal;
+}
+
+hr {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #F2E3B3;
+}
+
+.JustifierSite, .ElementSite {
+  width: 90%;
+  padding-left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: justify;
+}
+
+.BoutonsEtapes {
+  height: 30px;
+  width: 100px;
+  margin: 10px;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #735645;
+  color: #F2E3B3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+.BoutonsEtapes:hover {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+.Limited {
+  margin: 0 15px;
+  color: #735645;
+}
+
+.GroupeSiteItem {
+  min-height: 80vh;
+  width: 96vw;
+  padding: 2vw;
+}
+.GroupeSiteItem h1 {
+  margin: 0;
+  font-size: 50px;
+}
+.GroupeSiteItem hr {
+  border-bottom: 1px solid #F2E3B3;
+}
+.GroupeSiteItem .Timer {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+.ElementSiteChild {
+  width: 200px;
+  margin-top: 20px;
+  color: #F2E3B3;
+}
+.ElementSiteChild h2 {
+  margin: 0;
+}
+.ElementSiteChild p {
+  padding-left: 10px;
+}
+
+#Retour {
+  width: 225px;
+}/*# sourceMappingURL=Site.css.map */

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Site{% endblock %}
+{% block javascripts %}<script src="{{asset('JS/Site.js')}}"></script>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Site.css')}}">{% endblock %}
+
+{% block body %}
+    <div class="GroupeSiteItem">
+        <div class="TimerBoutonsFavori">
+            <a href="/site/recherche/" class="BoutonsEtapes" id="Retour">
+                Retour liste des Sites
+            </a>
+            <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
+                <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+            </a>
+            {# <a href="/favori/supprimer/{{site.id}}" class="LiensFavori Hide" id="SuppressionFavori">
+                <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+            </a> #}
+        </div>
+        <h1>{{site.interethistorique}}</h1>
+        <hr>
+        <div class="ElementSite">
+            <div class="ElementSiteChild">
+                <h2>Département :</h2>
+                <hr>
+                <p>{{site.departement}}</p>
+            </div>
+            <div class="ElementSiteChild">
+                <h2>Commune :</h2>
+                <hr>
+                <p>{{site.commune}}</p>
+            </div>
+            <div class="ElementSiteChild">
+                <h2>Lieux-dit :</h2>
+                <hr>
+                <p>{{site.lieuxdit}}</p>
+            </div>
+        </div>
+        {% if site.typetimer %}
+            <p class="Timer">{{site.typetimer}}</p>
+        {% endif %}
+        {# <p>{{site.tempsrestant}}</p> #}
+    </div>
+{% endblock %}

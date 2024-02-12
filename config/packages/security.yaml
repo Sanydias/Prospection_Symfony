@@ -24,14 +24,19 @@ security:
                 target: app_connexion
             # configure the maximum login attempts
             login_throttling:
-                max_attempts: 3
-                interval: '3 seconds'
+                max_attempts: 5
+                interval: '15 minutes'
 
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
                 path: /
-                always_remember_me: true
+                signature_properties: ['password']
+                always_remember_me: false
+
+            # secured_area:
+            #     form_login:
+            #         enable_csrf: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -45,8 +50,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/site/limiteitem/\d+$, roles: PUBLIC_ACCESS }
+        - { path: ^/site, roles: ROLE_USER }
         - { path: ^/compte, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:

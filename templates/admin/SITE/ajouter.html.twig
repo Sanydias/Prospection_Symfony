@@ -2,7 +2,7 @@
 
 {% block admin %}
     <div id="GroupeListeSite">
-        <h2>Liste des Sites</h2>
+        <h2>Ajouter des Sites</h2>
         {{ form_start(form) }}
             <table class="TableauListe">
                 <thead>
@@ -14,11 +14,10 @@
                         <th>{{ form_label(form.lien) }}</th>
                         <th>{{ form_label(form.timer) }}</th>
                         <th class="Hide">{{ form_label(form.typetimer) }}</th>
-                        <th>Enregistrer</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="ajout">
                         <td>{{ form_widget(form.departement) }}</td>
                         <td>{{ form_widget(form.commune) }}</td>
                         <td>{{ form_widget(form.lieuxdit) }}</td>
@@ -26,10 +25,17 @@
                         <td>{{ form_widget(form.lien) }}</td>
                         <td>{{ form_widget(form.timer) }}</td>
                         <td class="Hide">{{ form_widget(form.typetimer) }}</td>
-                        <td>{{ form_widget(form.valider) }}</td>
                     </tr>
                 </tbody>
             </table>
+            <div class="DivButtonFormAdmin">
+                <a class="BoutonsAdmin Hide" id="ButtonRemoveSite"onclick="nombreLigne('remove')">-1 site</a>
+                <a class="BoutonsAdmin" id="ButtonAddSite" onclick="nombreLigne('add')">+1 site</a>
+            </div>
+            <div class="DivButtonFormAdmin">
+                {{ form_widget(form.valider) }}
+            </div>
+            {{ form_widget(form.count) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}

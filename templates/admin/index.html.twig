@@ -16,7 +16,9 @@
                                         or app.request.get('_route') == "app_admin_site_modifier" %}class="SelectedPage"{% endif %} >
             Site
         </a>
-        <a href="/admin/actualité/liste" {% if app.request.get('_route') == "app_admin_actualite_liste" %}class="SelectedPage"{% endif %} >
+        <a href="/admin/actualité/liste" {% if app.request.get('_route') == "app_admin_actualite_liste"
+                                            or app.request.get('_route') == "app_admin_actualite_ajouter"
+                                            or app.request.get('_route') == "app_admin_actualite_modifier" %}class="SelectedPage"{% endif %} >
             Actualité
         </a>
         <a href="/admin/achats/liste" {% if app.request.get('_route') == "app_admin_achats_liste" %}class="SelectedPage"{% endif %} >

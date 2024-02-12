@@ -13,7 +13,6 @@
                             <th>ID</th>
                             <th>Email</th>
                             <th>{{ form_label(form.roles) }}</th>
-                            <th>Enregistrer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,10 +20,12 @@
                             <td>{{utilisateur.id}}</td>
                             <td>{{utilisateur.email}}</td>
                             <td>{{ form_widget(form.roles) }}</td>
-                            <td>{{ form_widget(form.valider) }}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="DivButtonFormAdmin">
+                    {{ form_widget(form.valider) }}
+                </div>
 
             {{ form_end(form) }}
         

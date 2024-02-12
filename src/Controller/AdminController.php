@@ -127,7 +127,7 @@ class AdminController extends AbstractController
     /* LISTE SITE */
 
         #[Route('/admin/site/liste/{message?}', name: 'app_admin_site_liste')]
-        public function listeSite(ManagerRegistry $doctrine): Response
+        public function listeSite($message, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
@@ -156,9 +156,9 @@ class AdminController extends AbstractController
             $message = 'none';
             $display = "none";
                 
-            $site = new Site();
-            
+
             $manager = $doctrine->getManager();
+            $site = new Site();
             $form = $this->createForm(AjoutSiteFormType::class, $site,[
                 'action' => $this->generateUrl('app_admin_site_ajouter'),
                 'method' => 'POST',
@@ -174,6 +174,7 @@ class AdminController extends AbstractController
                 $site -> setInterethistorique($form->get("interethistorique")->getData());
                 $site -> setLien($form->get("lien")->getData());
                 $site -> setTimer($form->get("timer")->getData());
+
                 if ($form->get("timer")->getData() == 1) {
                     $site -> setTypetimer($form->get("typetimer")->getData());
                     $site -> setTempsinitial();
@@ -181,10 +182,36 @@ class AdminController extends AbstractController
                 }
 
                 $manager->persist($site);
-                $manager->flush();
 
-                $message = "le site à bien été ajouté";
                 $display = "flex";
+                $message = "le site a bien été ajouté";
+
+                $count = $form->get("count")->getData();
+                if ($count > 0) {
+                    for ($i=0; $i < $count; $i++) {
+                        $addSite = new Site();
+                        $id_of_site = strval($i+1);
+                        $addSite -> setDepartement($request->getPayload()->get("departement_".$id_of_site));
+                        $addSite -> setCommune($request->getPayload()->get("commune_".$id_of_site));
+                        $addSite -> setLieuxdit($request->getPayload()->get("lieuxdit_".$id_of_site));
+                        $addSite -> setInterethistorique($request->getPayload()->get("interethistorique_".$id_of_site));
+                        $addSite -> setLien($request->getPayload()->get("lien_".$id_of_site));
+                        $addSite -> setTimer($request->getPayload()->get("timer_".$id_of_site));
+        
+                        if ($request->getPayload()->get("timer_".$id_of_site) == 1) {
+                            $addSite -> setTypetimer($request->getPayload()->get("typetimer_".$id_of_site));
+                            // $addSite -> setTempsinitial();
+                            // $addSite -> setTempsrestant();
+                        }
+                        $multipleSite[$i] = $addSite;
+
+                        $manager->persist($multipleSite[$i]);
+                        
+                        $message = "les sites ont bien été ajouté";
+                    }
+                }
+
+                $manager->flush();
                 return $this->redirectToRoute('app_admin_site_liste', ["message" => $message]);
             }
 

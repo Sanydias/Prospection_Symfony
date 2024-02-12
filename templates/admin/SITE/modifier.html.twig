@@ -15,7 +15,6 @@
                         <th>{{ form_label(form.lien) }}</th>
                         <th>{{ form_label(form.timer) }}</th>
                         <th class="Hide">{{ form_label(form.typetimer) }}</th>
-                        <th>Enregistrer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,10 +27,12 @@
                         <td>{{ form_widget(form.lien) }}</td>
                         <td>{{ form_widget(form.timer) }}</td>
                         <td class="Hide">{{ form_widget(form.typetimer) }}</td>
-                        <td>{{ form_widget(form.valider) }}</td>
                     </tr>
                 </tbody>
             </table>
+            <div class="DivButtonFormAdmin">
+                {{ form_widget(form.valider) }}
+            </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}

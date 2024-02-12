@@ -44,7 +44,7 @@
 
             .ContenuAdmin{
                 width: 100%;
-                height: 100%;
+                min-height: 62vh;
                 background-color: $couleur2;
                 color: $couleur1;
                 @include colonne();
@@ -93,12 +93,18 @@
                     z-index: 1;
                 }
                 tbody{
-                    tr{
+                    tr.liste{
                         &:nth-child(2n){
                             background-color: $couleur1;
                             color: $couleur3;
                         }
                         &:hover{
+                            background-color: $couleur2;
+                            color: $couleur1;
+                        }
+                    }
+                    tr.ajout{
+                        &:nth-child(2n){
                             background-color: $couleur2;
                             color: $couleur1;
                         }
@@ -189,22 +195,20 @@
                 }
 
                 .BoutonsEtapes{
-                    background-color: $couleur3;
-                    color: $couleur1;
-                    border: none;
                     height: 30px;
                     width: 175px;
-                    padding: 1px;
-                    padding-left: 5px;
-                    @include colonne();
-                    align-items: center;
-                    justify-content: center;
+                    margin: 10px;
+                    margin-bottom: 0;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    background-color: $couleur3;
+                    color: $couleur1;
                     &:hover{
                         background-color: $couleur1;
                         color: $couleur3;
                     }
                 }
-
                 .form_non_valide{
                     background-color: $couleur4;
                     color: $couleur1;
@@ -212,4 +216,9 @@
                         background-color: $couleur4;
                         color: $couleur1;
                     }
+                }
+
+                .DivButtonFormAdmin{
+                    @extend .DivBoutonsAdmin;
+                    justify-content: center;
                 }

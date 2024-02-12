@@ -30,8 +30,8 @@ class CompteController extends AbstractController
                     if (isset($message)) {
                         $display = "flex";
                     }else{
-                            $message = 'none';
-                            $display = "none";
+                        $message = 'none';
+                        $display = "none";
                     }
 
                 return $this->render('compte/profil.html.twig', compact(['message', 'display']));

@@ -1,0 +1,239 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style";
+
+/* HTML */
+
+    /* MAIN */
+
+        main{
+            @include colonneCentre();
+            min-height: 84vh;
+        }
+
+        /* CORP SITE */
+                    
+            .Hide{
+                display: none;
+            }
+
+            h1{
+                color: $couleur1;
+            }
+
+            /* SITE */
+
+                .GroupeListeSite{
+                    width: 100%;
+                    min-height: 62vh;
+                    padding: 10px 0;
+                    @include ligne();
+                    @include alignement(flex-start, space-evenly, center);
+                    flex-wrap: wrap;
+                }
+
+                /* RECHERCHE SITE */
+
+                    form{
+                        width: 95%;
+                        padding: 15px;
+                        @include ligneCentre();
+                        background-color: $couleur2;
+                        color: $couleur1;
+                    }
+
+                    .StyleInput{
+                        background-color: $couleur1;
+                        color: $couleur3;
+                        border: none;
+                        height: 30px;
+                        // width: 300px;
+                        margin-right: 10px;
+                        padding: 1px;
+                        padding-left: 5px;
+                        &:focus-visible{
+                            outline-color: $couleur3;
+                        }
+                    }
+
+                    .StyleCheckboxInput{
+                        mix-blend-mode: color-burn;
+                    }
+
+                    .StyleCheckboxInput:checked{
+                        mix-blend-mode: luminosity;
+                    }
+
+                    .StyleCheckboxlabel{
+                        color: $couleur3;
+                        margin-right: 10px;
+                    }
+
+                    #ImgRechercher{
+                        display: flex;
+                    }
+
+                    #ImgRechercherHover{
+                        display: none;
+                    }
+
+                    .BoutonsForm{
+                        cursor: pointer;
+                        border: none;
+                        border-radius: 10px;
+                        padding: 5px;
+                        @include colonneCentre();
+                        background: none;
+                        &:hover{
+                            #ImgRechercher{
+                                display: none;
+                            }
+                            #ImgRechercherHover{
+                                display: flex;
+                            }
+                        }
+                    }
+
+                /* CARD SITE */
+
+                    .CardSite{
+                        min-width: 200px;
+                        width: 20vw;
+                        margin: 15px;
+                        border-radius: 10px;
+                        padding: 10px;
+                        background-color: $couleur2;
+                        color: $couleur1;
+                        @include colonneCentre();
+                    }
+
+                    .BoutonsFavori{
+                        width: 100%;
+                        @include ligne();
+                        @include alignement(center, flex-end, center);
+                    }
+
+                    .TimerBoutonsFavori{
+                        width: 100%;
+                        @include ligne();
+                        @include alignement(center, space-between, center);
+                    }
+
+                    .LiensFavori{
+                        padding: 5px;
+                        text-decoration: none;
+                    }
+
+                    #AjoutFavori > #CoeurPlein, #SuppressionFavori > #CoeurVide{
+                        display: none;
+                    }
+
+                    #AjoutFavori > #CoeurVide, #SuppressionFavori > #CoeurPlein{
+                        display: flex;
+                    }
+
+                    #AjoutFavori:hover{
+                        #CoeurVide{
+                            display: none;
+                        }
+                        #CoeurPlein{
+                            display: flex;
+                        }
+                    }
+
+                    #SuppressionFavori:hover{
+                        #CoeurVide{
+                            display: flex;
+                        }
+                        #CoeurPlein{
+                            display: none;
+                        }
+                    }
+
+                    .IconesFavoris{
+                        height: 30px;
+                        width: auto;
+                    }
+
+                    h2{
+                        margin: 0 auto;
+                        font-size: 30px;
+                        font-weight: normal;
+                    }
+
+                    hr{
+                        width: 100%;
+                        border: 0;
+                        border-bottom: 1px solid $couleur1;
+                    }
+
+                    .JustifierSite{
+                        width: 90%;
+                        padding-left: 10%;
+                        @include colonne();
+                        @include alignement(flex-start, flex-start, justify);
+                    }
+
+                    .BoutonsEtapes{
+                        height: 30px;
+                        width: 100px;
+                        margin: 10px;
+                        margin-bottom: 0;
+                        border: none;
+                        border-radius: 10px;
+                        padding: 5px 10px;
+                        background-color: $couleur3;
+                        color: $couleur1;
+                        @include ligneCentre();
+                        text-decoration: none;
+                        &:hover{
+                            background-color: $couleur1;
+                            color: $couleur3;
+                        }
+                    }
+
+                    .Limited{
+                        margin: 0 15px;
+                        color: $couleur3;
+                    }
+
+                    .GroupeSiteItem{
+                        min-height: 80vh;
+                        width: 96vw;
+                        padding: 2vw;
+                        h1{
+                            margin: 0;
+                            font-size: 50px;
+                        }
+                        hr{
+                            border-bottom: 1px solid $couleur1;
+                        }
+                        .Timer{
+                            position: sticky;
+                            bottom: 0;
+                            right: 0;
+                            background-color: $couleur1;
+                            color: $couleur3
+                        }
+                    }
+
+                    .ElementSite{
+                        @extend .JustifierSite;
+                    }
+
+                    .ElementSiteChild{
+                        width: 200px;
+                        margin-top: 20px;
+                        color: $couleur1;
+                        h2{
+                            margin: 0;
+                        }
+                        p{
+                            padding-left: 10px;
+                        }
+                    }
+
+                    #Retour{
+                        width: 225px;
+                    }

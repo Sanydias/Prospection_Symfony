@@ -13,6 +13,15 @@ html, body {
 
 /* COULEURS */
 /* MIXIN */
+/**
+* @description alignement des flex
+*
+* @param string $itemAlign alignement de manière parrallèle à la direction voulu
+* @param string $justifyContent alignement de manière perpendiculaire à la direction voulu
+* @param string $textAlign alignement du texte de manière horizontale
+* 
+* @return align-items: $itemAlign; justify-content: $justifyContent; text-align: $textAlign;
+*/
 /* HTML */
 /* MAIN */
 main {
