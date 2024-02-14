@@ -37,14 +37,14 @@
                                 <img src="/IMG/ICONES/show.png" alt="cacher" id="CacherMotDePasse">
                             </div>
                         </div>
-                        <label>
-                            <input type="checkbox" name="_remember_me">
+                        <a href="/oubli" class="LienOubli">Mot de passe oublié ?</a>
+                        <label class="StyleCheckboxLabel">
+                            <input type="checkbox" name="_remember_me" class="StyleCheckboxInput">
                             Restez connecté
                         </label>
-                        <a href="/oubli" class="LienRedirection">Mot de passe oublié ?</a>
 
                 </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
 
             <!-- GROUPE BOUTONS -->
             

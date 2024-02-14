@@ -1,7 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Sites à Durée Limité{% endblock %}
+{% block javascripts %}<script src="{{asset('JS/Home.js')}}"></script>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Home.css')}}">{% endblock %}
 
 {% block body %}
-    <h1>Informations Sites Temporaires</h1>
+    <h2 class="Titre">Sites à Durée Limité</h2>
+    <div class="GroupeCard">
+    {% for site in sites %}
+        {% if site.tempsrestant < date('now') %}
+            <div class="CardSite">
+                <div class="TimerBoutonsFavori">
+                    <h3 class="Limited">{{site.typetimer}}</h3>
+                    {% if app.user %}
+                        <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
+                            <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                            <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                        </a>
+                        {# <a href="/favori/supprimer/{{site.id}}" class="LiensFavori Hide" id="SuppressionFavori">
+                            <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                            <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                        </a> #}
+                    {% endif %}
+                </div>
+                <h2>{{site.interethistorique}}</h2>
+                <hr>
+                <div class="JustifierSite">
+                    <p>Département : {{site.departement}}</p>
+                    <p>Commune : {{site.commune}}</p>
+                    <p>Lieux-dit : {{site.lieuxdit}}</p>
+                    {# <p>{{site.tempsrestant}}</p> #}
+                </div>
+                <a href="/site/limiteitem/{{site.id}}" class="BoutonsEtapes">
+                    Voir
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+
 {% endblock %}
+

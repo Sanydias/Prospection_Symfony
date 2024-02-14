@@ -7,9 +7,15 @@
 {% block body %}
     <div class="GroupeSiteItem">
         <div class="TimerBoutonsFavori">
-            <a href="/site/recherche/" class="BoutonsEtapes" id="Retour">
-                Retour liste des Sites
-            </a>
+            {% if app.request.get('_route') == "app_site_limiteitem" %}
+                <a href="/informationssitestemporaires" class="BoutonsEtapes" id="Retour">
+                    Retour liste des Sites à Durée limitée
+                </a>
+            {% else %}
+                <a href="/site/recherche/" class="BoutonsEtapes" id="Retour">
+                    Retour liste des Sites
+                </a>
+            {% endif %}
             <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
                 <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
                 <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">

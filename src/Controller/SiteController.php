@@ -96,12 +96,33 @@ class SiteController extends AbstractController
     /* ITEM SITE */
 
         #[Route('/site/item/{id}', name: 'app_site_item')]
-        public function addSite($id, ManagerRegistry $doctrine, Request $request): Response
+        public function Site($id, ManagerRegistry $doctrine): Response
         {
             $message = '';
             $display = "none";
 
             $site = $doctrine->getRepository(Site::class)->findOneBy(array('id' => $id));
+            
+            return $this->render('site/site.html.twig', [
+                'site' => $site,
+                'display' => $display,
+                'message' => $message
+            ]);
+        }
+
+    /* ITEM SITE */
+
+        #[Route('/site/limiteitem/{id}', name: 'app_site_limiteitem')]
+        public function limiteSite($id, ManagerRegistry $doctrine): Response
+        {
+            $message = '';
+            $display = "none";
+
+            $limitesite = [
+                'id' => $id,
+                'timer' => 1
+            ];
+            $site = $doctrine->getRepository(Site::class)->findOneBy($limitesite);
             
             return $this->render('site/site.html.twig', [
                 'site' => $site,

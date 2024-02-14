@@ -84,12 +84,11 @@ form {
 .StyleCheckboxInput {
   mix-blend-mode: color-burn;
 }
-
 .StyleCheckboxInput:checked {
   mix-blend-mode: luminosity;
 }
 
-.StyleCheckboxlabel {
+.StyleCheckboxLabel {
   color: #735645;
   margin-right: 10px;
 }
@@ -240,6 +239,11 @@ hr {
   min-height: 80vh;
   width: 96vw;
   padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .GroupeSiteItem h1 {
   margin: 0;
@@ -249,11 +253,14 @@ hr {
   border-bottom: 1px solid #F2E3B3;
 }
 .GroupeSiteItem .Timer {
-  position: sticky;
-  bottom: 0;
-  right: 0;
+  margin: 0 50px;
+  padding: 5px 10px;
+  width: -moz-fit-content;
+  width: fit-content;
   background-color: #F2E3B3;
   color: #735645;
+  align-self: flex-end;
+  font-size: 30px;
 }
 
 .ElementSiteChild {

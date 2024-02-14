@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurFormType;
 use DateTimeImmutable;
@@ -20,7 +21,7 @@ class HomeController extends AbstractController
     /* HOME */
 
         #[Route('/home/{message?}', name: 'app_home')]
-        public function afficherPage($message): Response
+        public function afficherPage($message, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
@@ -32,7 +33,16 @@ class HomeController extends AbstractController
                         $display = "none";
                 }
 
+                $timer = [
+                    "timer" => 1,
+                    "typetimer" => "day"
+                ];
+                // $actualites = $doctrine->getRepository(Actu::class)->findAll();
+                $sites = $doctrine->getRepository(Site::class)->findBy($timer);
+
             return $this->render("home/index.html.twig", [
+                // 'actualites' => $actualites,
+                'sites' => $sites,
                 'display' => $display,
                 'message' => $message
             ]);
@@ -69,12 +79,20 @@ class HomeController extends AbstractController
     /* INFORMATIONS SITES TEMPORAIRES */
 
         #[Route('/informationssitestemporaires', name: 'app_informations_sites_temporaires')]
-        public function informationsSitesTemporaires(): Response
+        public function informationsSitesTemporaires(ManagerRegistry $doctrine): Response
         {
             $message = '';
             $display = "none";
 
+            $timer = [
+                "timer" => 1,
+                "typetimer" => "day"
+            ];
+
+            $sites = $doctrine->getRepository(Site::class)->findBy($timer);
+
             return $this->render("home/informationssitestemporaires.html.twig", [
+                'sites' => $sites,
                 'display' => $display,
                 'message' => $message
             ]);

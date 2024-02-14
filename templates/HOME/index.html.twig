@@ -6,4 +6,59 @@
 
 {% block body %}
 
+    <div class="GroupeGroupeHome">
+        <div id="GroupeHero">
+            <img src="{{asset('IMG/pexels-bas-geerlings-6728037.jpg')}}" alt="hero" class="Hero">
+            <h1 class="LOFP">LOFP</h1>
+        </div>
+        {# <div class="GroupeHome">
+            <h2>Actualités</h2>
+            {% set count = 0 %}
+            {% for actualite in actualites %}
+                {% set count = count + 1 %}
+                <div class="BlocActualite" id="Silder{{ count }}">
+                    <img src="{{asset('IMG/ACTU/{{actualite.img}}')}}" alt="Actualités {{ count }}" class="ImageActu">
+                </div>
+            {% endfor %}
+        </div> #}
+        <div id="GroupeSitesTemporaire">
+            <h2><a href="/informationssitestemporaires">Sites à Durée Limité</a></h2>
+            <div class="GroupeCard">
+            {% set i = 0 %}
+            {% for site in sites %}
+                {% if site.tempsrestant < date('now') %}
+                    {% if i < 3 %}
+                        {% set i = i + 1 %}
+                        <div class="CardSite">
+                            <div class="TimerBoutonsFavori">
+                                <h3 class="Limited">{{site.typetimer}}</h3>
+                                {% if app.user %}
+                                    <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
+                                        <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                        <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                    </a>
+                                    {# <a href="/favori/supprimer/{{site.id}}" class="LiensFavori Hide" id="SuppressionFavori">
+                                        <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                        <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                    </a> #}
+                                {% endif %}
+                            </div>
+                            <h2>{{site.interethistorique}}</h2>
+                            <hr>
+                            <div class="JustifierSite">
+                                <p>Département : {{site.departement}}</p>
+                                <p>Commune : {{site.commune}}</p>
+                                <p>Lieux-dit : {{site.lieuxdit}}</p>
+                                {# <p>{{site.tempsrestant}}</p> #}
+                            </div>
+                            <a href="/site/limiteitem/{{site.id}}" class="BoutonsEtapes">
+                                Voir
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

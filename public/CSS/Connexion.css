@@ -148,12 +148,23 @@ form {
   display: none;
 }
 
+.StyleCheckboxInput {
+  mix-blend-mode: color-burn;
+}
+.StyleCheckboxInput:checked {
+  mix-blend-mode: luminosity;
+}
+
+.StyleCheckboxLabel {
+  color: #F2E3B3;
+  margin: 15px;
+}
+
 /* GROUPE BOUTONS */
 #DivBoutonsEtapes {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  margin-top: 15px;
 }
 
 #BoutonValider {
@@ -172,6 +183,15 @@ form {
 }
 #BoutonValider:hover {
   background-color: #F2E3B3;
+  color: #735645;
+}
+
+.LienOubli {
+  width: 275px;
+  text-align: start;
+  color: #F2E3B3;
+}
+.LienOubli:hover {
   color: #735645;
 }
 

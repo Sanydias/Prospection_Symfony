@@ -43,13 +43,83 @@ h1 {
 }
 
 /* HOME */
-.GroupeHome {
+.GroupeGroupeHome {
   width: 100%;
   min-height: 62vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.GroupeHome {
+  width: 100%;
+  height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#GroupeHero {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.Hero {
+  height: auto;
+  width: 100%;
+}
+
+.LOFP {
+  position: absolute;
+  color: #F2E3B3;
+}
+
+h2 {
+  color: #F2E3B3;
+}
+
+#GroupeSitesTemporaire {
+  width: 90%;
+  padding: 5%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#GroupeSitesTemporaire > h2 {
+  margin: 0;
+  margin-top: 25px;
+}
+#GroupeSitesTemporaire > h2 > a {
+  color: #F2E3B3;
+  text-decoration: none;
+}
+#GroupeSitesTemporaire > h2 > a:hover {
+  text-decoration: underline;
+}
+
+.GroupeCard {
+  width: 100%;
+  margin: 64px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   flex-wrap: wrap;
 }
@@ -68,6 +138,11 @@ h1 {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+.CardSite h2 {
+  margin: 0 auto;
+  font-size: 30px;
+  font-weight: normal;
 }
 
 .TimerBoutonsFavori {
@@ -120,6 +195,12 @@ h1 {
   width: auto;
 }
 
+hr {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #F2E3B3;
+}
+
 .BoutonsEtapes {
   height: 30px;
   width: 100px;
@@ -145,4 +226,9 @@ h1 {
 .Limited {
   margin: 0 15px;
   color: #735645;
+}
+
+.Titre {
+  margin-top: 64px;
+  margin-bottom: 0;
 }/*# sourceMappingURL=Home.css.map */

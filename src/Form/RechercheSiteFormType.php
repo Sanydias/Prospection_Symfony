@@ -17,7 +17,7 @@ class RechercheSiteFormType extends AbstractType
             ->add('timer', CheckboxType::class, [
                 'label' => 'Durée Limité',
                 'label_attr' => [
-                    'class' => 'StyleCheckboxlabel',
+                    'class' => 'StyleCheckboxLabel',
                     'required' => false
                 ],
                 'attr' => [

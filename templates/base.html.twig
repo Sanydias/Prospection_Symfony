@@ -52,7 +52,7 @@
                 <!-- MESSAGE -->
 
 
-                    {% if app.user and app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" %}
+                    {% if app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" ) %}
 
                         <div id="Message" style="display:flex">
                             <div id="EnTeteMessage">

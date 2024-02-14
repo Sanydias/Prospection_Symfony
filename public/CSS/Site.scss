@@ -59,13 +59,12 @@
 
                     .StyleCheckboxInput{
                         mix-blend-mode: color-burn;
+                        &:checked{
+                            mix-blend-mode: luminosity;
+                        }
                     }
 
-                    .StyleCheckboxInput:checked{
-                        mix-blend-mode: luminosity;
-                    }
-
-                    .StyleCheckboxlabel{
+                    .StyleCheckboxLabel{
                         color: $couleur3;
                         margin-right: 10px;
                     }
@@ -202,6 +201,7 @@
                         min-height: 80vh;
                         width: 96vw;
                         padding: 2vw;
+                        @include colonneCentre();
                         h1{
                             margin: 0;
                             font-size: 50px;
@@ -210,11 +210,13 @@
                             border-bottom: 1px solid $couleur1;
                         }
                         .Timer{
-                            position: sticky;
-                            bottom: 0;
-                            right: 0;
+                            margin: 0 50px;
+                            padding: 5px 10px;
+                            width: fit-content;
                             background-color: $couleur1;
-                            color: $couleur3
+                            color: $couleur3;
+                            align-self: flex-end;
+                            font-size: 30px;
                         }
                     }
 
