@@ -1,0 +1,32 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block admin %}
+    <div id="GroupeListeActualite">
+        <h2>Ajouter une Actualité</h2>
+        {{ form_start(form) }}
+            <table class="TableauListe">
+                <thead>
+                    <tr>
+                        <th>{{ form_label(form.titre) }}</th>
+                        <th>{{ form_label(form.image) }}</th>
+                        <th>{{ form_label(form.lien) }}</th>
+                        <th>{{ form_label(form.afficher) }}</th>
+                        <th class="Hide">{{ form_label(form.priorite) }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="ajout">
+                        <td>{{ form_widget(form.titre) }}</td>
+                        <td>{{ form_widget(form.image) }}</td>
+                        <td>{{ form_widget(form.lien) }}</td>
+                        <td>{{ form_widget(form.afficher) }}</td>
+                        <td class="Hide">{{ form_widget(form.priorite) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="DivButtonFormAdmin">
+                {{ form_widget(form.valider) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

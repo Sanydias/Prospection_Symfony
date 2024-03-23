@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -83,6 +84,17 @@ class AjoutSiteFormType extends AbstractType
                     'Jour' => 'Jour',
                     'Semaine' => 'Semaine',
                     'Mois' => 'Mois',
+                ],
+                'attr' => [
+                    'class' => 'StyleInput'
+                ],
+                'required' => false
+            ])
+            ->add('tempsinitial', DateType::class, [
+                'label' => 'Date Initial',
+                'label_attr' => [
+                    'id' => 'tempsinitial',
+                    'required' => false
                 ],
                 'attr' => [
                     'class' => 'StyleInput'

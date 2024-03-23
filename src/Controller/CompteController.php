@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Favori;
+use App\Entity\Site;
 use App\Entity\Utilisateur;
 use App\Form\ModificationUtilisateurFormType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -52,7 +54,9 @@ class CompteController extends AbstractController
                             $display = "none";
                     }
 
-                return $this->render('compte/favoris.html.twig', compact(['message', 'display']));
+                    $liste = $doctrine->getRepository(Favori::class)->findBy(['utilisateur' => ($this->getUser())], ['ranking' => 'ASC']);
+
+                return $this->render('compte/favoris.html.twig', compact(['message', 'display', 'liste']));
             }
 
         /* ACHATS */
@@ -93,41 +97,35 @@ class CompteController extends AbstractController
 
         /* PARAMÈTRES */
 
-            #[Route('/compte/parametres/index/{message?}', name: 'app_parametres')]
-            public function parametres($message, ManagerRegistry $doctrine): Response
-            {
+            /* ACCESSIBILITÉ */
 
-                /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
+                #[Route('/compte/parametres/accessibilite', name: 'app_accessibilite')]
+                public function accessibilite(): Response
+                {
 
-                    if (isset($message)) {
-                        $display = "flex";
-                    }else{
-                            $message = 'none';
-                            $display = "none";
-                    }
+                    $message = "";
+                    $display = "none";
 
-                return $this->render('compte/parametres/index.html.twig', compact(['message', 'display']));
-            }
-                                    
-            /*if ($typeDePreference !== '') {
-                $requeteId = $BDD -> prepare("SELECT id FROM utilisateur WHERE email= :email");
-                $requeteId -> execute(array('email' => $email));
-                $data = $requeteId -> fetch();
-                $id_utilisateur = $data["id"];
-                if ($region) {
-                    $lieu = $region;
-                } elseif ($departement) {
-                    $lieu = $departement;
-                }elseif ($ville) {
-                    $lieu = $ville;
+                    return $this->render('compte/parametres/accessibilite.html.twig', [
+                        'display' => $display,
+                        'message' => $message
+                    ]);
                 }
-                if ($lieu !== '') {
-                        $requeteOptionnel = $BDD -> prepare("INSERT INTO preference (type_preference, lieu, id_utilisateur) VALUES (:type_preference, :lieu, :id_utilisateur)");
-                        $requeteOptionnel -> execute(array( 'type_preference' => $typeDePreference,
-                                                            'lieu' => $lieu,
-                                                            'id_utilisateur' => $id_utilisateur));
+
+            /* ACCESSIBILITÉ */
+
+                #[Route('/compte/parametres/confidentialite', name: 'app_confidentialite')]
+                public function confidentialite(): Response
+                {
+
+                    $message = "";
+                    $display = "none";
+
+                    return $this->render('compte/parametres/confidentialite.html.twig', [
+                        'display' => $display,
+                        'message' => $message
+                    ]);
                 }
-            }*/
 
             /* MODIFICATION COMPTE */
 

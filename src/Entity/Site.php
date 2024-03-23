@@ -10,18 +10,19 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\SiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
 #[ApiResource(
     description: 'Site of potential old money spots',
     operations: [
-        new Get(uriTemplate: '/site/{id}'), // Read
-        new GetCollection(uriTemplate: '/site/liste'), //Read
-        new Post(uriTemplate: '/site/ajout'), // create
-        new Put(uriTemplate: '/site/modification/{id}'),// replace (remplace toute les information même inchangé)
-        new Patch(uriTemplate: '/site/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
-        new Delete(uriTemplate: '/site/suppression/{id}') // delete
+        new Get(uriTemplate: '/site/item/{id}'), // Read
+        new GetCollection(uriTemplate: '/site/rechercher'), //Read List
+        new Post(uriTemplate: '/admin/site/ajouter'), // Create
+        new Put(uriTemplate: '/admin/site/modifier/{id}'),// Replace (remplace toute les information même inchangé)
+        new Delete(uriTemplate: '/admin/site/supprimer/{id}') // Delete
     ]
 )]
 class Site
@@ -57,6 +58,14 @@ class Site
 
     #[ORM\Column(length: 11, nullable: true)]
     private ?string $tempsrestant = null;
+
+    #[ORM\OneToMany(mappedBy: 'site', targetEntity: Favori::class)]
+    private Collection $favoris;
+
+    public function __construct()
+    {
+        $this->favoris = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +176,36 @@ class Site
     public function setTempsRestant(?string $tempsrestant): static
     {
         $this->tempsrestant = $tempsrestant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favori>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavoris(Favori $favoris): static
+    {
+        if (!$this->favoris->contains($favoris)) {
+            $this->favoris->add($favoris);
+            $favoris->setSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoris(Favori $favoris): static
+    {
+        if ($this->favoris->removeElement($favoris)) {
+            // set the owning side to null (unless already changed)
+            if ($favoris->getSite() === $this) {
+                $favoris->setSite(null);
+            }
+        }
 
         return $this;
     }

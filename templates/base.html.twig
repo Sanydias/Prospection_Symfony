@@ -18,7 +18,10 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <meta http-equiv="pragma" content="no-cache">
                     {% if app.user %}
-                        <meta http-equiv="refresh" content="1800;URL=/deconnexion">
+                        {% if is_granted('REMEMBERME') %}
+                        {% else %}
+                            <meta http-equiv="refresh" content="1800;URL=/deconnexion">
+                        {% endif %}
                     {% endif %}
 
                 <!-- ICON -->
@@ -66,6 +69,20 @@
                             </p>
                         </div>
                     {% else %}
+
+                    {% if app.request.get('_route') == "app_connexion" and error %}
+                    
+                        <div id="Message" style="display:flex">
+                            <div id="EnTeteMessage">
+                                <p>MESSAGE !</p>
+                                <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
+                            </div>
+                            <p id="ContenuMessage">
+                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                <p>Mauvais Email ou Mot de passe.</p>
+                            </p>
+                        </div>
+                    {% endif %}
 
                     <div id="Message" style="display:{{ display }}">
                         <div id="EnTeteMessage">

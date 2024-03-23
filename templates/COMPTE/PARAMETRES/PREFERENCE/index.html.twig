@@ -2,6 +2,31 @@
 
 
 {% block parametres %}
-    <p>preference</p>
+    {% if preference == NULL %}
+
+    <!-- FORM -->
+    
+        {{ form_start(form) }}
+
+            <!-- PRÉFÉRENCES -->
+
+                <div class="DivColonne">
+                    {{ form_label(form.codedepartement) }}
+                    {{ form_widget(form.codedepartement) }}
+                </div>
+
+                <div class="DivColonne">
+                    {{ form_label(form.nomcommunecomplet) }}
+                    {{ form_widget(form.nomcommunecomplet) }}
+                </div>
+
+            <!-- GROUPE BOUTONS -->
+
+                {{ form_widget(form.enregistrer) }}
+
+        {{ form_end(form) }}
+    {% else %}
+        <p>preference</p>
+    {% endif %}
 {% endblock %}
 

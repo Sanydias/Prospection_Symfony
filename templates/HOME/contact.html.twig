@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Contact{% endblock %}
+
+{% block javascripts %}<script src="{{asset('JS/Contact.js')}}"></script>{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Contact.css')}}">{% endblock %}
 
 {% block body %}
     <h1>Contact</h1>
+    <hr>
+    {{ form_start(form) }}
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_label(form.sujet) }}
+        {{ form_widget(form.sujet) }}
+        {{ form_label(form.message) }}
+        {{ form_widget(form.message) }}
+        {{ form_label(form.envoyer) }}
+        {{ form_widget(form.envoyer) }}
+    {{ form_end(form) }}
 {% endblock %}

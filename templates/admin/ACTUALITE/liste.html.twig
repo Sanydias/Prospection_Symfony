@@ -1,0 +1,84 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block admin %}
+    <div id="GroupeListeActualite">
+        <h2>Liste des Actualités</h2>
+        <table class="TableauListe">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Image</th>
+                    <th>Lien</th>
+                    <th>Afficher</th>
+                    <th>Priorité</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for actualite in liste %}
+                    <tr class="liste">
+                        <td>{{actualite.id}}</td>
+                        <td>{{actualite.titre}}</td>
+                        <td>{{actualite.image}}</td>
+                        <td>{{actualite.lien}}</td>
+                        <td>
+                            {% if actualite.afficher == 1 %}
+                                Oui
+                            {% elseif actualite.afficher == 0 %}
+                                Non
+                            {% else %}
+                                errreur
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if actualite.priorite == 2 %}
+                                Prioritaire
+                            {% elseif actualite.priorite == 1 %}
+                                Secondaire
+                            {% elseif actualite.priorite == NULL or actualite.priorite == 0 %}
+                                Aucune
+                            {% else %}
+                                errreur
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="/admin/actualite/modifier/{{actualite.id}}">
+                                <img src="{{asset('IMG/ICONES/Modifier.png')}}" alt="modifier" class="Icone">
+                            </a>
+                        </td>
+                        <td>
+                            <a  onclick="suppressionElement({{actualite.id}})">
+                                <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
+                            </a>
+                        </td>
+                    </tr>
+                    <div class="BlocSupprimer Hide" id="Bloc{{actualite.id}}">
+                        <h3>ATTENTION !</h3>
+                        <p>
+                            Cette action est irréversible.<br>
+                            Voulez-vous supprimer l'actualité "{{actualite.id}}".
+                        </p>
+                        <div class="BlocButtons">
+                            <a href="/admin/actualite/supprimer/{{actualite.id}}" class="ButtonSupprimer">OUI</a>
+                            <a onclick="suppressionElement({{actualite.id}})" class="ButtonSupprimer">NON</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Image</th>
+                    <th>Lien</th>
+                    <th>Afficher</th>
+                    <th>Priorité</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}

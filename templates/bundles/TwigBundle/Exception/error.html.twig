@@ -5,7 +5,7 @@
 {% block body %}
     <div class="error">
         <h1>
-            Erreur<br>
+            Erreur {{ erreur }}<br>
             Cette page n'existe pas !
         </h1>
         <a href="{{ path('app_home') }}">Retour à la page d'Accueil</a>

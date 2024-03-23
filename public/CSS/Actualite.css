@@ -1,0 +1,120 @@
+@charset "UTF-8";
+/* IMPORTATION DES VARIABLE DE STYLE */
+/* ALL */
+* {
+  border-collapse: collapse;
+}
+
+html, body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* COULEURS */
+/* MIXIN */
+/**
+* @description alignement des flex
+*
+* @param string $itemAlign alignement de manière parrallèle à la direction voulu
+* @param string $justifyContent alignement de manière perpendiculaire à la direction voulu
+* @param string $textAlign alignement du texte de manière horizontale
+* 
+* @return align-items: $itemAlign; justify-content: $justifyContent; text-align: $textAlign;
+*/
+/* HTML */
+/* MAIN */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 84vh;
+}
+
+/* CORP SITE */
+h1 {
+  color: #F2E3B3;
+  margin-bottom: 0;
+}
+
+hr {
+  width: 90%;
+  border: 0;
+  border-bottom: 1px solid #F2E3B3;
+}
+
+.BlocActualite {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.BlocNonPrioritaire {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.LiensActualites {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 40px;
+}
+.LiensActualites h2 {
+  width: 100%;
+  background-color: #735645;
+  color: #F2E3B3;
+  margin: 0;
+  padding: 1% 0;
+}
+.LiensActualites img {
+  width: 100%;
+  height: auto;
+  transition: transform 1s, filter 1s;
+}
+.LiensActualites:hover h2 {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+.LiensActualites:hover img {
+  transform: scale(1.25);
+  filter: brightness(50%);
+}
+
+.Prioritaire {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.NonPrioritaire {
+  width: 50%;
+  margin-top: 0;
+}
+
+.AucunePriorite {
+  width: 25%;
+  margin-top: 0;
+}
+
+.ImageActualite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}/*# sourceMappingURL=Actualite.css.map */

@@ -3,27 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
 use App\Repository\FavoriRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FavoriRepository::class)]
-#[ApiResource(
-    description: 'Favorites of the users',
-    operations: [
-        new Get(uriTemplate: '/favori/{id}'), // Read
-        new GetCollection(uriTemplate: '/favori/liste'), //Read
-        new Post(uriTemplate: '/favori/ajout'), // create
-        new Put(uriTemplate: '/favori/modification/{id}'),// replace (remplace toute les information même inchangé)
-        new Patch(uriTemplate: '/favori/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
-        new Delete(uriTemplate: '/favori/suppression/{id}') // delete
-    ]
-)]
+#[ApiResource]
 class Favori
 {
     #[ORM\Id]
@@ -31,39 +15,54 @@ class Favori
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'favoris')]
+    #[ORM\ManyToOne(inversedBy: 'favori')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $idutlisateur = null;
+    private ?Utilisateur $utilisateur = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'favori')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?favori $idfavori = null;
+    private ?Site $site = null;
+
+    #[ORM\Column]
+    private ?int $ranking = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdUtlisateur(): ?Utilisateur
+    public function getUtilisateur(): ?Utilisateur
     {
-        return $this->idutlisateur;
+        return $this->utilisateur;
     }
 
-    public function setIdUtlisateur(?Utilisateur $idutlisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
-        $this->idutlisateur = $idutlisateur;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function getIdfavori(): ?favori
+    public function getSite(): ?Site
     {
-        return $this->idfavori;
+        return $this->site;
     }
 
-    public function setIdfavori(?favori $idfavori): static
+    public function setSite(?Site $site): static
     {
-        $this->idfavori = $idfavori;
+        $this->site = $site;
+
+        return $this;
+    }
+
+    public function getRanking(): ?int
+    {
+        return $this->ranking;
+    }
+
+    public function setRanking(int $ranking): static
+    {
+        $this->ranking = $ranking;
 
         return $this;
     }

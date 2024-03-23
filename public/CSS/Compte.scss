@@ -45,6 +45,7 @@
             .ContenuCompte{
                 width: 100%;
                 height: 100%;
+                min-height: 62vh;
                 background-color: $couleur2;
                 color: $couleur1;
                 @include colonne();
@@ -98,6 +99,77 @@
                 .PseudoProfil{
                     font-size: 30px;
                 }
+            
+            /* FAVORIS */
+
+                .GroupeListeFavoris{
+                    width: 100vw;
+                }
+
+                .TableauListeFavoris{
+                    width: 100vw;
+                    margin: 50px 0;
+                    background-color: $couleur3;
+                }
+
+                .CatégoriesListeFavoris{
+                    @include ligne();
+                    @include alignement(center, space-between, center);
+                }
+
+                .Ordre img{
+                    cursor: grab;
+                    -webkit-user-drag: none;
+                }
+
+                .Ordre, .Limite, .Supprimer{
+                    margin: 0;
+                    padding: 1%;
+                    width: 10%;
+                    @include colonneCentre();
+                    img{
+                        width: auto;
+                        height: 25px;
+                    }
+                    a{
+                        @include ligne();
+                        height: fit-content;
+                        width: fit-content;
+                    }
+                }
+                .Information{
+                    margin: 0;
+                    padding: 1%;
+                    width: 100%;
+                    @include ligne();
+                    @include alignement(center, space-evenly, center);
+                    .Departement{
+                        width: 5%;
+                        margin: 1%;
+                    }
+                    .Commune, .LieuxDit, .Interet{
+                        width: 29%;
+                        margin: 1%;
+                    }
+                }
+
+                .ListeFavoris{
+                    background-color: $couleur1;
+                    color: $couleur3;
+                    @include ligneCentre();
+                }
+
+                .grabbing{
+                    background-color: $couleur4;
+                }
+
+            /* DISCUSSIONS ACHATS */
+
+                .indisponible{
+                    width: 100%;
+                    height: 62vh;
+                    @include colonneCentre();
+                }
 
             /* PARAMÈTRES */
 
@@ -149,14 +221,6 @@
                             @include ligne();
                             justify-content: space-around;
                             flex-wrap: wrap;
-                        }
-
-                        h3{
-                            color: $couleur1;
-                            font-size: 30px;
-                            margin: 0;
-                            text-decoration: 1px underline;
-                            text-underline-position: from-font;
                         }
 
                         .NonDecaleLabel{
@@ -315,12 +379,17 @@
                         position: absolute;
                         top: 40vh;
                         left: 30%;
+                        z-index: 2;
                         width: 40%;
                         height: 20vh;
                         background-color: $couleur1;
                         color: $couleur3;
                         h3{
+                            color: $couleur3;
+                            font-size: 30px;
                             margin: 0;
+                            text-decoration: 1px underline;
+                            text-underline-position: from-font;
                         }
                         .BlocButtons{
                             @include ligne();

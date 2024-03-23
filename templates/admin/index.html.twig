@@ -9,20 +9,23 @@
     <div class="Ligne">
         <a href="/admin/compte/liste" {%    if app.request.get('_route') == "app_admin_compte_liste" 
                                             or app.request.get('_route') == "app_admin_compte_modifier" %}class="SelectedPage"{% endif %} >
-            Compte
+            Comptes
         </a>
         <a href="/admin/site/liste" {%  if app.request.get('_route') == "app_admin_site_liste"
                                         or app.request.get('_route') == "app_admin_site_ajouter"
                                         or app.request.get('_route') == "app_admin_site_modifier" %}class="SelectedPage"{% endif %} >
-            Site
+            Sites
         </a>
-        <a href="/admin/actualité/liste" {% if app.request.get('_route') == "app_admin_actualite_liste"
+        <a href="/admin/actualite/liste" {% if app.request.get('_route') == "app_admin_actualite_liste"
                                             or app.request.get('_route') == "app_admin_actualite_ajouter"
                                             or app.request.get('_route') == "app_admin_actualite_modifier" %}class="SelectedPage"{% endif %} >
-            Actualité
+            Actualités
         </a>
-        <a href="/admin/achats/liste" {% if app.request.get('_route') == "app_admin_achats_liste" %}class="SelectedPage"{% endif %} >
-            Achat
+        <a href="/admin/images/liste" {% if app.request.get('_route') == "app_admin_images_liste" %}class="SelectedPage"{% endif %} >
+            Images
+        </a>
+        <a href="/admin/achat/liste" {% if app.request.get('_route') == "app_admin_achat_liste" %}class="SelectedPage"{% endif %} >
+            Achats
         </a>
     </div>
     <div class="ContenuAdmin">
@@ -33,6 +36,10 @@
                 <a href="/admin/site/ajouter" class="BoutonsAdmin">Ajouter un site</a>
             {% elseif app.request.get('_route') == "app_admin_site_modifier" or app.request.get('_route') == "app_admin_site_ajouter" %}
                 <a href="/admin/site/liste" class="BoutonsAdmin">Retour à la liste des sites</a>
+            {% elseif app.request.get('_route') == "app_admin_actualite_liste" %}
+                <a href="/admin/actualite/ajouter" class="BoutonsAdmin">Ajouter une actualité</a>
+            {% elseif app.request.get('_route') == "app_admin_actualite_modifier" or app.request.get('_route') == "app_admin_actualite_ajouter" %}
+                <a href="/admin/actualite/liste" class="BoutonsAdmin">Retour à la liste des actualités</a>
             {% endif %} 
         </div>
         {% block admin %}{% endblock %}

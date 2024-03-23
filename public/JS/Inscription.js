@@ -327,54 +327,47 @@
         
         /* DÉFINITION DE L'EXPRESSION RÉGULIÈRE */
 
-            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s])$/gm;
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[()@$!%*?&])[A-Za-z\d()@$!%*?&]{12,}$/gm;
 
-        /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION ONT UNE VALEUR */
 
-            if(motDePasse.value && confirmationMotDePasse.value){
-
-                /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION N'AIT PAS UNE TAILLE DE 0 CHARACTÈRES */
-                
-                    if (motDePasse.value.length !== 0 || confirmationMotDePasse.value.length !== 0) {
-
-                        /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À LA CONFIRMATION */
-
-                            if (motDePasse.value === confirmationMotDePasse.value) {
+        /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION N'AIT PAS UNE TAILLE DE 0 CHARACTÈRES */
+        
+            if (motDePasse.value.length !== 0 && motDePasse.value) {
                                 
-                                /* VÉRIFICATION QUE LE MOT DE PASSE COMPORTE AU MINIMUM 8 CARACTÈRES */
+                /* VÉRIFICATION QUE LE MOT DE PASSE COMPORTE AU MINIMUM 8 CARACTÈRES */
 
-                                    if (motDePasse.value.length >= 8) {
+                    if (motDePasse.value.length >= 12) {
                                         
-                                        /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À L'EXPRESSION RÉGULIÈRE */
+                        /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À L'EXPRESSION RÉGULIÈRE */
 
-                                            if (motDePasse.value.match(regex)) {
-                                                motDePasseOk = "oui";
-                                                return true;
-                                            } else {
-                                                motDePasseOk = "non";
-                                                message("Le mot de passe doit contenir au minimum 1 caractères spécial !");
-                                                return false;
-                                            }
-                                        
+                            if (motDePasse.value.match(regex)) {
+
+                                /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À LA CONFIRMATION */
+
+                                    if (motDePasse.value === confirmationMotDePasse.value) {
+                                        motDePasseOk = "oui";
+                                        return true;
                                     } else {
                                         motDePasseOk = "non";
-                                        message("Le mot de passe doit contenir au minimum 8 caractères !");
+                                        message("Le mot de passe ne correspond pas à sa confirmation !");
                                         return false;
                                     }
 
                             } else {
                                 motDePasseOk = "non";
-                                message("Le mot de passe ne correspond pas à sa confirmation !");
+                                message("Le mot de passe doit contenir au minimum un caractères spécial parmi ( ) @ $ ! % * ? &, un caractère en majuscule, un caractère en minuscule ainsi qu'un chiffre !");
                                 return false;
                             }
-
+                                        
                     } else {
                         motDePasseOk = "non";
-                        message("Un ou des champs obligatoire n'ont pas été remplit !");
+                        message("Le mot de passe doit contenir au minimum 12 caractères !");
                         return false;
                     }
 
             } else {
+                motDePasseOk = "non";
+                message("Un ou des champs obligatoire n'ont pas été remplit !");
                 return false;
             }
 

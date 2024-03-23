@@ -183,6 +183,8 @@ h3 {
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  color: #735645;
+  font-size: smaller;
 }
 .AffichageMotDePasse img {
   height: 13px;

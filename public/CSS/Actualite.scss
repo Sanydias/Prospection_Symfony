@@ -1,0 +1,89 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style";
+
+/* HTML */
+
+    /* MAIN */
+
+        main{
+            @include colonneCentre();
+            min-height: 84vh;
+        }
+
+        /* CORP SITE */
+
+            h1{
+                color: $couleur1;
+                margin-bottom: 0;
+            }
+
+            hr{
+                width: 90%;
+                border: 0;
+                border-bottom: 1px solid $couleur1;
+            }
+
+            .BlocActualite{
+                width: 85%;
+                @include colonneCentre();
+            }
+
+            .BlocNonPrioritaire{
+                @include ligneCentre();
+                flex-wrap: wrap;
+            }
+
+            .LiensActualites{
+                @include colonne();
+                @include alignement(center, center, center);
+                text-decoration: none;
+                margin-bottom: 40px;
+                h2{
+                    width: 100%;
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    margin: 0;
+                    padding: 1% 0;
+                }
+                img{
+                    width: 100%;
+                    height: auto;
+                    transition: 
+                        transform 1s,
+                        filter 1s;
+                }
+                &:hover{
+                    h2{
+                        background-color: $couleur1;
+                        color: $couleur3;
+                    }
+                    img{
+                        transform: scale(1.25);
+                        filter: brightness(50%);
+                    }
+                }
+            }
+
+            .Prioritaire{
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            .NonPrioritaire{
+                width: 50%;
+                margin-top: 0;
+            }
+
+            .AucunePriorite{
+                width: 25%;
+                margin-top: 0;
+            }
+
+            .ImageActualite{
+                @include colonneCentre();
+                width: 100%;
+                height: 300px;
+                overflow: hidden;
+            }

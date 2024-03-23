@@ -25,12 +25,10 @@ use Symfony\Component\Validator\Constraints as Assert;
     // normalizationContext: ['groups' => ['user:read']],
     // denormalizationContext: ['groups' => ['user:write']],
     operations: [
-        new Get(uriTemplate: '/compte/{id}'), // Read
-        new GetCollection(uriTemplate: '/compte/liste'), //Read
-        new Post(uriTemplate: '/compte/ajout'), // create
-        new Put(uriTemplate: '/compte/modification/{id}'),// replace (remplace toute les information même inchangé)
-        new Patch(uriTemplate: '/compte/modification/{id}'), // update (regarde les informations déjà rentré et change cell qui sont différentes)
-        new Delete(uriTemplate: '/compte/suppression/{id}') // delete
+        new GetCollection(uriTemplate: '/admin/compte/liste'), //Read list
+        new Post(uriTemplate: '/inscription'), // Create
+        new Put(uriTemplate: '/compte/modification/{id}'),// Replace (remplace toute les information même inchangé)
+        new Delete(uriTemplate: '/compte/suppression/{id}') // Delete
     ]
 )]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
@@ -80,17 +78,19 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'idutilisateur', targetEntity: Preference::class)]
     private Collection $preferences;
 
-    #[ORM\OneToMany(mappedBy: 'idutlisateur', targetEntity: Favori::class)]
-    private Collection $favoris;
-
     #[ORM\OneToMany(mappedBy: 'idemmeteur', targetEntity: Discussion::class)]
     private Collection $discussions;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Favori::class)]
+    private Collection $favoris;
+
+
 
     public function __construct()
     {
         $this->preferences = new ArrayCollection();
-        $this->favoris = new ArrayCollection();
         $this->discussions = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -259,7 +259,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->preferences->contains($preference)) {
             $this->preferences->add($preference);
-            $preference->setIdUtilisateur($this);
+            $preference->setUtilisateur($this);
         }
 
         return $this;
@@ -269,38 +269,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->preferences->removeElement($preference)) {
             // set the owning side to null (unless already changed)
-            if ($preference->getIdUtilisateur() === $this) {
-                $preference->setIdUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Favori>
-     */
-    public function getFavoris(): Collection
-    {
-        return $this->favoris;
-    }
-
-    public function addFavori(Favori $favori): static
-    {
-        if (!$this->favoris->contains($favori)) {
-            $this->favoris->add($favori);
-            $favori->setIdUtlisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFavori(Favori $favori): static
-    {
-        if ($this->favoris->removeElement($favori)) {
-            // set the owning side to null (unless already changed)
-            if ($favori->getIdUtlisateur() === $this) {
-                $favori->setIdUtlisateur(null);
+            if ($preference->getUtilisateur() === $this) {
+                $preference->setUtilisateur(null);
             }
         }
 
@@ -331,6 +301,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($discussion->getIdEmmeteur() === $this) {
                 $discussion->setIdEmmeteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favori>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavoris(Favori $favoris): static
+    {
+        if (!$this->favoris->contains($favoris)) {
+            $this->favoris->add($favoris);
+            $favoris->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoris(Favori $favoris): static
+    {
+        if ($this->favoris->removeElement($favoris)) {
+            // set the owning side to null (unless already changed)
+            if ($favoris->getUtilisateur() === $this) {
+                $favoris->setUtilisateur(null);
             }
         }
 

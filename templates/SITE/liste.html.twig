@@ -19,8 +19,10 @@
                 {% for clef, valeur in resultat %}
                     {% if clef == "timer" %}
                         Durée Limité
+                    {# {% else if clef == 0 or clef > 0 %}
+                        {{valeur}} #}
                     {% else %}
-                        {{valeur}}
+                        {{clef}} {{valeur}}
                     {% endif %}
                 {% endfor %}
             {% else %}
@@ -34,52 +36,79 @@
     <!-- FORM -->
     
         {{ form_start(form) }}
-            <select name="departement" class="StyleInput">
-                <option value="" selected>Département</option>
-                {% set departementArray = [] %}
-                {% for site in listeinput %}
-                    {% if site.departement not in departementArray %}
-                        <option value="{{ site.departement }}">{{ site.departement }}</option>
-                        {% set departementArray = departementArray|merge([site.departement]) %}
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <select name="commune" class="StyleInput">
-                <option value="" selected>Commune</option>
-                {% set communeArray = [] %}
-                {% for site in listeinput %}
-                    {% if site.commune not in communeArray %}
-                    <option value="{{ site.commune }}">{{ site.commune }}</option>
-                        {% set communeArray = communeArray|merge([site.commune]) %}
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <select name="lieuxdit" class="StyleInput">
-                <option value="" selected disabled>Lieux-dit</option>
-                {% set lieuxDitArray = [] %}
-                {% for site in listeinput %}
-                    {% if site.lieuxdit not in lieuxDitArray %}
-                    <option value="{{ site.lieuxdit }}">{{ site.lieuxdit }}</option>
-                        {% set lieuxDitArray = lieuxDitArray|merge([site.lieuxdit]) %}
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <select name="interethistorique" class="StyleInput">
-                <option value="" selected disabled>Intérêt Historique</option>
-                {% set interetHistoriqueArray = [] %}
-                {% for site in listeinput %}
-                    {% if site.interethistorique not in interetHistoriqueArray %}
-                    <option value="{{ site.interethistorique }}">{{ site.interethistorique }}</option>
-                        {% set interetHistoriqueArray = interetHistoriqueArray|merge([site.interethistorique]) %}
-                    {% endif %}
-                {% endfor %}
-            </select>
-            {{ form_widget(form.timer) }}
-            {{ form_label(form.timer) }}
-            <button type="submit" class="BoutonsForm">
-                <img src="{{asset('IMG/ICONES/RechercherHover.png')}}" alt="recherche" class="IconesFavoris" id="ImgRechercher">
-                <img src="{{asset('IMG/ICONES/Rechercher.png')}}" alt="recherche" class="IconesFavoris" id="ImgRechercherHover">
-            </button>
+            <div class="RechercheType">
+                <input type="text" name="rechercher" class="StyleInput" id="rechercher" placeholder="rechercher">
+                <button type="button" class="BoutonsForm" onclick="displayRecherche(this, 'RechercheCarte')">
+                    <img src="{{asset('IMG/ICONES/Map.png')}}" alt="Carte" class="IconesFavoris" id="ImgCarte">
+                    <img src="{{asset('IMG/ICONES/MapHover.png')}}" alt="Carte" class="IconesFavoris" id="ImgCarteHover">
+                </button>
+                <button type="button" class="BoutonsForm" onclick="displayRecherche(this, 'RechercheFiltre')">
+                    <img src="{{asset('IMG/ICONES/Filtre.png')}}" alt="Filtre" class="IconesFavoris Filtre" id="ImgFiltre">
+                    <img src="{{asset('IMG/ICONES/FiltreHover.png')}}" alt="Filtre" class="IconesFavoris Filtre" id="ImgFiltreHover">
+                </button>
+                <button type="submit" class="BoutonsForm">
+                    <img src="{{asset('IMG/ICONES/Rechercher.png')}}" alt="recherche" class="IconesFavoris" id="ImgRechercher">
+                    <img src="{{asset('IMG/ICONES/RechercherHover.png')}}" alt="recherche" class="IconesFavoris" id="ImgRechercherHover">
+                </button>
+            </div>
+            <div class="RechercheType Hide" id="RechercheCarte">
+                <map name="CarteDeFrance">
+                    {# <area   shape="poly"
+                            coords="M982.088,464.88l5.878,9.587v7.152l7.925,5.906,5.059-4.18h6.881l3.725,4.749,2.738,11.066,2.009.9,2.563-2,8.008,4.68,1.959,6.942,13.339-.348,5.742,5.532,2.153,11.245-2.271,5.147,2.716,1.057.544,14.9-6.691,6.071V571.5l-7.744-2.461-6.951,4.406,3.214,8.672-5.521,3.215,2.152,6.342-8.292,11.139-14.733-10.636V586.9l-1.867-.65-7.4,2.7-3.479-1.426-2.906,1.938-16.241-6.894h-7.439l-4.526-1.245-5.876,2.438-8.172-4.669,3.411-4.784-2.776-8.1,1.462-7.371-1.489-6.08,3.259-7.525-2.918-6.633-13.243-11.433,7.5-8.774-1.871-4.725,3.652-4.241-2.363-4.275,2.255-6.057-.2-20.858,7.2-5.231.264-.072Zm2.878,10.434-4.258-6.945-26.932,7.383-5.5,4,.192,19.867-1.968,5.286,2.706,4.9-3.83,4.448,1.869,4.718-6.736,7.879,11.5,9.925,3.719,8.451-3.378,7.8,1.407,5.746L952.314,566l3.015,8.794-2.38,3.338,4.014,2.293,5.468-2.268,5.129,1.411H975.2l15.313,6.5,2.887-1.924,3.88,1.59,7.318-2.669,4.891,1.7v5.88l11.092,8.007,5.585-7.5-2.434-7.173,5.46-3.18-3.181-8.583,10.183-6.454,5.168,1.642V551.953l6.643-6.027-.421-11.53-3.8-1.479,3.159-7.161-1.8-9.39-4.152-4-14.415.376-2.264-8.022-5.207-3.043-2.384,1.861-4.991-2.238-2.934-11.861-2.427-3.094h-4.342l-6.043,4.992-11.02-8.213Z"
+                            alt="test"
+                            onclick="alert('clicked')"/>
+                    <area   shape="poly"
+                        coords="130,147, 130,228, 6,219, 59,107"
+                        href="https://developer.mozilla.org/docs/Web/CSS"
+                        target="_blank"
+                        alt="CSS" /> #}
+                </map>
+                <img usemap="#CarteDeFrance" src="{{asset('IMG/CARTE/CarteDeFrance.jpg')}}" alt="Carte De France" />
+            </div>
+            <div class="RechercheType Hide" id="RechercheFiltre">
+                <select name="departement" class="StyleInput">
+                    <option value="" selected>Département</option>
+                    {% set departementArray = [] %}
+                    {% for site in listeinput %}
+                        {% if site.departement not in departementArray %}
+                            <option value="{{ site.departement }}">{{ site.departement }}</option>
+                            {% set departementArray = departementArray|merge([site.departement]) %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select name="commune" class="StyleInput">
+                    <option value="" selected>Commune</option>
+                    {% set communeArray = [] %}
+                    {% for site in listeinput %}
+                        {% if site.commune not in communeArray %}
+                        <option value="{{ site.commune }}">{{ site.commune }}</option>
+                            {% set communeArray = communeArray|merge([site.commune]) %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select name="lieuxdit" class="StyleInput">
+                    <option value="" selected disabled>Lieux-dit</option>
+                    {% set lieuxDitArray = [] %}
+                    {% for site in listeinput %}
+                        {% if site.lieuxdit not in lieuxDitArray %}
+                        <option value="{{ site.lieuxdit }}">{{ site.lieuxdit }}</option>
+                            {% set lieuxDitArray = lieuxDitArray|merge([site.lieuxdit]) %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select name="interethistorique" class="StyleInput">
+                    <option value="" selected disabled>Intérêt Historique</option>
+                    {% set interetHistoriqueArray = [] %}
+                    {% for site in listeinput %}
+                        {% if site.interethistorique not in interetHistoriqueArray %}
+                        <option value="{{ site.interethistorique }}">{{ site.interethistorique }}</option>
+                            {% set interetHistoriqueArray = interetHistoriqueArray|merge([site.interethistorique]) %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                {{ form_widget(form.timer) }}
+                {{ form_label(form.timer) }}
+            </div>
         {{ form_end(form) }}
         {% if submitted %}
             <div class="GroupeListeSite">
@@ -89,14 +118,31 @@
                             {% if site.typetimer %}
                                 <h3 class="Limited">Durée Limité ! Plus que {{site.typetimer}}</h3>
                             {% endif %}
-                            <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
-                                <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
-                                <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
-                            </a>
-                            {# <a href="/favori/supprimer/{{site.id}}" class="LiensFavori Hide" id="SuppressionFavori">
-                                <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
-                                <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
-                            </a> #}
+                            {# {% set est_favori = false %}
+                            {% for favori in favoris %}
+                                {% if favori.id is same as site.id %}
+                                    {% set est_favori = true %}
+                                {% endif %}
+                            {% endfor %} #}
+                            <div class="BoutonLienFavoris">
+                                {% set est_favori = false %}
+                                {% for favori in site.favoris %}
+                                    {% if favori.utilisateur.id is same as app.user.id %}
+                                        {% set est_favori = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if est_favori == true %}
+                                        <a href="/favori/supprimer/{{site.id}}" class="LiensFavori" id="SuppressionFavori">
+                                            <img src="{{asset('IMG/ICONES/PasFavoriHover.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                            <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                        </a>
+                                {% else %}
+                                    <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
+                                        <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                        <img src="{{asset('IMG/ICONES/FavoriHover.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
                         <h2>{{site.interethistorique}}</h2>
                         <hr>
@@ -106,7 +152,7 @@
                             <p>Lieux-dit : {{site.lieuxdit}}</p>
                             {# <p>{{site.tempsrestant}}</p> #}
                         </div>
-                        <a href="/site/item/{{site.id}}" class="BoutonsEtapes">
+                        <a href={% if site.timer == 1 %}"/site/limiteitem/{{site.id}}"{% else %}"/site/item/{{site.id}}"{% endif %} class="BoutonsEtapes">
                             Voir
                         </a>
                     </div>

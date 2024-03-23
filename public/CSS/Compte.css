@@ -68,6 +68,7 @@ h1 {
 .ContenuCompte {
   width: 100%;
   height: 100%;
+  min-height: 62vh;
   background-color: #BF9B7A;
   color: #F2E3B3;
   display: flex;
@@ -132,6 +133,97 @@ hr {
   font-size: 30px;
 }
 
+/* FAVORIS */
+.GroupeListeFavoris {
+  width: 100vw;
+}
+
+.TableauListeFavoris {
+  width: 100vw;
+  margin: 50px 0;
+  background-color: #735645;
+}
+
+.CatégoriesListeFavoris {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.Ordre img {
+  cursor: grab;
+  -webkit-user-drag: none;
+}
+
+.Ordre, .Limite, .Supprimer {
+  margin: 0;
+  padding: 1%;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.Ordre img, .Limite img, .Supprimer img {
+  width: auto;
+  height: 25px;
+}
+.Ordre a, .Limite a, .Supprimer a {
+  display: flex;
+  flex-direction: row;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.Information {
+  margin: 0;
+  padding: 1%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+}
+.Information .Departement {
+  width: 5%;
+  margin: 1%;
+}
+.Information .Commune, .Information .LieuxDit, .Information .Interet {
+  width: 29%;
+  margin: 1%;
+}
+
+.ListeFavoris {
+  background-color: #F2E3B3;
+  color: #735645;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.grabbing {
+  background-color: #BF7C63;
+}
+
+/* DISCUSSIONS ACHATS */
+.indisponible {
+  width: 100%;
+  height: 62vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* PARAMÈTRES */
 .GroupeParametres {
   height: 100%;
@@ -184,15 +276,6 @@ form {
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
-}
-
-h3 {
-  color: #F2E3B3;
-  font-size: 30px;
-  margin: 0;
-  -webkit-text-decoration: 1px underline;
-          text-decoration: 1px underline;
-  text-underline-position: from-font;
 }
 
 .NonDecaleLabel {
@@ -370,13 +453,19 @@ select {
   position: absolute;
   top: 40vh;
   left: 30%;
+  z-index: 2;
   width: 40%;
   height: 20vh;
   background-color: #F2E3B3;
   color: #735645;
 }
 .BlocSupprimer h3 {
+  color: #735645;
+  font-size: 30px;
   margin: 0;
+  -webkit-text-decoration: 1px underline;
+          text-decoration: 1px underline;
+  text-underline-position: from-font;
 }
 .BlocSupprimer .BlocButtons {
   display: flex;

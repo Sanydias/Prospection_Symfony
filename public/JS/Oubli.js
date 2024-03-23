@@ -199,9 +199,6 @@
                 button_submit.classList.remove('form_non_valide');
             }
     }
-import { MailSlurp } from 'mailslurp-client';
-const mailslurp = new MailSlurp({ apiKey: "9715a65d767e5ed8fc67a358ded65cc187b715467b41547dc77f99d4bc928ff6" });
-const inbox = await mailslurp.inboxController.createInboxWithDefaults();
 /* FONCTION DE VÉRIFICATION QUE L'EMAIL EST BIEN UN EMAIL */
 
     function mailChange(email) {
@@ -213,6 +210,9 @@ const inbox = await mailslurp.inboxController.createInboxWithDefaults();
         }
     }
 
+    // import { MailSlurp } from 'mailslurp-client';
+    // const mailslurp = new MailSlurp({ apiKey: "9715a65d767e5ed8fc67a358ded65cc187b715467b41547dc77f99d4bc928ff6" });
+    // const inbox = await mailslurp.inboxController.createInboxWithDefaults();
 /* FONCTION DE VÉRIFICATION D'EMAIL' */
 
     function envoiCode() {

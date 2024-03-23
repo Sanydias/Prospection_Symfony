@@ -13,10 +13,6 @@
         }
 
         /* CORP SITE */
-                    
-            .Hide{
-                display: none;
-            }
 
             h1{
                 color: $couleur1;
@@ -38,9 +34,16 @@
                     form{
                         width: 95%;
                         padding: 15px;
-                        @include ligneCentre();
+                        @include colonneCentre();
                         background-color: $couleur2;
                         color: $couleur1;
+                    }
+
+                    .RechercheType{
+                        width: 100%;
+                        margin: 10px;
+                        @include ligneCentre();
+
                     }
 
                     .StyleInput{
@@ -69,11 +72,11 @@
                         margin-right: 10px;
                     }
 
-                    #ImgRechercher{
+                    #ImgRechercher, #ImgFiltre, #ImgCarte{
                         display: flex;
                     }
 
-                    #ImgRechercherHover{
+                    #ImgRechercherHover, #ImgFiltreHover, #ImgCarteHover{
                         display: none;
                     }
 
@@ -89,6 +92,18 @@
                                 display: none;
                             }
                             #ImgRechercherHover{
+                                display: flex;
+                            }
+                            #ImgCarte{
+                                display: none;
+                            }
+                            #ImgCarteHover{
+                                display: flex;
+                            }
+                            #ImgFiltre{
+                                display: none;
+                            }
+                            #ImgFiltreHover{
                                 display: flex;
                             }
                         }
@@ -117,6 +132,10 @@
                         width: 100%;
                         @include ligne();
                         @include alignement(center, space-between, center);
+                    }
+
+                    .BoutonLienFavoris{
+                        @include ligne();
                     }
 
                     .LiensFavori{
@@ -238,4 +257,12 @@
 
                     #Retour{
                         width: 225px;
+                    }
+                    
+                    .Filtre{
+                        height: 20px;
+                    }
+                    
+                    .Hide{
+                        display: none;
                     }

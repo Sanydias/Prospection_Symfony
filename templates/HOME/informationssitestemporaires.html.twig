@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Sites à Durée Limité{% endblock %}
-{% block javascripts %}<script src="{{asset('JS/Home.js')}}"></script>{% endblock %}
+{% block javascripts %}<script src="{{asset('JS/InformationsSitesTemporaires.js')}}"></script>{% endblock %}
 {% block stylesheets %}<link rel="stylesheet" href="{{asset('CSS/Home.css')}}">{% endblock %}
 
 {% block body %}
@@ -13,14 +13,25 @@
                 <div class="TimerBoutonsFavori">
                     <h3 class="Limited">{{site.typetimer}}</h3>
                     {% if app.user %}
-                        <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
-                            <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
-                            <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
-                        </a>
-                        {# <a href="/favori/supprimer/{{site.id}}" class="LiensFavori Hide" id="SuppressionFavori">
-                            <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
-                            <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
-                        </a> #}
+                        <div class="BoutonLienFavoris">
+                            {% set est_favori = false %}
+                            {% for favori in site.favoris %}
+                                {% if favori.utilisateur.id is same as app.user.id %}
+                                    {% set est_favori = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if est_favori == true %}
+                                    <a href="/favori/supprimer/{{site.id}}" class="LiensFavori" id="SuppressionFavori">
+                                        <img src="{{asset('IMG/ICONES/PasFavoriHover.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                        <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                    </a>
+                            {% else %}
+                                <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
+                                    <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                    <img src="{{asset('IMG/ICONES/FavoriHover.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                </a>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 </div>
                 <h2>{{site.interethistorique}}</h2>

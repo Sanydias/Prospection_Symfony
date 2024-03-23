@@ -1,0 +1,75 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style";
+
+/* HTML */
+
+    /* MAIN */
+
+        main{
+            @include colonneCentre();
+            min-height: 84vh;
+        }
+
+        /* CORP SITE */
+
+            h1{
+                color: $couleur1;
+                margin-bottom: 0;
+            }
+
+            hr{
+                width: 90%;
+                border: 0;
+                border-bottom: 1px solid $couleur1;
+            }
+
+            form{
+                width: 90%;
+                padding-bottom: 20px;
+                @include colonneCentre();
+            }
+
+            .DecalerLabel{
+                width: 275px;
+                text-align: start;
+                color: $couleur3;
+                position: relative;
+                top: 25px;
+                left: 0;
+            }
+
+            .StyleInput{
+                background-color: $couleur1;
+                border: none;
+                height: 30px;
+                width: 300px;
+                padding: 1px;
+                padding-left: 5px;
+                @include colonne();
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+                &:focus-visible{
+                    outline-color: $couleur3;
+                }
+            }
+
+            .BoutonValider{
+                background-color: $couleur3;
+                color: $couleur1;
+                border: none;
+                height: 30px;
+                width: 175px;
+                padding: 1px;
+                padding-left: 5px;
+                @include colonne();
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+                &:hover{
+                    background-color: $couleur1;
+                    color: $couleur3;
+                }
+            }

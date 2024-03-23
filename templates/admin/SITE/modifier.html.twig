@@ -2,7 +2,7 @@
 
 {% block admin %}
     <div id="GroupeListeSite">
-        <h2>Liste des Sites</h2>
+        <h2>Modification du Site</h2>
         {{ form_start(form) }}
             <table class="TableauListe">
                 <thead>
@@ -15,6 +15,7 @@
                         <th>{{ form_label(form.lien) }}</th>
                         <th>{{ form_label(form.timer) }}</th>
                         <th class="Hide">{{ form_label(form.typetimer) }}</th>
+                        <th class="Hide">{{ form_label(form.tempsinitial) }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,7 @@
                         <td>{{ form_widget(form.lien) }}</td>
                         <td>{{ form_widget(form.timer) }}</td>
                         <td class="Hide">{{ form_widget(form.typetimer) }}</td>
+                        <td class="Hide">{{ form_widget(form.tempsinitial) }}</td>
                     </tr>
                 </tbody>
             </table>

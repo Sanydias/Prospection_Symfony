@@ -13,10 +13,6 @@
         }
 
         /* CORP SITE */
-                    
-            .Hide{
-                display: none;
-            }
 
             h1{
                 color: $couleur1;
@@ -24,67 +20,205 @@
 
             /* HOME */
 
-                .GroupeGroupeHome{
+                .GroupeHome{
                     width: 100%;
                     min-height: 62vh;
                     @include colonneCentre();
-                }
-
-                .GroupeHome{
-                    width: 100%;
-                    height: 92vh;
-                    overflow: hidden;
-                    @include ligneCentre();
-                }
-
-                #GroupeHero{
-                    width: 100%;
-                    height: fit-content;
-                    max-height: 92vh;
-                    overflow: hidden;
-                    @include ligneCentre();
-                }
-
-                .Hero{
-                    height: auto;
-                    width: 100%;
-                }
-
-                .LOFP{
-                    position: absolute;
-                    color: $couleur1;
                 }
 
                 h2{
                     color: $couleur1;
                 }
 
-                #GroupeSitesTemporaire{
-                    width: 90%;
-                    padding: 5%;
-                    overflow: hidden;
-                    @include colonneCentre();
-                    > h2{
+                /* HERO */
+
+                    #GroupeHero{
+                        width: 100%;
+                        height: fit-content;
+                        max-height: 92vh;
+                        overflow: hidden;
+                        @include ligneCentre();
+                    }
+
+                    .Hero{
+                        height: auto;
+                        width: 100%;
+                    }
+
+                    .LOFP{
+                        position: absolute;
+                        color: $couleur1;
+                    }
+
+                /* ACTUALITÉS */
+
+                    .GroupeActualite{
+                        @include ligne();
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        height: fit-content;
+                        max-height: 92vh;
+                        overflow: hidden;
+                    }
+
+                    #Carroussel{
+                        @include ligneCentre();
+                        width: 100%;
+                        height: fit-content;
+                    }
+
+                    .ActualiteH2{
+                        position: absolute;
+                        align-self: flex-start;
+                        left: 0;
+                        z-index: 3;
+                        background-color: $couleur2 + AA;
                         margin: 0;
-                        margin-top: 25px;
-                        > a{
-                            color: $couleur1;
+                        padding: 16px;
+                        a{
                             text-decoration: none;
+                            color: $couleur1;
                             &:hover{
                                 text-decoration: underline;
                             }
                         }
                     }
-                }
 
-                .GroupeCard{
-                    width: 100%;
-                    margin: 64px;
-                    @include ligneCentre();
-                    flex-wrap: wrap;
-                }
+                    .BlocActualite{
+                        @include ligneCentre();
+                        overflow: hidden;
+                        width: 100%;
+                        height: 100%;
+                        &:hover{
+                            .ImageActu{
+                                transform: scale(1.5);
+                            }
+                            .TitreActualite{
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    .ImageActu{
+                        width: 100vw;
+                        height: auto;
+                        transition: transform 1s;
+                    }
+
+                    .TitreActualite{
+                        @include colonneCentre();
+                        align-self: center;
+                        position: absolute;
+                        z-index: 1;
+                        width: 80%;
+                        height: fit-content;
+                        background-color: $couleur3 + AA;
+                        color: $couleur1;
+                        opacity: 0;
+                        transition: opacity 1s;
+                    }
+
+                    .FlecheActualite{
+                        @include ligne();
+                        align-self: center;
+                        height: 25vw;
+                        width: 10%;
+                        position: absolute;
+                        z-index: 2;
+                        background-color: $couleur3 + AA;
+                        opacity: 0;
+                        transition: opacity 1s;
+                        &:hover{
+                            opacity: 1;
+                        }
+                        img{
+                            padding: 10px;
+                            width: 30px;
+                        }
+                    }
+
+                    #FlecheGauche{
+                        @include alignement(center, flex-start, center);
+                        left: 0;
+                    }
+
+                    #FlecheDroite{
+                        @include alignement(center, flex-end, center);
+                        right: 0;
+                    }
+
+                    .BoutonSelectionActualite{
+                        @include ligne();
+                        @include alignement(center, space-between, center);
+                        width: fit-content;
+                        padding: 10px;
+                        position: absolute;
+                        z-index: 2;
+                        align-self: flex-end;
+                    }
+
+                    .BoutonActualite{
+                        @include colonneCentre();
+                        height: 3vh;
+                        width: 3vh;
+                        margin: 5px;
+                        border-radius: 100%;
+                        background-color: $couleur1;
+                        &:hover{
+                            background-color: $couleur3;
+                            .Selectionne{
+                                height: 1vh;
+                                width: 1vh;
+                                background-color: $couleur1;
+                            }
+                            .PasSelectionne{
+                                height: 1vh;
+                                width: 1vh;
+                            }
+                        }
+                    }
+
+                    .Selectionne{
+                        height: 2vh;
+                        width: 2vh;
+                        border-radius: 100%;
+                        background-color: $couleur3;
+                    }
+
+                    .PasSelectionne{
+                        width: 0;
+                        height: 0;
+                        border-radius: 100%;
+                        background-color: $couleur1;
+                    }
 
                 /* CARD SITE */
+
+                    #GroupeSitesTemporaire{
+                        width: 90%;
+                        padding: 5%;
+                        overflow: hidden;
+                        @include colonneCentre();
+                        > h2{
+                            margin: 0;
+                            margin-top: 25px;
+                            > a{
+                                color: $couleur1;
+                                text-decoration: none;
+                                &:hover{
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+
+                    .GroupeCard{
+                        width: 100%;
+                        margin: 64px;
+                        @include ligneCentre();
+                        flex-wrap: wrap;
+                    }
 
                     .CardSite{
                         min-width: 200px;
@@ -182,4 +316,8 @@
                     .Titre{
                         margin-top: 64px;
                         margin-bottom: 0;
+                    }
+                    
+                    .Hide{
+                        display: none;
                     }

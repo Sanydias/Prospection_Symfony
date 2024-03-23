@@ -1,5 +1,41 @@
 {% extends 'compte/compte.html.twig' %}
 
 {% block compte %}
-    <p>favoris</p>
+    <div id="GroupeListeFavoris">
+        <div class="TableauListeFavoris">
+            <div class="CatégoriesListeFavoris">
+                <p class="Ordre">ordre</p>
+                <p class="Information">information</p>
+                <p class="Limite">temps limité</p>
+                <p class="Supprimer">supprimer</p>
+            </div>
+            <div id="GroupeFavoris">
+                {% for favori in liste %}
+                        <div class="ListeFavoris" draggable="true">
+                            <div class="Ordre DivOrderIcon" {# onmouseup="mouseUp(this)" #}>
+                                <img src="{{asset('IMG/ICONES/Menu.png')}}" alt="changer l'ordre des favoris" class="OrderIcon">
+                                <p class="RankingFavoris Hide">{{favori.ranking}}</p>
+                                <p class="IdFavoris Hide">{{favori.id}}</p>
+                            </div>
+                            <div class="Information">
+                                <p class="Departement">{{favori.site.departement}}</p>
+                                <p class="Commune">{{favori.site.commune}}</p>
+                                <p class="LieuxDit">{{favori.site.lieuxdit}}</p>
+                                <p class="Interet">{{favori.site.interethistorique}}</p>
+                            </div>
+                            <div class="Limite DivTimerIcon">
+                                {% if favori.site.timer == 1 %}
+                                    <img src="{{asset('IMG/ICONES/Limited.png')}}" alt="temps limité" class="TimerIcon">
+                                {% endif %}
+                            </div>
+                            <div class="Supprimer">
+                                <a href="/favori/supprimer/{{favori.site.id}}">
+                                    <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer des favoris" class="SupprimerIcon">
+                                </a>
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %} 

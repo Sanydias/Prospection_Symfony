@@ -1,0 +1,64 @@
+
+/* IMPORTATION DES VARIABLE DE STYLE */
+
+    @import "./Style";
+
+/* HTML */
+
+    /* MAIN */
+
+        main{
+            @include colonneCentre();
+            min-height: 84vh;
+        }
+
+        /* CORP SITE */
+
+            h1{
+                color: $couleur1;
+                margin-bottom: 0;
+            }
+
+            hr{
+                width: 90%;
+                border: 0;
+                border-bottom: 1px solid $couleur1;
+            }
+
+            .QSNColonne{
+                @include colonne();
+            }
+
+            .QSNLigne{
+                @include ligne();
+            }
+
+            .DivTexte{
+                width: 50%;
+                height: 400px;
+                @include colonne();
+                @include alignement(center, center, justify);
+                overflow: hidden;
+                background-color: $couleur1;
+                color: $couleur4;
+                h2{
+                    margin-bottom: 0;
+                }
+                hr{
+                    border-bottom: 1px solid $couleur4;
+                }
+                p{
+                    margin: 0 35px 15px 35px;
+                }
+            }
+
+            .DivImages{
+                width: 50%;
+                height: 400px;
+                @include colonneCentre();
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: auto;
+                }
+            }

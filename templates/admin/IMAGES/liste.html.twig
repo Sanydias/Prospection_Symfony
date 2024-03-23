@@ -1,0 +1,73 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block admin %}
+    <div id="GroupeListeImages">
+        <h2>Liste des Images</h2>
+        <table class="TableauListe">
+            <thead>
+                <tr>
+                    <th>Nom Image</th>
+                    <th>Image</th>
+                    <th>Utilisé</th>
+                    <th>Nom Table</th>
+                    <th>ID Element</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for images in liste %}
+                    <tr class="liste">
+                        <td>{{images.name}}</td>
+                        <td>
+                            <div class="ImagesImage">
+                                <img src="{{asset(images.image)}}" alt="images {{images.nomtable}}">
+                            </div>
+                        </td>
+                        <td>{{images.utilise}}</td>
+                        <td>{{images.nomtable}}</td>
+                        <td>{{images.idelement}}</td>
+                        <td>
+                            {% if images.utilise == 'Oui' %}
+                                {% if images.nomtable == 'actualite' %}
+                                {% elseif images.nomtable == 'utilisateur' %}
+                                    <a  onclick="suppressionElement('{{images.id}}')">
+                                        <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
+                                    </a>
+                                {% else %}
+                                    erreur
+                                {% endif %}
+                            {% elseif images.utilise == 'Non' %}
+                                <a  onclick="suppressionElement('{{images.id}}')">
+                                    <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
+                                </a>
+                            {% else %}
+                                erreur
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <div class="BlocSupprimer Hide" id="Bloc{{images.id}}">
+                        <h3>ATTENTION !</h3>
+                        <p>
+                            Cette action est irréversible.<br>
+                            Voulez-vous supprimer l'image "{{images.name}}".
+                        </p>
+                        <div class="BlocButtons">
+                            <a href="/admin/images/supprimer/{{images.name}}/{{images.nomtable}}" class="ButtonSupprimer">OUI</a>
+                            <a onclick="suppressionElement('{{images.id}}')" class="ButtonSupprimer">NON</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Nom Image</th>
+                    <th>Image</th>
+                    <th>Utilisé</th>
+                    <th>Nom Table</th>
+                    <th>ID Element</th>
+                    <th>Supprimer</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}

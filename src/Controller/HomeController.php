@@ -2,18 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Actualite;
 use App\Entity\Site;
-use App\Entity\Utilisateur;
-use App\Form\UtilisateurFormType;
-use DateTimeImmutable;
+use App\Form\ContactFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class HomeController extends AbstractController
 {
@@ -37,11 +36,11 @@ class HomeController extends AbstractController
                     "timer" => 1,
                     "typetimer" => "day"
                 ];
-                // $actualites = $doctrine->getRepository(Actu::class)->findAll();
+                $actualites = $doctrine->getRepository(Actualite::class)->findBy(array('afficher' => '1'));
                 $sites = $doctrine->getRepository(Site::class)->findBy($timer);
 
             return $this->render("home/index.html.twig", [
-                // 'actualites' => $actualites,
+                'actualites' => $actualites,
                 'sites' => $sites,
                 'display' => $display,
                 'message' => $message
@@ -65,14 +64,18 @@ class HomeController extends AbstractController
     /* ACTUALITÉ */
 
         #[Route('/actualites', name: 'app_actualites')]
-        public function actualite(): Response
+        public function actualite(ManagerRegistry $doctrine): Response
         {
             $message = '';
             $display = "none";
 
+            $actualites = $doctrine->getRepository(Actualite::class)->findBy(array('afficher' => '1'));
+
+
             return $this->render("home/actualites.html.twig", [
                 'display' => $display,
-                'message' => $message
+                'message' => $message,
+                'actualites' => $actualites
             ]);
         }
 
@@ -101,14 +104,39 @@ class HomeController extends AbstractController
     /* CONTACT */
 
         #[Route('/contact', name: 'app_contact')]
-        public function contact(): Response
+        public function contact(Request $request, MailerInterface $mailer): Response
         {
             $message = '';
             $display = "none";
+            
+                
+            $contact = null;
+            $form = $this->createForm(ContactFormType::class, $contact,[
+                'action' => $this->generateUrl('app_contact'),
+                'method' => 'POST'
+            ]);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $email = (new Email())
+                    ->from($form->get('email')->getData())
+                    ->to('marie.dumas2002@gmail.com')
+                    ->subject($form->get('sujet')->getData())
+                    ->text($form->get('message')->getData());
+                try {
+                    $mailer->send($email);
+                    $message = 'Votre mail a bien été envoyé !';
+                } catch (TransportExceptionInterface $e) {
+                    $message = "Il y a eu un problème lors de l'envoi de votre mail !";
+                }
+                $display = "flex";
+            }
 
             return $this->render("home/contact.html.twig", [
                 'display' => $display,
-                'message' => $message
+                'message' => $message,
+                'form' => $form
             ]);
         }
 
@@ -122,7 +150,8 @@ class HomeController extends AbstractController
 
             return $this->render("bundles/TwigBundle/Exception/error.html.twig", [
                 'display' => $display,
-                'message' => $message
+                'message' => $message,
+                'erreur' => ' '
             ]);
         }
 
@@ -134,9 +163,10 @@ class HomeController extends AbstractController
             $message = '';
             $display = "none";
 
-            return $this->render("bundles/TwigBundle/Exception/error403.html.twig", [
+            return $this->render("bundles/TwigBundle/Exception/error.html.twig", [
                 'display' => $display,
-                'message' => $message
+                'message' => $message,
+                'erreur' => '403'
             ]);
         }
 
@@ -148,9 +178,10 @@ class HomeController extends AbstractController
             $message = '';
             $display = "none";
 
-            return $this->render("bundles/TwigBundle/Exception/error404.html.twig", [
+            return $this->render("bundles/TwigBundle/Exception/error.html.twig", [
                 'display' => $display,
-                'message' => $message
+                'message' => $message,
+                'erreur' => '404'
             ]);
         }
     

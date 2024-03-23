@@ -34,10 +34,6 @@ main {
 }
 
 /* CORP SITE */
-.Hide {
-  display: none;
-}
-
 h1 {
   color: #F2E3B3;
 }
@@ -60,12 +56,22 @@ form {
   width: 95%;
   padding: 15px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background-color: #BF9B7A;
   color: #F2E3B3;
+}
+
+.RechercheType {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .StyleInput {
@@ -93,11 +99,11 @@ form {
   margin-right: 10px;
 }
 
-#ImgRechercher {
+#ImgRechercher, #ImgFiltre, #ImgCarte {
   display: flex;
 }
 
-#ImgRechercherHover {
+#ImgRechercherHover, #ImgFiltreHover, #ImgCarteHover {
   display: none;
 }
 
@@ -117,6 +123,18 @@ form {
   display: none;
 }
 .BoutonsForm:hover #ImgRechercherHover {
+  display: flex;
+}
+.BoutonsForm:hover #ImgCarte {
+  display: none;
+}
+.BoutonsForm:hover #ImgCarteHover {
+  display: flex;
+}
+.BoutonsForm:hover #ImgFiltre {
+  display: none;
+}
+.BoutonsForm:hover #ImgFiltreHover {
   display: flex;
 }
 
@@ -152,6 +170,11 @@ form {
   align-items: center;
   justify-content: space-between;
   text-align: center;
+}
+
+.BoutonLienFavoris {
+  display: flex;
+  flex-direction: row;
 }
 
 .LiensFavori {
@@ -277,4 +300,12 @@ hr {
 
 #Retour {
   width: 225px;
+}
+
+.Filtre {
+  height: 20px;
+}
+
+.Hide {
+  display: none;
 }/*# sourceMappingURL=Site.css.map */
