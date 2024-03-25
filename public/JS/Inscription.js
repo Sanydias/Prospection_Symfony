@@ -1,12 +1,4 @@
 
-window.addEventListener("load", (event) => {
-    input = document.getElementsByTagName("input");
-    for (let i = 0; i < input.length; i++) {
-        const element = input[i];
-        deplaceLabel(element);
-    }
-});
-
 /* DÉFINITION VARIABLE GLOBALE */
 
     var count = 1;

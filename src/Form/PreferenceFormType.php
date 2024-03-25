@@ -17,18 +17,11 @@ class PreferenceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('codedepartement', EntityType::class,[
-                'class' => Localisation::class,
-                'choice_label' => 'codedepartement',
-                'mapped' => false
-            ])
-            ->add('nomcommunecomplet', EntityType::class,[
-                'class' => Localisation::class,
-                'choice_label' => 'nomcommunecomplet',
-                'mapped' => false
-            ])
             ->add('enregistrer', SubmitType::class, [
-                'label' => 'enregistrer'
+                'label' => 'Valider',
+                'attr' =>[
+                    'class' => 'BoutonsEtapes',
+                ]
             ])
         ;
     }

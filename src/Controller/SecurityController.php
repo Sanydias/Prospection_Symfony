@@ -206,13 +206,6 @@ class SecurityController extends AbstractController
                 $contenu = "le mot de passe a bien été modifié";
                 
                 return $this->redirectToRoute('app_connexion', ["contenu" => $contenu]);
-            }else{
-                $message = [
-                    'display' => 'flex',
-                    'contenu' => "Attention, l'email ou le code n'est pas valide !",
-                    'bouton' => FALSE,
-                    'lien' => 'none'
-                ];
             }
 
             return $this->render('security/oubli.html.twig', [

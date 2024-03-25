@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Preference;
+use App\Entity\Site;
 use App\Form\PreferenceFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,26 +36,25 @@ class PreferenceController extends AbstractController
             }
             
             $preferences = $doctrine->getRepository(Preference::class)->findOneBy(array('id' => $this->getUser()));
-            if ($preferences) {
-                # code... modification et suppression
-            } else {
-                $preference = new Preference();
-                $form = $this->createForm(PreferenceFormType::class, $preference,[
-                    'action' => $this->generateUrl('app_preference'),
-                    'method' => 'POST'
-                ]);
-    
-                $form->handleRequest($request);
-    
-                if ($form->isSubmitted() && $form->isValid()) {
-    
-                }
+            
+            $preference = new Preference();
+            $form = $this->createForm(PreferenceFormType::class, $preference,[
+                'action' => $this->generateUrl('app_preference'),
+                'method' => 'POST'
+            ]);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
             }
 
+        $liste = $doctrine->getRepository(Site::class)->findAll();
 
         return $this->render('/compte/parametres/preference/index.html.twig', [
             'preference' => $preferences,
             'form' => $form,
+            'liste' => $liste,
             'message' => $message
         ]);
     }
