@@ -12,16 +12,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PreferenceController extends AbstractController
 {
-    #[Route('/compte/parametres/preference/{message?}', name: 'app_preference')]
-    public function index(ManagerRegistry $doctrine, Request $request): Response
+    #[Route('/compte/parametres/preference/{contenu?}', name: 'app_preference')]
+    public function index($contenu, ManagerRegistry $doctrine, Request $request): Response
     {
+
         /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-            if (isset($message)) {
-                $display = "flex";
+            if (isset($contenu)) {
+                $message = [
+                    'display' => 'flex',
+                    'contenu' => $contenu,
+                    'bouton' => FALSE,
+                    'lien' => 'none'
+                ];
             }else{
-                    $message = 'none';
-                    $display = "none";
+                $message = [
+                    'display' => 'none',
+                    'contenu' => 'none',
+                    'bouton' => FALSE,
+                    'lien' => 'none'
+                ];
             }
             
             $preferences = $doctrine->getRepository(Preference::class)->findOneBy(array('id' => $this->getUser()));
@@ -45,8 +55,7 @@ class PreferenceController extends AbstractController
         return $this->render('/compte/parametres/preference/index.html.twig', [
             'preference' => $preferences,
             'form' => $form,
-            'message' => $message,
-            'display' => $display
+            'message' => $message
         ]);
     }
                                     

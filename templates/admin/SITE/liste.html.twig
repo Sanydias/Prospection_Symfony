@@ -39,22 +39,11 @@
                             </a>
                         </td>
                         <td>
-                            <a  onclick="suppressionElement({{site.id}})">
+                            <a  onclick="message(true, '/admin/site/supprimer/{{site.id}}', 'Cette action est irréversible.<br>Voulez-vous supprimer le site &ldquo;{{site.id}}&rdquo; ?')">
                                 <img src="{{asset('IMG/ICONES/Supprimer.png')}}" alt="supprimer" class="Icone">
                             </a>
                         </td>
                     </tr>
-                    <div class="BlocSupprimer Hide" id="Bloc{{site.id}}">
-                        <h3>ATTENTION !</h3>
-                        <p>
-                            Cette action est irréversible.<br>
-                            Voulez-vous supprimer le site "{{site.id}}".
-                        </p>
-                        <div class="BlocButtons">
-                            <a href="/admin/site/supprimer/{{site.id}}" class="ButtonSupprimer">OUI</a>
-                            <a onclick="suppressionElement({{site.id}})" class="ButtonSupprimer">NON</a>
-                        </div>
-                    </div>
                 {% endfor %}
             </tbody>
             <tfoot>

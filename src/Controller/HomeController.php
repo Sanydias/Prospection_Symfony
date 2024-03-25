@@ -17,19 +17,36 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
 
+    /* AVERTISSEMENT LOI */
+
+        #[Route('/', name: 'app_loi')]
+        public function loi(): Response
+        {
+            return $this->render("loi.html.twig");
+        }
+
     /* HOME */
 
-        #[Route('/home/{message?}', name: 'app_home')]
-        public function afficherPage($message, ManagerRegistry $doctrine): Response
+        #[Route('/home/{contenu?}', name: 'app_home')]
+        public function afficherPage($contenu, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-                if (isset($message)) {
-                    $display = "flex";
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = '';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
                 $timer = [
@@ -42,7 +59,6 @@ class HomeController extends AbstractController
             return $this->render("home/index.html.twig", [
                 'actualites' => $actualites,
                 'sites' => $sites,
-                'display' => $display,
                 'message' => $message
             ]);
         }
@@ -52,13 +68,14 @@ class HomeController extends AbstractController
         #[Route('/quisommesnous', name: 'app_qui_sommes_nous')]
         public function quiSommesNous(): Response
         {
-            $message = '';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
-            return $this->render("home/quisommesnous.html.twig", [
-                'display' => $display,
-                'message' => $message
-            ]);
+            return $this->render("home/quisommesnous.html.twig", compact(['message']));
         }
 
     /* ACTUALITÉ */
@@ -66,14 +83,17 @@ class HomeController extends AbstractController
         #[Route('/actualites', name: 'app_actualites')]
         public function actualite(ManagerRegistry $doctrine): Response
         {
-            $message = '';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             $actualites = $doctrine->getRepository(Actualite::class)->findBy(array('afficher' => '1'));
 
 
             return $this->render("home/actualites.html.twig", [
-                'display' => $display,
                 'message' => $message,
                 'actualites' => $actualites
             ]);
@@ -84,8 +104,12 @@ class HomeController extends AbstractController
         #[Route('/informationssitestemporaires', name: 'app_informations_sites_temporaires')]
         public function informationsSitesTemporaires(ManagerRegistry $doctrine): Response
         {
-            $message = '';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             $timer = [
                 "timer" => 1,
@@ -96,7 +120,6 @@ class HomeController extends AbstractController
 
             return $this->render("home/informationssitestemporaires.html.twig", [
                 'sites' => $sites,
-                'display' => $display,
                 'message' => $message
             ]);
         }
@@ -104,37 +127,21 @@ class HomeController extends AbstractController
     /* CONTACT */
 
         #[Route('/contact', name: 'app_contact')]
-        public function contact(Request $request, MailerInterface $mailer): Response
+        public function contact(): Response
         {
-            $message = '';
-            $display = "none";
-            
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
                 
-            $contact = null;
-            $form = $this->createForm(ContactFormType::class, $contact,[
+            $form = $this->createForm(ContactFormType::class, null,[
                 'action' => $this->generateUrl('app_contact'),
                 'method' => 'POST'
             ]);
 
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $email = (new Email())
-                    ->from($form->get('email')->getData())
-                    ->to('marie.dumas2002@gmail.com')
-                    ->subject($form->get('sujet')->getData())
-                    ->text($form->get('message')->getData());
-                try {
-                    $mailer->send($email);
-                    $message = 'Votre mail a bien été envoyé !';
-                } catch (TransportExceptionInterface $e) {
-                    $message = "Il y a eu un problème lors de l'envoi de votre mail !";
-                }
-                $display = "flex";
-            }
-
             return $this->render("home/contact.html.twig", [
-                'display' => $display,
                 'message' => $message,
                 'form' => $form
             ]);
@@ -145,11 +152,14 @@ class HomeController extends AbstractController
         #[Route('/erreur', name: 'app_erreur')]
         public function erreur(): Response
         {
-            $message = '';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             return $this->render("bundles/TwigBundle/Exception/error.html.twig", [
-                'display' => $display,
                 'message' => $message,
                 'erreur' => ' '
             ]);
@@ -160,11 +170,14 @@ class HomeController extends AbstractController
         #[Route('/erreur403', name: 'app_erreur403')]
         public function exception(): Response
         {
-            $message = '';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             return $this->render("bundles/TwigBundle/Exception/error.html.twig", [
-                'display' => $display,
                 'message' => $message,
                 'erreur' => '403'
             ]);
@@ -175,11 +188,14 @@ class HomeController extends AbstractController
         #[Route('/erreur404', name: 'app_erreur404')]
         public function notfound(): Response
         {
-            $message = '';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             return $this->render("bundles/TwigBundle/Exception/error.html.twig", [
-                'display' => $display,
                 'message' => $message,
                 'erreur' => '404'
             ]);

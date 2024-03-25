@@ -171,47 +171,6 @@ h2 {
 }
 
 /* SUPPRESSION COMPTE */
-.BlocSupprimer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: absolute;
-  top: 40vh;
-  left: 30%;
-  width: 40%;
-  height: 20vh;
-  background-color: #F2E3B3;
-  color: #735645;
-  z-index: 2;
-}
-.BlocSupprimer h3 {
-  margin: 0;
-}
-.BlocSupprimer .BlocButtons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  text-align: center;
-  width: 50%;
-  height: -moz-fit-content;
-  height: fit-content;
-}
-.BlocSupprimer .BlocButtons .ButtonSupprimer {
-  background-color: #735645;
-  color: #F2E3B3;
-  width: 40px;
-  border-radius: 10%;
-  padding: 5px 20px;
-  text-decoration: none;
-}
-.BlocSupprimer .BlocButtons .ButtonSupprimer:hover {
-  cursor: pointer;
-  background-color: #BF9B7A;
-}
-
 .Hide {
   display: none;
 }

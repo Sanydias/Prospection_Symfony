@@ -17,8 +17,6 @@ class FavorisController extends AbstractController
         #[Route('/favori/ajouter/{id}', name: 'app_favori_ajouter')]
         public function ajouterFavori($id, ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
             
             $route = $request->headers->get('referer');
 
@@ -54,28 +52,18 @@ class FavorisController extends AbstractController
         #[Route('/favori/modifier/{id}', name: 'app_favori_modifier')]
         public function modifierFavori($id, ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
             $route = $request->headers->get('referer');
             $manager = $doctrine->getManager();
 
-            // $info = [];
             $elements = explode("-", $id);
             for ($i=0; $i < count($elements); $i++) { 
                 $valeursElements = explode("_", $elements[$i]);
                 $idElement = $valeursElements[0];
-                $rankElement = $valeursElements[1];
                 $favori = $doctrine->getRepository(Favori::class)->findOneBy(['id' => $idElement]);
                 $favori->setRanking($i+1);
                 $manager->persist($favori);
                 $manager->flush();
-                // $info[$i] = array([0 => $idElement, 1 => $rankElement]);
             }
-            // return $this->render('test.html.twig', [
-            //     'info' => $info,
-            //     'message' => $message,
-            //     'display' => $display
-            // ]);
             
             return $this->redirect($route);
         }
@@ -85,8 +73,6 @@ class FavorisController extends AbstractController
         #[Route('/favori/supprimer/{id}', name: 'app_favori_supprimer')]
         public function supprimerFavori($id, ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
             
             $route = $request->headers->get('referer');
 

@@ -92,9 +92,7 @@ main {
 #Message {
   position: fixed;
   top: 3vh;
-  left: 30vw;
   z-index: 101;
-  width: 40%;
   background-color: #F2E3B3;
   color: #735645;
   flex-direction: column;
@@ -113,7 +111,7 @@ main {
 }
 #EnTeteMessage p {
   width: 100%;
-  margin-left: 16px;
+  margin: 16px;
   margin-bottom: 10px;
   text-align: start;
   border-bottom: 1px solid #735645;
@@ -123,12 +121,12 @@ main {
   height: 2vh;
   width: auto;
   padding: 2vh;
+  cursor: pointer;
 }
 
 #ContenuMessage {
   width: auto;
-  margin: 16px;
-  margin-top: 0;
+  margin: 0 16px 10px 16px;
   overflow-wrap: anywhere;
 }
 
@@ -138,6 +136,35 @@ main {
 }
 .LiensMessage:hover {
   color: #BF7C63;
+}
+
+#DivBoutonsMessage {
+  width: 90%;
+  margin: 0 5% 10px 5%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.BoutonsMessage {
+  background-color: #735645;
+  color: #F2E3B3;
+  margin: 0;
+  height: 30px;
+  width: 25%;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.BoutonsMessage:hover {
+  background-color: #BF9B7A;
+  color: #735645;
 }
 
 /* HEADER */
@@ -255,4 +282,17 @@ footer {
   text-align: center;
   background-color: #BF9B7A;
   color: #735645;
+}
+
+@media (min-width: 675px) {
+  #Message {
+    left: 30vw;
+    width: 40%;
+  }
+}
+@media (max-width: 675px) {
+  #Message {
+    left: 10vw;
+    width: 80%;
+  }
 }/*# sourceMappingURL=HeaderFooter.css.map */

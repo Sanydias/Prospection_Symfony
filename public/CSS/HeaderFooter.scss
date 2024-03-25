@@ -69,9 +69,7 @@
         #Message{
             position: fixed;
             top: 3vh;
-            left: 30vw;
             z-index: 101;
-            width: 40%;
             background-color: $couleur1;
             color: $couleur3;
             flex-direction: column;
@@ -84,7 +82,7 @@
             @include alignement(flex-end, space-between, center);
             p{
                 width: 100%;
-                margin-left: 16px;
+                margin: 16px;
                 margin-bottom: 10px;
                 text-align: start;
                 border-bottom: 1px solid $couleur3;
@@ -95,12 +93,12 @@
             height: 2vh;
             width: auto;
             padding: 2vh;
+            cursor: pointer;
         }
 
         #ContenuMessage{
             width: auto;
-            margin: 16px;
-            margin-top: 0;
+            margin: 0 16px 10px 16px;
             overflow-wrap: anywhere;
         }
 
@@ -109,6 +107,29 @@
             color: $couleur3;
             &:hover{
                 color: $couleur4;
+            }
+        }
+
+        #DivBoutonsMessage{
+            width: 90%;
+            margin: 0 5% 10px 5%;
+            flex-direction: row;
+            @include alignement(center, space-evenly,center);
+        }
+
+        .BoutonsMessage{
+            background-color: $couleur3;
+            color: $couleur1;
+            margin: 0;
+            height: 30px;
+            width: 25%;
+            padding: 1px;
+            @include colonneCentre();
+            text-decoration: none;
+            cursor: pointer;
+            &:hover{
+                background-color: $couleur2;
+                color: $couleur3;
             }
         }
 
@@ -219,3 +240,21 @@
             background-color: $couleur2;
             color: $couleur3;
         }
+
+    @media (min-width: 675px) {
+
+        #Message{
+            left: 30vw;
+            width: 40%;
+        }
+
+    }
+
+    @media (max-width: 675px) {
+
+        #Message{
+            left: 10vw;
+            width: 80%;
+        }
+
+    }

@@ -1,17 +1,6 @@
 {% extends 'compte/compte.html.twig' %}
 
 {% block compte %}
-    <div class="BlocSupprimer Hide">
-        <h3>ATTENTION !</h3>
-        <p>
-            Cette action est irréversible.<br>
-            Voulez-vous supprimer votre compte.
-        </p>
-        <div class="BlocButtons">
-            <a href="/compte/parametres/suppression/{{ app.user.id }}" class="ButtonSupprimer">OUI</a>
-            <a onclick="suppressionCompte()" class="ButtonSupprimer">NON</a>
-        </div>
-    </div>
     <div class="GroupeParametres">
         <div class="MenuParametres">
             <a href="/compte/parametres/preference" {% if app.request.get('_route') == "app_preference" %}class="SelectedPage"{% endif %} >
@@ -26,7 +15,7 @@
             <a href="/compte/parametres/modification/{{ app.user.id }}" {% if app.request.get('_route') == "app_modification_compte" %}class="SelectedPage"{% endif %} >
                 Modification du Compte
             </a>
-            <a onclick="suppressionCompte()">
+            <a onclick="message(true, '/compte/parametres/suppression/{{ app.user.id }}', 'Cette action est irréversible.<br>Voulez-vous supprimer votre compte ?')">
                 Supprimer le Compte
             </a>
         </div>

@@ -1,10 +1,20 @@
 
 /* FONCTION D'AFFICHAGE DU MESSAGE */
 
-    function message(message) {
+    function message(boutonsOuiNon, lienOui, contenu) {
+        divBouton = document.getElementById('DivBoutonsMessage');
+        croix = document.getElementById('IdMessageCroix');
         blocMessage = document.getElementById('Message');
         blocMessage.setAttribute('style', 'display: flex');
-        document.getElementById('ContenuMessage').innerHTML = message;
+        if (boutonsOuiNon) {
+            divBouton.setAttribute('style', 'display: flex');
+            croix.setAttribute('style', 'display: none');
+            document.getElementById('BoutonOui').setAttribute('href', lienOui);
+        } else {
+            divBouton.setAttribute('style', 'display: none');
+            croix.setAttribute('style', 'display: flex');
+        }
+        document.getElementById('ContenuMessage').innerHTML = contenu;
     }
     
 /* FONCTION PERMETTANT DE RÉCUPÉRER QUEL BOUTON A ÉTÉ CLIQUÉ */
@@ -138,3 +148,12 @@
             element.style.width = "100%";
         }
     }
+
+    function getStorage(){
+        var loi = localStorage.getItem("loi");
+        if (!loi) {
+            window.location.href = "/";
+        }
+    }
+
+    window.onload = getStorage();

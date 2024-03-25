@@ -23,76 +23,112 @@ class CompteController extends AbstractController
 
         /* PROFIL */
 
-            #[Route('/compte/profil/{message?}', name: 'app_profil')]
-            public function profil($message, ManagerRegistry $doctrine): Response
+            #[Route('/compte/profil/{contenu?}', name: 'app_profil')]
+            public function profil($contenu, ManagerRegistry $doctrine): Response
             {
 
                 /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-                    if (isset($message)) {
-                        $display = "flex";
+                    if (isset($contenu)) {
+                        $message = [
+                            'display' => 'flex',
+                            'contenu' => $contenu,
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }else{
-                        $message = 'none';
-                        $display = "none";
+                        $message = [
+                            'display' => 'none',
+                            'contenu' => 'none',
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }
 
-                return $this->render('compte/profil.html.twig', compact(['message', 'display']));
+                return $this->render('compte/profil.html.twig', compact(['message']));
             }
 
         /* FAVORIS */
 
-            #[Route('/compte/favoris/{message?}', name: 'app_favoris')]
-            public function favoris($message, ManagerRegistry $doctrine): Response
+            #[Route('/compte/favoris/{contenu?}', name: 'app_favoris')]
+            public function favoris($contenu, ManagerRegistry $doctrine): Response
             {
 
                 /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-                    if (isset($message)) {
-                        $display = "flex";
+                    if (isset($contenu)) {
+                        $message = [
+                            'display' => 'flex',
+                            'contenu' => $contenu,
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }else{
-                            $message = 'none';
-                            $display = "none";
+                        $message = [
+                            'display' => 'none',
+                            'contenu' => 'none',
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }
 
                     $liste = $doctrine->getRepository(Favori::class)->findBy(['utilisateur' => ($this->getUser())], ['ranking' => 'ASC']);
 
-                return $this->render('compte/favoris.html.twig', compact(['message', 'display', 'liste']));
+                return $this->render('compte/favoris.html.twig', compact(['message', 'liste']));
             }
 
         /* ACHATS */
 
-            #[Route('/compte/achats/{message?}', name: 'app_achats')]
-            public function achats($message, ManagerRegistry $doctrine): Response
+            #[Route('/compte/achats/{contenu?}', name: 'app_achats')]
+            public function achats($contenu, ManagerRegistry $doctrine): Response
             {
 
                 /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-                    if (isset($message)) {
-                        $display = "flex";
+                    if (isset($contenu)) {
+                        $message = [
+                            'display' => 'flex',
+                            'contenu' => $contenu,
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }else{
-                            $message = 'none';
-                            $display = "none";
+                        $message = [
+                            'display' => 'none',
+                            'contenu' => 'none',
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }
 
-                return $this->render('compte/achats.html.twig', compact(['message', 'display']));
+                return $this->render('compte/achats.html.twig', compact(['message']));
             }
 
         /* DISCUSSIONS */
 
-            #[Route('/compte/discussions/{message?}', name: 'app_discussions')]
-            public function discussions($message, ManagerRegistry $doctrine): Response
+            #[Route('/compte/discussions/{contenu?}', name: 'app_discussions')]
+            public function discussions($contenu, ManagerRegistry $doctrine): Response
             {
 
                 /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-                    if (isset($message)) {
-                        $display = "flex";
+                    if (isset($contenu)) {
+                        $message = [
+                            'display' => 'flex',
+                            'contenu' => $contenu,
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }else{
-                            $message = 'none';
-                            $display = "none";
+                        $message = [
+                            'display' => 'none',
+                            'contenu' => 'none',
+                            'bouton' => FALSE,
+                            'lien' => 'none'
+                        ];
                     }
 
-                return $this->render('compte/discussions.html.twig', compact(['message', 'display']));
+                return $this->render('compte/discussions.html.twig', compact(['message']));
             }
 
         /* PARAMÈTRES */
@@ -102,14 +138,14 @@ class CompteController extends AbstractController
                 #[Route('/compte/parametres/accessibilite', name: 'app_accessibilite')]
                 public function accessibilite(): Response
                 {
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
 
-                    $message = "";
-                    $display = "none";
-
-                    return $this->render('compte/parametres/accessibilite.html.twig', [
-                        'display' => $display,
-                        'message' => $message
-                    ]);
+                    return $this->render('compte/parametres/accessibilite.html.twig', compact(['message']));
                 }
 
             /* ACCESSIBILITÉ */
@@ -117,28 +153,38 @@ class CompteController extends AbstractController
                 #[Route('/compte/parametres/confidentialite', name: 'app_confidentialite')]
                 public function confidentialite(): Response
                 {
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
 
-                    $message = "";
-                    $display = "none";
-
-                    return $this->render('compte/parametres/confidentialite.html.twig', [
-                        'display' => $display,
-                        'message' => $message
-                    ]);
+                    return $this->render('compte/parametres/confidentialite.html.twig', compact(['message' => $message]));
                 }
 
             /* MODIFICATION COMPTE */
 
-                #[Route('/compte/parametres/modification/{id}/{message?}', name: 'app_modification_compte')]
-                public function modificationCompte($id, ManagerRegistry $doctrine, SluggerInterface $slugger, Request $request, $message): Response
+                #[Route('/compte/parametres/modification/{id}/{contenu?}', name: 'app_modification_compte')]
+                public function modificationCompte($id, ManagerRegistry $doctrine, SluggerInterface $slugger, Request $request, $contenu): Response
                 {
+
                     /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
     
-                        if (isset($message)) {
-                            $display = "flex";
+                        if (isset($contenu)) {
+                            $message = [
+                                'display' => 'flex',
+                                'contenu' => $contenu,
+                                'bouton' => FALSE,
+                                'lien' => 'none'
+                            ];
                         }else{
-                                $message = 'none';
-                                $display = "none";
+                            $message = [
+                                'display' => 'none',
+                                'contenu' => 'none',
+                                'bouton' => FALSE,
+                                'lien' => 'none'
+                            ];
                         }
 
                     $utilisateur = $doctrine->getRepository(Utilisateur::class)->findOneBy(array('id' => $id));
@@ -201,13 +247,11 @@ class CompteController extends AbstractController
                         $manager->persist($utilisateur);
                         $manager->flush();
         
-                        $message = "le compte à bien été modifié";
-                        $display = "flex";
-                        return $this->redirectToRoute('app_modification_compte', ["id" => $id,"message" => $message]);
+                        $contenu = 'le compte à bien été modifié';
+                        return $this->redirectToRoute('app_modification_compte', ["id" => $id,"contenu" => $contenu]);
                     }
                     return $this->render('compte/parametres/modification.html.twig', [
                         'form' => $form,
-                        'display' => $display,
                         'message' => $message
                     ]);
                 }
@@ -217,20 +261,15 @@ class CompteController extends AbstractController
                 #[Route('/compte/parametres/suppression/{id}', name: 'app_suppression_compte')]
                 public function suppressionCompte($id, ManagerRegistry $doctrine): Response
                 {
+                    $contenu = 'le compte a bien été supprimé';
                     
                     $utilisateur = $doctrine->getRepository(Utilisateur::class)->findOneBy(array('id' => $id));
-
-                    $message = "le compte a bien été supprimé";
-                    $display = "flex";
                     
                     $manager =$doctrine->getManager();
                     $this->container->get('security.token_storage')->setToken(null);
                     $manager->remove($utilisateur);
                     $manager->flush();
 
-                    return $this->redirectToRoute('app_home', [
-                        'display' => $display,
-                        'message' => $message
-                    ]);
+                    return $this->redirectToRoute('app_home', compact(['contenu']));
                 }
 }

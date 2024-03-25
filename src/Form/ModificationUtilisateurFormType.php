@@ -33,7 +33,7 @@ class ModificationUtilisateurFormType extends AbstractType
                 'required' => false
                 ])
             ->add('prenom', TextType::class, [
-                'label' => 'Pénom',
+                'label' => 'Prénom',
                 'label_attr' => [
                     'class' => 'NonDecaleLabel',
                     'required' => false

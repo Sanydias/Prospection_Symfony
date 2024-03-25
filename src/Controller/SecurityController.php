@@ -22,16 +22,26 @@ class SecurityController extends AbstractController
 
     /* INSCRIPTION */
 
-        #[Route('/inscription/{message?}', name: 'app_inscription')]
-        public function inscription($message, ManagerRegistry $doctrine, SluggerInterface $slugger, UserPasswordHasherInterface $hash, Request $request): Response
+        #[Route('/inscription/{contenu?}', name: 'app_inscription')]
+        public function inscription($contenu, ManagerRegistry $doctrine, SluggerInterface $slugger, UserPasswordHasherInterface $hash, Request $request): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-                if (isset($message)) {
-                    $display = "flex";
+
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = '';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             $manager = $doctrine->getManager();
@@ -43,64 +53,64 @@ class SecurityController extends AbstractController
             ]);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                $liste = $doctrine->getRepository(Utilisateur::class)->findBy(['email' => $form->get("email")->getData()]);
+                if ($liste) {
+                    $message = "Attention, ce mail a déjà été attribué !";
+                } else {
+                    $utilisateur = $form->getData();
+                    
+                    $nom = $form->get("nom")->getData();
+                    $nom = strtoupper("$nom");
+                    $utilisateur -> setNom($nom);
 
-                $utilisateur = $form->getData();
-                
-                $nom = $form->get("nom")->getData();
-                $nom = strtoupper("$nom");
-                $utilisateur -> setNom($nom);
+                    $prenom = $form->get("prenom")->getData();
+                    $prenom = ucfirst("$prenom");
+                    $utilisateur -> setPrenom($prenom);
 
-                $prenom = $form->get("prenom")->getData();
-                $prenom = ucfirst("$prenom");
-                $utilisateur -> setPrenom($prenom);
+                    $utilisateur -> setSexe($form->get("sexe")->getData());
 
-                $utilisateur -> setSexe($form->get("sexe")->getData());
+                    $utilisateur -> setDateDeNaissance($form->get("datedenaissance")->getData());
 
-                $utilisateur -> setDateDeNaissance($form->get("datedenaissance")->getData());
+                    $utilisateur -> setEmail($form->get("email")->getData());
 
-                $utilisateur -> setEmail($form->get("email")->getData());
+                    $utilisateur -> setPassword($hash->hashPassword($utilisateur, $form->get("password")->getData()));
 
-                $utilisateur -> setPassword($hash->hashPassword($utilisateur, $form->get("password")->getData()));
+                    $utilisateur -> setPseudo($form->get("pseudo")->getData());
 
-                $utilisateur -> setPseudo($form->get("pseudo")->getData());
-
-                $photodeprofil = $form->get("photodeprofil")->getData();
-                // this condition is needed because the 'photodeprofil' field is not required
-                // so the PDF file must be processed only when a file is uploaded
-                if ($photodeprofil) {
-                    $originalFilename = pathinfo($photodeprofil->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename.'-uniqid-'.uniqid().'.'.$photodeprofil->guessExtension();
-    
-                    // Move the file to the directory where brochures are stored
-                    try {
-                        $photodeprofil->move(
-                            $this->getParameter('fileDirectory'),//fileDirectory
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
+                    $photodeprofil = $form->get("photodeprofil")->getData();
+                    // this condition is needed because the 'photodeprofil' field is not required
+                    // so the PDF file must be processed only when a file is uploaded
+                    if ($photodeprofil) {
+                        $originalFilename = pathinfo($photodeprofil->getClientOriginalName(), PATHINFO_FILENAME);
+                        // this is needed to safely include the file name as part of the URL
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename.'-uniqid-'.uniqid().'.'.$photodeprofil->guessExtension();
+        
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $photodeprofil->move(
+                                $this->getParameter('fileDirectory'),//fileDirectory
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            // ... handle exception if something happens during file upload
+                        }
+        
+                        // updates the 'photodeprofilname' property to store the PDF file name
+                        // instead of its contents
+                        $utilisateur -> setPhotoDeProfil($newFilename);
                     }
-    
-                    // updates the 'photodeprofilname' property to store the PDF file name
-                    // instead of its contents
-                    $utilisateur -> setPhotoDeProfil($newFilename);
+                    $utilisateur -> setRoles(['ROLE_USER']);
+                    $utilisateur -> setDateDeCreationDuCompte(new DateTimeImmutable());
+
+                    $manager->persist($utilisateur);
+                    $manager->flush();
+
+                    return $this->redirectToRoute('app_connexion');
                 }
-                $utilisateur -> setRoles(['ROLE_USER']);
-                $utilisateur -> setDateDeCreationDuCompte(new DateTimeImmutable());
-
-                $manager->persist($utilisateur);
-                $manager->flush();
-
-                return $this->redirectToRoute('app_connexion');
-            }else{
-                //$liste = $doctrine->getRepository(Utilisateur::class)->findBy(['email' => $email]);
-                $message = "Attention, ce mail a déjà été attribué !";
             }
 
             return $this->render('security/inscription.html.twig', [
-                'display' => $display,
                 'message' => $message,
                 'form' => $form,
             ]);
@@ -115,11 +125,19 @@ class SecurityController extends AbstractController
             
                 $route = $request->headers->get('referer');
                 if( $route == "https://127.0.0.1:8000/inscription"){
-                    $message = "l'utilisateur a été bien ajouté";
-                    $display = "flex";
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => "l'utilisateur a été bien ajouté",
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                    $message = "";
-                    $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             // if ($this->getUser()) {
@@ -132,7 +150,6 @@ class SecurityController extends AbstractController
             $lastUsername = $authenticationUtils->getLastUsername();
 
             return $this->render('security/connexion.html.twig', [
-                'display' => $display,
                 'message' => $message,
                 'last_username' => $lastUsername,
                 'error' => $error
@@ -149,17 +166,26 @@ class SecurityController extends AbstractController
 
     /* OUBLI DE MOT DE PASSE */
 
-        #[Route('/oubli/{message?}', name: 'app_oubli')]
-        public function oubli($message, ManagerRegistry $doctrine, UserPasswordHasherInterface $hash, Request $request): Response
+        #[Route('/oubli/{contenu?}', name: 'app_oubli')]
+        public function oubli($contenu, ManagerRegistry $doctrine, UserPasswordHasherInterface $hash, Request $request): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
 
-                if (isset($message)) {
-                    $display = "flex";
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             $manager = $doctrine->getManager();
@@ -177,16 +203,19 @@ class SecurityController extends AbstractController
 
                 $manager->persist($utilisateur);
                 $manager->flush();
-                $message = "le mot de passe a bien été modifié";
-                $display = "flex";
+                $contenu = "le mot de passe a bien été modifié";
                 
-                return $this->redirectToRoute('app_connexion', ["message" => $message]);
+                return $this->redirectToRoute('app_connexion', ["contenu" => $contenu]);
             }else{
-                $message = "Attention, l'email ou le code n'est pas valide !";
+                $message = [
+                    'display' => 'flex',
+                    'contenu' => "Attention, l'email ou le code n'est pas valide !",
+                    'bouton' => FALSE,
+                    'lien' => 'none'
+                ];
             }
 
             return $this->render('security/oubli.html.twig', [
-                'display' => $display,
                 'message' => $message,
                 'form' => $form
             ]);

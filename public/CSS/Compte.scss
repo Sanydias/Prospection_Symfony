@@ -18,28 +18,6 @@
                 color: $couleur1;
             }
 
-            .Ligne{
-                @include ligneCentre();
-                width: 100%;
-                a{
-                    background-color: $couleur3;
-                    color: $couleur1;
-                    font-size: 20px;
-                    text-decoration: none;
-                    padding: 20px;
-                    width: 100%;
-                    border-bottom: 1px solid $couleur1;
-                    &:hover{
-                        background-color: $couleur2;
-                        border-bottom: 1px solid $couleur2;
-                    }
-                }
-                .SelectedPage{
-                    background-color: $couleur2;
-                    border-bottom: 1px solid $couleur2;
-                }
-            }
-
         /* CORP COMPTE */
 
             .ContenuCompte{
@@ -172,37 +150,6 @@
                 }
 
             /* PARAMÈTRES */
-
-                .GroupeParametres{
-                    height: 100%;
-                    width: 100%;
-                    @include ligne();
-                }
-
-                .MenuParametres{
-                    @include colonne();
-                    width: 20%;
-                    min-height: 75vh;
-                    background-color: $couleur3;
-                    a{
-                        background-color: $couleur3;
-                        color: $couleur1;
-                        font-size: 20px;
-                        text-decoration: none;
-                        padding: 20px;
-                        width: auto;
-                        height: fit-content;
-                        border-right: 1px solid $couleur1;
-                        &:hover{
-                            background-color: $couleur2;
-                            border-right: 1px solid $couleur2;
-                        }
-                    }
-                    .SelectedPage{
-                        background-color: $couleur2;
-                        border-right: 1px solid $couleur2;
-                    }
-                }
     
                 .ContenuParametres{
                     width: 80%;
@@ -374,44 +321,99 @@
 
                 /* SUPPRESSION COMPTE */
 
-                    .BlocSupprimer{
-                        @include colonneCentre();
-                        position: absolute;
-                        top: 40vh;
-                        left: 30%;
-                        z-index: 2;
-                        width: 40%;
-                        height: 20vh;
-                        background-color: $couleur1;
-                        color: $couleur3;
-                        h3{
-                            color: $couleur3;
-                            font-size: 30px;
-                            margin: 0;
-                            text-decoration: 1px underline;
-                            text-underline-position: from-font;
-                        }
-                        .BlocButtons{
-                            @include ligne();
-                            @include alignement(center, space-evenly, center);
-                            width: 50%;
-                            height: fit-content;
-                            .ButtonSupprimer{
-                                background-color: $couleur3;
-                                color: $couleur1;
-                                width: 40px;
-                                border-radius: 10%;
-                                padding: 5px 20px;
-                                text-decoration: none;
-                                &:hover{
-                                    cursor: pointer;
-                                    background-color: $couleur2;
-                                }
-                            }
+                    .ButtonSupprimer{
+                        background-color: $couleur3;
+                        color: $couleur1;
+                        width: 40px;
+                        border-radius: 10%;
+                        padding: 5px 20px;
+                        text-decoration: none;
+                        &:hover{
+                            cursor: pointer;
+                            background-color: $couleur2;
                         }
                     }
                     
                     .Hide{
                         display: none;
                     }
-                
+                    
+    @media (min-width: 350px) {
+        
+        @media (min-width: 450px) {
+
+            .Ligne{
+                @include ligneCentre();
+                width: 100%;
+                a{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    font-size: 20px;
+                    text-decoration: none;
+                    padding: 20px;
+                    width: 100%;
+                    border-bottom: 1px solid $couleur1;
+                    &:hover{
+                        background-color: $couleur2;
+                        border-bottom: 1px solid $couleur2;
+                    }
+                }
+                .SelectedPage{
+                    background-color: $couleur2;
+                    border-bottom: 1px solid $couleur2;
+                }
+            }
+
+            .GroupeParametres{
+                height: 100%;
+                width: 100%;
+                @include ligne();
+            }
+
+            .MenuParametres{
+                @include colonne();
+                width: 20%;
+                min-height: 75vh;
+                background-color: $couleur3;
+                overflow-wrap: break-word;
+                a{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    font-size: 20px;
+                    text-decoration: none;
+                    padding: 20px;
+                    width: auto;
+                    height: fit-content;
+                    border-right: 1px solid $couleur1;
+                    &:hover{
+                        background-color: $couleur2;
+                        border-right: 1px solid $couleur2;
+                    }
+                }
+                .SelectedPage{
+                    background-color: $couleur2;
+                    border-right: 1px solid $couleur2;
+                }
+            }
+
+        }
+    }
+
+    @media (max-width: 450px) {
+        
+        .GroupeParametres{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    
+    @media (max-width: 350px) {
+            
+        .GroupeParametres{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    }

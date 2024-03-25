@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -15,16 +16,6 @@ class ContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'DecalerLabel'
-                ],
-                'attr' => [
-                    'class' => 'StyleInput',
-                    'onchange' => 'deplaceLabel(this)'
-                ]
-            ])
             ->add('sujet', TextType::class, [
                 'label' => 'Sujet',
                 'label_attr' => [
@@ -32,7 +23,7 @@ class ContactFormType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'StyleInput',
-                    'onchange' => 'deplaceLabel(this)'
+                    'onkeyup' => 'deplaceLabel(this)'
                 ]
             ])
             ->add('message', TextareaType::class, [
@@ -42,13 +33,14 @@ class ContactFormType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'StyleInput',
-                    'onchange' => 'deplaceLabel(this)'
+                    'onkeyup' => 'deplaceLabel(this)'
                 ]
             ])
-            ->add('envoyer', SubmitType::class, [
+            ->add('envoyer', ButtonType::class, [
                 'label' => 'Envoyer',
                 'attr' => [
-                    'class' => 'BoutonValider'
+                    'class' => 'BoutonValider',
+                    'onclick' => 'sendMail()'
                 ]
             ])
         ;

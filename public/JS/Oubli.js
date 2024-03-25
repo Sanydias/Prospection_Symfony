@@ -1,4 +1,12 @@
 
+window.addEventListener("load", (event) => {
+    input = document.getElementsByTagName("input");
+    for (let i = 0; i < input.length; i++) {
+        const element = input[i];
+        deplaceLabel(element);
+    }
+});
+
 /* DÉFINITION VARIABLE GLOBALE */
 
     var count = 1;
@@ -152,14 +160,14 @@
                     /* VÉRIFICATION QUE LA LONGUEUR DE LA VALEUR DE L'EMAIL EST DIFFÉRENTE DE 0 */
                     
                         if (email.value.length == 0) {
-                            message("Vous n'avez pas remplit le champs 'Email' !");
+                            message(false, false, "Vous n'avez pas remplit le champs 'Email' !");
                             count--;
                         } else {
 
                             /* VÉRIFICATION DE LA VALIDITÉ DU CODE */
 
                                 if (codeValide == "non") {
-                                    message("Le code entré n'est pas valide !");
+                                    message(false, false, "Le code entré n'est pas valide !");
                                     count--;
                                 } else {
         
@@ -186,48 +194,60 @@
 /* FONCTION DE VALIDATION DU FORMULAIRE */
 
     function validationFormulaire() {
-        
         var button_submit = document.getElementById("oubli_form_valider");
         
         /* VÉRIFICATION QUE LE MOT DE PASSE ENTRÉ EST VALIDE */
 
             if (motDePasseOk == "non") {
-                button_submit.preventDefault();
                 button_submit.classList.add('form_non_valide');
-                message("Le champs 'Mot de Passe' n'est pas valide!");
+                button_submit.setAttribute("type", "button");
+                message(false, false, "Le champs 'Mot de Passe' n'est pas valide!");
             } else {
                 button_submit.classList.remove('form_non_valide');
+                button_submit.setAttribute("type", "submit");
             }
     }
+
 /* FONCTION DE VÉRIFICATION QUE L'EMAIL EST BIEN UN EMAIL */
 
     function mailChange(email) {
         if(email.value && (email.value).match(/^[\S\.]+@([\S-]+\.)+[\S-]{2,4}$/g)){
             emailValide ="oui";
         }else{
-            message("L'email n'est pas au bon format ! Il doit être de type 'quelque.chose@mail.com");
+            message(false, false, "L'email n'est pas au bon format ! Il doit être de type 'quelque.chose@mail.com");
             emailValide ="non";
         }
     }
 
-    // import { MailSlurp } from 'mailslurp-client';
-    // const mailslurp = new MailSlurp({ apiKey: "9715a65d767e5ed8fc67a358ded65cc187b715467b41547dc77f99d4bc928ff6" });
-    // const inbox = await mailslurp.inboxController.createInboxWithDefaults();
 /* FONCTION DE VÉRIFICATION D'EMAIL' */
 
     function envoiCode() {
         codeDefinit = Math.floor(Math.random() * 99999);
-        Email.send({
-            Host : "smtp.yourisp.com",
-            Username : "username",
-            Password : "password",
-            To : 'marie.dumas2002@gmail.com',
-            From : "noreply@test.com",
-            Subject : "Code de Vérificaltion",
-            Body : "Code vérification : " + codeDefinit
-        }).then(
-        );
-    }
+        document.getElementById("codeJS").setAttribute("value", codeDefinit);
+        emailUtilisateur = document.getElementById("oubli_form_email").value;
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.set('Authorization', 'Basic ' + btoa('c92d2b84ed1637fcded039f57aa92f43:9e43a9a99025221694f4e116b7c05fc9'));
+      
+        const data = JSON.stringify({
+          "Messages": [{
+            "To": [{"Email": emailUtilisateur}],
+            "Subject": "Code de Vérificaltion",
+            "TextPart": "Code vérification : " + codeDefinit
+          }]
+        });
+      
+        const requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: data,
+        };
+      
+        fetch("https://api.mailjet.com/v3.1/send", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+      }
 
 /* FONCTION DE VÉRIFICATION DU CODE */
 
@@ -235,7 +255,7 @@
         if(codeUtilisateur.value == codeDefinit){
             codeValide = "oui";
         }else{
-            message("Vous l'email n'est pas au bon format ! Il doit être de type 'quelque.chose@mail.com");
+            message(false, false, "Code non valide");
             codeValide = "non";
         }
     }
@@ -248,58 +268,51 @@
 
             var motDePasse = document.getElementById("oubli_form_password");
             var confirmationMotDePasse = document.getElementById("IdConfirmationMotDePasse");
+            var button = document.getElementById("oubli_form_valider").classList;
         
         /* DÉFINITION DE L'EXPRESSION RÉGULIÈRE */
 
-            var regex = /[^\w\d\s]+/gm;
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[()@$!%*?&])[A-Za-z\d()@$!%*?&]{12,}$/gm;
 
-        /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION ONT UNE VALEUR */
 
-            if(motDePasse.value && confirmationMotDePasse.value){
-
-                /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION N'AIT PAS UNE TAILLE DE 0 CHARACTÈRES */
-                
-                    if (motDePasse.value.length !== 0 || confirmationMotDePasse.value.length !== 0) {
-
-                        /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À LA CONFIRMATION */
-
-                            if (motDePasse.value === confirmationMotDePasse.value) {
+        /* VÉRIFICATION QUE LE MOT DE PASSE ET LA CONFIRMATION N'AIT PAS UNE TAILLE DE 0 CHARACTÈRES */
+        
+            if (motDePasse.value.length !== 0 && motDePasse.value) {
                                 
-                                /* VÉRIFICATION QUE LE MOT DE PASSE COMPORTE AU MINIMUM 8 CARACTÈRES */
+                /* VÉRIFICATION QUE LE MOT DE PASSE COMPORTE AU MINIMUM 8 CARACTÈRES */
 
-                                    if (motDePasse.value.length >= 8) {
+                    if (motDePasse.value.length >= 12) {
                                         
-                                        /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À L'EXPRESSION RÉGULIÈRE */
+                        /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À L'EXPRESSION RÉGULIÈRE */
 
-                                            if (motDePasse.value.match(regex)) {
-                                                motDePasseOk = "oui";
-                                                return true;
-                                            } else {
-                                                motDePasseOk = "non";
-                                                message("Le mot de passe doit contenir au minimum 1 caractères spécial !");
-                                                return false;
-                                            }
-                                        
+                            if (motDePasse.value.match(regex)) {
+
+                                /* VÉRIFICATION QUE LE MOT DE PASSE CORRESPOND À LA CONFIRMATION */
+
+                                    if (motDePasse.value === confirmationMotDePasse.value) {
+                                        motDePasseOk = "oui";
+                                        button.remove('form_non_valide');
+                                        return true;
                                     } else {
-                                        motDePasseOk = "non";
-                                        message("Le mot de passe doit contenir au minimum 8 caractères !");
-                                        return false;
+                                        message(false, false, "Le mot de passe ne correspond pas à sa confirmation !");
                                     }
 
                             } else {
-                                motDePasseOk = "non";
-                                message("Le mot de passe ne correspond pas à sa confirmation !");
-                                return false;
+                                message(false, false, "Le mot de passe doit contenir au minimum un caractères spécial parmi ( ) @ $ ! % * ? &, un caractère en majuscule, un caractère en minuscule ainsi qu'un chiffre !");
                             }
-
+                                        
                     } else {
-                        motDePasseOk = "non";
-                        message("Un ou des champs obligatoire n'ont pas été remplit !");
-                        return false;
+                        message(false, false, "Le mot de passe doit contenir au minimum 12 caractères !");
                     }
 
             } else {
-                return false;
+                message(false, false, "Un ou des champs obligatoire n'ont pas été remplit !");
             }
+            if (button.contains("form_non_valide")) {
+            } else {
+                button.add('form_non_valide');
+            }
+            motDePasseOk = "non";
+            return false;
 
     }

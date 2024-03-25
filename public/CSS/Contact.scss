@@ -62,12 +62,7 @@
                 border: none;
                 height: 30px;
                 width: 175px;
-                padding: 1px;
-                padding-left: 5px;
-                @include colonne();
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 10px;
+                @include colonneCentre();
                 &:hover{
                     background-color: $couleur1;
                     color: $couleur3;

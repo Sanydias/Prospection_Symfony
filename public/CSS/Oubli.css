@@ -197,6 +197,27 @@ h3 {
   display: none;
 }
 
+.TextMotDePasse {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  color: #F2E3B3;
+}
+.TextMotDePasse p {
+  margin: 0;
+}
+.TextMotDePasse ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+  padding-left: 20px;
+}
+
 /* GROUPE 2 */
 #Groupe2 {
   display: none;

@@ -18,7 +18,7 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <meta http-equiv="pragma" content="no-cache">
                     {% if app.user %}
-                        {% if is_granted('REMEMBERME') %}
+                        {% if app.request.cookies.get('REMEMBERME') %}
                         {% else %}
                             <meta http-equiv="refresh" content="1800;URL=/deconnexion">
                         {% endif %}
@@ -54,46 +54,34 @@
 
                 <!-- MESSAGE -->
 
-
-                    {% if app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" ) %}
-
-                        <div id="Message" style="display:flex">
+                        <div id="Message" style="display:{% if (app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" )) or app.request.get('_route') == "app_connexion" and error %}'flex'{% else %}{{message.display}}{% endif %}">
                             <div id="EnTeteMessage">
                                 <p>MESSAGE !</p>
-                                <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
+                                    <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()" style="display:{% if message.bouton %}none{% else %}flex{% endif %}">
                             </div>
                             <p id="ContenuMessage">
-                                Vous êtes déjà connecté au compte : <a href="{{ path('app_profil') }}" class="LiensMessage">{{ app.user.userIdentifier }}</a>.<br>
-                                Si vous souhaitez vous connecter à un autre compte,<br>
-                                veuillez d'abord vous <a href="{{ path('app_deconnexion') }}" class="LiensMessage">déconnecter</a>.
+                                {% if app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" ) %}
+                                    Vous êtes déjà connecté au compte : <a href='/compte/profil' class='LiensMessage'>{{ app.user.userIdentifier }}</a>.
+                                    <br>
+                                    Si vous souhaitez vous connecter à un autre compte,
+                                    <br>
+                                    veuillez d'abord vous <a href='/deconnexion' class='LiensMessage'>déconnecter</a>.
+                                {% elseif app.request.get('_route') == "app_connexion" and error %}
+                                    <p>
+                                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                                    </p>
+                                    <p>
+                                        Mauvais Email ou Mot de passe.
+                                    </p>
+                                {% else %}
+                                    {{ message.contenu }}
+                                {% endif %}
                             </p>
-                        </div>
-                    {% else %}
-
-                    {% if app.request.get('_route') == "app_connexion" and error %}
-                    
-                        <div id="Message" style="display:flex">
-                            <div id="EnTeteMessage">
-                                <p>MESSAGE !</p>
-                                <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
+                            <div id="DivBoutonsMessage" style="display:{% if message.bouton %}flex{% else %}none{% endif %}">
+                                <a href="{{message.lien}}" class="BoutonsMessage" id="BoutonOui">Oui</a>
+                                <p class="BoutonsMessage" onclick="cacherMessage()">Non</p>
                             </div>
-                            <p id="ContenuMessage">
-                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-                                <p>Mauvais Email ou Mot de passe.</p>
-                            </p>
                         </div>
-                    {% endif %}
-
-                    <div id="Message" style="display:{{ display }}">
-                        <div id="EnTeteMessage">
-                            <p>MESSAGE !</p>
-                            <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()">
-                        </div>
-                        <p id="ContenuMessage">
-                            {{ message }}
-                        </p>
-                    </div>
-                    {% endif %}
 
                 <!-- HEADER -->
 

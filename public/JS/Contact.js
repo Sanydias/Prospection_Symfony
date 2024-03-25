@@ -15,3 +15,16 @@
             }
         }
     }
+    function sendMail() {
+        sujet = document.getElementById("contact_form_sujet");
+        contenu = document.getElementById("contact_form_message");
+        if (sujet.value == "") {
+            message(false, false, "le champs sujet est requis !");
+        } else {
+            if (contenu.value == "") {
+                message(false, false, "le champs message est requis !");
+            } else {
+                window.open('mailto:dumas.sandy2002@gmail.com?subject=' + sujet.value + '&body=' + contenu.value);
+            }
+        }
+    }

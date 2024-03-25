@@ -1,4 +1,12 @@
 
+window.addEventListener("load", (event) => {
+    input = document.getElementsByTagName("input");
+    for (let i = 0; i < input.length; i++) {
+        const element = input[i];
+        deplaceLabel(element);
+    }
+});
+
 /* DÉFINITION VARIABLE GLOBALE */
 
     var count = 1;
@@ -227,14 +235,14 @@
                     /* VÉRIFICATION QUE LA LONGUEUR DE LA VALEUR DE L'EMAIL EST DIFFÉRENTE DE 0 */
                     
                         if (email.value.length == 0) {
-                            message("Vous n'avez pas remplit le champs 'Email' !");
+                            message(false, false, "Vous n'avez pas remplit le champs 'Email' !");
                             count--;
                         } else {
         
                             /* VÉRIFICATION QUE LE MOT DE PASSE ENTRÉ EST VALIDE */
 
                                 if (motDePasseOk == "non") {
-                                    message("Le champs 'Mot de Passe' n'est pas valide!");
+                                    message(false, false, "Le champs 'Mot de Passe' n'est pas valide!");
                                     count--;
                                 } else {
         
@@ -263,7 +271,7 @@
                     /* VÉRIFICATION QUE LA LONGUEUR DE LA VALEUR DE L'EMAIL EST DIFFÉRENTE DE 0 */
                     
                         if (pseudo.value.length == 0) {
-                            message("Vous n'avez pas remplit le champs 'Pseudo' !");
+                            message(false, false, "Vous n'avez pas remplit le champs 'Pseudo' !");
                             count--;
                         } else {
         
@@ -299,7 +307,7 @@
             if (datedenaissance.value.length == 0) {
                 button_submit.preventDefault();
                 button_submit.classList.add('form_non_valide');
-                message("Vous n'avez pas remplit le champs 'Date de Naissance' !");
+                message(false, false, "Vous n'avez pas remplit le champs 'Date de Naissance' !");
             }else{
                 button_submit.classList.remove('form_non_valide');
             }
@@ -311,7 +319,7 @@
         if(email.value && (email.value).match(/^[\S\.]+@([\S-]+\.)+[\S-]{2,4}$/g)){
             emailValide ="oui";
         }else{
-            message("L'email n'est pas au bon format ! Il doit être de type 'quelque.chose@mail.com");
+            message(false, false, "L'email n'est pas au bon format ! Il doit être de type 'quelque.chose@mail.com");
             emailValide ="non";
         }
     }
@@ -349,25 +357,25 @@
                                         return true;
                                     } else {
                                         motDePasseOk = "non";
-                                        message("Le mot de passe ne correspond pas à sa confirmation !");
+                                        message(false, false, "Le mot de passe ne correspond pas à sa confirmation !");
                                         return false;
                                     }
 
                             } else {
                                 motDePasseOk = "non";
-                                message("Le mot de passe doit contenir au minimum un caractères spécial parmi ( ) @ $ ! % * ? &, un caractère en majuscule, un caractère en minuscule ainsi qu'un chiffre !");
+                                message(false, false, "Le mot de passe doit contenir au minimum un caractères spécial parmi ( ) @ $ ! % * ? &, un caractère en majuscule, un caractère en minuscule ainsi qu'un chiffre !");
                                 return false;
                             }
                                         
                     } else {
                         motDePasseOk = "non";
-                        message("Le mot de passe doit contenir au minimum 12 caractères !");
+                        message(false, false, "Le mot de passe doit contenir au minimum 12 caractères !");
                         return false;
                     }
 
             } else {
                 motDePasseOk = "non";
-                message("Un ou des champs obligatoire n'ont pas été remplit !");
+                message(false, false, "Un ou des champs obligatoire n'ont pas été remplit !");
                 return false;
             }
 

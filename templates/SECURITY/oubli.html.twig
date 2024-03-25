@@ -32,8 +32,6 @@
 
                 <div class="DivFormulaireGroupe" id="Groupe1">
 
-                    <h3>Vérifications d'Email</h3>
-
                     <!-- EMAIL -->
 
                         {{ form_label(form.email) }}
@@ -43,7 +41,7 @@
 
                         <label for="IdCodeUtilisateur" class="DecalerLabel required">Code</label>
                         <div class="AlignementMotDePasse">
-                            <input type="text" name="CodeUtilisateur" class="StyleMotDePasse" id="IdCodeUtilisateur" onkeyup="deplaceLabel(this)" onchange="verificationCode()" required>
+                            <input type="text" name="CodeUtilisateur" class="StyleMotDePasse" id="IdCodeUtilisateur" onkeyup="deplaceLabel(this)" onchange="verificationCode(this)" required>
                             <div class="AffichageMotDePasse" onclick="envoiCode()">
                                 <p>Envoyer code</p>
                             </div>
@@ -56,10 +54,18 @@
 
                 <div class="DivFormulaireGroupe" id="Groupe2">
 
-                    <h3>Modification du mot de Passe</h3>
-
                     <!-- MOT DE PASSE -->
 
+                        <div class="TextMotDePasse">
+                            <p>Le mot de passse doit contenir :</p>
+                            <ul>
+                                <li>minimum 12 caractère,</li>
+                                <li>un caractère minuscule,</li>
+                                <li>un caractère majuscule,</li>
+                                <li>un caractère scpécial parmis '( ) @ $ ! % * ? &',</li>
+                                <li>un chiffre</li>
+                            </ul>
+                        </div>
                         {{ form_label(form.password) }}
                         <div class="AlignementMotDePasse">
                             {{ form_widget(form.password) }}
@@ -81,7 +87,7 @@
                         </div>
 
                 </div>
-                <input type="hidden" name="code" value="8">
+                <input type="hidden" name="code" id="codeJS" value="false">
 
             <!-- GROUPE BOUTONS -->
 

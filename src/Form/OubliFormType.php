@@ -61,10 +61,10 @@ class OubliFormType extends AbstractType
                     'onclick' => "etape(this)",
                 ]
             ])
-            ->add('valider', SubmitType::class, [
+            ->add('valider', ButtonType::class, [
                 'label' => 'Valider',
                 'attr' => [
-                    'class' => 'BoutonsEtapes',
+                    'class' => 'BoutonsEtapes form_non_valide',
                     'onclick' => 'validationFormulaire()'
                 ]
             ])

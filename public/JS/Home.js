@@ -50,11 +50,11 @@ var interval;
             flecheDroite.setAttribute("onclick", "carroussel(" + (count + 1) + ")");
             number = count + 1;
         }
+
         changeInterval();
     }
 
     function changeInterval() {
-        interval = null;
         clearInterval(interval);
         interval = setInterval(carroussel, 5000, number);
     }

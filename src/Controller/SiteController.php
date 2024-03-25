@@ -17,18 +17,15 @@ class SiteController extends AbstractController
         
     /* RECHERCHE SITE */
     
-        #[Route('/site/rechercher/{message?}', name: 'app_site_rechercher')]
-        public function index($message, ManagerRegistry $doctrine, Request $request, SiteRepository $siteRepository): Response
+        #[Route('/site/rechercher', name: 'app_site_rechercher')]
+        public function index(ManagerRegistry $doctrine, Request $request, SiteRepository $siteRepository): Response
         {
-
-            /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-
-                if (isset($message)) {
-                    $display = "flex";
-                }else{
-                    $message = 'none';
-                    $display = "none";
-                }
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             $listeinput = $doctrine->getRepository(Site::class)->findAll();
                 
@@ -109,7 +106,6 @@ class SiteController extends AbstractController
                     'liste' => $liste,
                     'resultat' => $recherche,
                     'submitted' => true,
-                    'display' => $display,
                     'message' => $message
                 ]);
             }else{
@@ -117,7 +113,6 @@ class SiteController extends AbstractController
                     'form' => $form,
                     'listeinput' => $listeinput,
                     'submitted' => false,
-                    'display' => $display,
                     'message' => $message
                 ]);
             }
@@ -125,42 +120,39 @@ class SiteController extends AbstractController
 
     /* ITEM SITE */
 
-        #[Route('/site/item/{id}/{message?}', name: 'app_site_item')]
-        public function Site($id, $message, ManagerRegistry $doctrine, Request $request): Response
+        #[Route('/site/item/{id}', name: 'app_site_item')]
+        public function Site($id, ManagerRegistry $doctrine, Request $request): Response
         {
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
-            /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-
-                if (isset($message)) {
-                    $display = "flex";
-                }else{
-                    $message = 'none';
-                    $display = "none";
-                }
-
+            $route = $request->headers->get('referer');
             $site = $doctrine->getRepository(Site::class)->findOneBy(array('id' => $id));
             
             return $this->render('site/site.html.twig', [
                 'site' => $site,
-                'display' => $display,
+                'route' => $route,
                 'message' => $message
             ]);
         }
 
     /* LIMITE ITEM SITE */
 
-        #[Route('/site/limiteitem/{id}/{message?}', name: 'app_site_limiteitem')]
-        public function limiteSite($id, $message, ManagerRegistry $doctrine): Response
+        #[Route('/site/limiteitem/{id}', name: 'app_site_limiteitem')]
+        public function limiteSite($id, ManagerRegistry $doctrine, Request $request): Response
         {
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
-            /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-
-                if (isset($message)) {
-                    $display = "flex";
-                }else{
-                    $message = 'none';
-                    $display = "none";
-                }
+            $route = $request->headers->get('referer');
 
             $limitesite = [
                 'id' => $id,
@@ -170,7 +162,7 @@ class SiteController extends AbstractController
             
             return $this->render('site/site.html.twig', [
                 'site' => $site,
-                'display' => $display,
+                'route' => $route,
                 'message' => $message
             ]);
         }

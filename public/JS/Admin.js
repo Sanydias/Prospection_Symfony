@@ -1,23 +1,11 @@
 var input = [false, false, false, false];
 var count = 0;
 
-function suppressionElement(id) {
-    current = "Bloc"+id;
-    for (let i = 0; i < $( ".BlocSupprimer" ).length; i++) {
-        const element = $( ".BlocSupprimer" )[i];
-        if (element.id == current ) {
-            $( "#"+current ).toggleClass( "Hide" );
-        } else if (element.class != "BlocSupprimer Hide") {
-            element.classList.add( "Hide" );
-        }
-    }
-}
-
 /* FONCTION DE VÉRIFICATION DE LA VALIDITÉ DES CHAMPS DÉPARTEMENT, COMMUNE, LIEUX-DIT ET INTÉRÊT HISTORIQUE */
 
     function validationdElement(element, number) {
         if (element.value.length == 0){
-            message("Un ou plusieurs champs requis n'a pas été remplis !")
+            message(false, false, "Un ou plusieurs champs requis n'a pas été remplis !")
             input[number] = false;
         }else{
             input[number] = true;
@@ -57,7 +45,7 @@ function suppressionElement(id) {
     function buttonValidation() {
         var checker = arr => arr.every(element => element == true)
         if (checker(input) == false) {
-            message("Vous n'avez pas remplit tout les champs requis !");
+            message(false, false, "Vous n'avez pas remplit tout les champs requis !");
         }
         validationFormulaire();
     }
@@ -113,7 +101,7 @@ function suppressionElement(id) {
             label.classList.add('Hide');
             input.classList.add('Hide');
         }else{
-            message("PROBLEME !")
+            message(false, false, "PROBLEME !")
         }
     }
 

@@ -42,24 +42,32 @@ class AdminController extends AbstractController
 
     /* LISTE COMPTE */
 
-        #[Route('/admin/compte/liste/{message?}', name: 'app_admin_compte_liste')]
-        public function listeCompte(ManagerRegistry $doctrine): Response
+        #[Route('/admin/compte/liste/{contenu?}', name: 'app_admin_compte_liste')]
+        public function listeCompte($contenu, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-    
-                if (isset($message)) {
-                    $display = "flex";
+
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             $liste = $doctrine->getRepository(Utilisateur::class)->findAll();
             return $this->render('admin/compte/liste.html.twig', [
                 'liste' => $liste,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -69,8 +77,12 @@ class AdminController extends AbstractController
         #[Route('/admin/compte/modifier/{id}', name: 'app_admin_compte_modifier')]
         public function droit($id, ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
                 
             $utilisateur = $doctrine->getRepository(Utilisateur::class)->findOneBy(array('id' => $id));
             
@@ -95,16 +107,14 @@ class AdminController extends AbstractController
                 $manager->persist($utilisateur);
                 $manager->flush();
 
-                $message = "le compte à bien été modifié";
-                $display = "flex";
-                return $this->redirectToRoute('app_admin_compte_liste', ["message" => $message]);
+                $contenu = "le compte à bien été modifié";
+                return $this->redirectToRoute('app_admin_compte_liste', ["contenu" => $contenu]);
             }
 
             return $this->render('admin/compte/modifier.html.twig', [
                 'utilisateur' => $utilisateur,
                 'form' => $form,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -114,9 +124,12 @@ class AdminController extends AbstractController
         #[Route('/admin/compte/supprimer/{id}', name: 'app_admin_compte_supprimer')]
         public function supprimerCompte($id, ManagerRegistry $doctrine): Response
         {
-
-            $message = "le compte a bien été supprimé";
-            $display = "flex";
+            $message = [
+                'display' => 'flex',
+                'contenu' => 'le compte a bien été supprimé',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             $utilisateur = $doctrine->getRepository(Utilisateur::class)->findOneBy(array('id' => $id));
             
@@ -125,31 +138,38 @@ class AdminController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('app_admin_compte_liste', [
-                'display' => $display,
                 'message' => $message
             ]);
         }
 
     /* LISTE SITE */
 
-        #[Route('/admin/site/liste/{message?}', name: 'app_admin_site_liste')]
-        public function listeSite($message, ManagerRegistry $doctrine): Response
+        #[Route('/admin/site/liste/{contenu?}', name: 'app_admin_site_liste')]
+        public function listeSite($contenu, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-    
-                if (isset($message)) {
-                    $display = "flex";
+
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             $liste = $doctrine->getRepository(Site::class)->findAll();
             return $this->render('admin/site/liste.html.twig', [
                 'liste' => $liste,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -159,9 +179,12 @@ class AdminController extends AbstractController
         #[Route('/admin/site/ajouter', name: 'app_admin_site_ajouter')]
         public function ajouterSite(ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
-                
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             $manager = $doctrine->getManager();
             $site = new Site();
@@ -188,9 +211,7 @@ class AdminController extends AbstractController
                 }
 
                 $manager->persist($site);
-
-                $display = "flex";
-                $message = "le site a bien été ajouté";
+                $contenu = "le site a bien été ajouté";
 
                 $count = $form->get("count")->getData();
                 if ($count > 0) {
@@ -213,18 +234,17 @@ class AdminController extends AbstractController
 
                         $manager->persist($multipleSite[$i]);
                         
-                        $message = "les sites ont bien été ajouté";
+                        $contenu = "les sites ont bien été ajouté";
                     }
                 }
 
                 $manager->flush();
-                return $this->redirectToRoute('app_admin_site_liste', ["message" => $message]);
+                return $this->redirectToRoute('app_admin_site_liste', ["contenu" => $contenu]);
             }
 
             return $this->render('admin/site/ajouter.html.twig', [
                 'form' => $form,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -234,8 +254,12 @@ class AdminController extends AbstractController
         #[Route('/admin/site/modifier/{id}', name: 'app_admin_site_modifier')]
         public function modifierSite($id, ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
                 
             $site = $doctrine->getRepository(Site::class)->findOneBy(array('id' => $id));
             
@@ -264,16 +288,14 @@ class AdminController extends AbstractController
                 $manager->persist($site);
                 $manager->flush();
 
-                $message = "le site à bien été modifié";
-                $display = "flex";
-                return $this->redirectToRoute('app_admin_site_liste', ["message" => $message]);
+                $contenu = "le site à bien été modifié";
+                return $this->redirectToRoute('app_admin_site_liste', ["contenu" => $contenu]);
             }
 
             return $this->render('admin/site/modifier.html.twig', [
                 'site' => $site,
                 'form' => $form,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -283,9 +305,7 @@ class AdminController extends AbstractController
         #[Route('/admin/site/supprimer/{id}', name: 'app_admin_site_supprimer')]
         public function supprimerSite($id, ManagerRegistry $doctrine): Response
         {
-
-            $message = "le site a bien été supprimé";
-            $display = "flex";
+            $contenu = 'le site a bien été supprimé';
 
             $site = $doctrine->getRepository(Site::class)->findOneBy(array('id' => $id));
             
@@ -294,8 +314,7 @@ class AdminController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('app_admin_site_liste', [
-                'display' => $display,
-                'message' => $message
+                'contenu' => $contenu
             ]);
         }
 
@@ -306,19 +325,27 @@ class AdminController extends AbstractController
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-    
-                if (isset($message)) {
-                    $display = "flex";
+
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             $liste = $doctrine->getRepository(Actualite::class)->findAll();
             return $this->render('admin/actualite/liste.html.twig', [
                 'liste' => $liste,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -328,9 +355,12 @@ class AdminController extends AbstractController
         #[Route('/admin/actualite/ajouter', name: 'app_admin_actualite_ajouter')]
         public function ajouterActualite(ManagerRegistry $doctrine, SluggerInterface $slugger, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
-                
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
 
             $manager = $doctrine->getManager();
             $actualite = new Actualite();
@@ -372,15 +402,13 @@ class AdminController extends AbstractController
                 $manager->persist($actualite);
                 $manager->flush();
 
-                $display = "flex";
-                $message = "l'actualité a bien été ajouté";
-                return $this->redirectToRoute('app_admin_actualite_liste', ["message" => $message]);
+                $contenu = "l'actualité a bien été ajouté";
+                return $this->redirectToRoute('app_admin_actualite_liste', ["contenu" => $contenu]);
             }
 
             return $this->render('admin/actualite/ajouter.html.twig', [
                 'form' => $form,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -390,8 +418,12 @@ class AdminController extends AbstractController
         #[Route('/admin/actualite/modifier/{id}', name: 'app_admin_actualite_modifier')]
         public function modifierActualite($id, ManagerRegistry $doctrine, SluggerInterface $slugger, Request $request): Response
         {
-            $message = 'none';
-            $display = "none";
+            $message = [
+                'display' => 'none',
+                'contenu' => 'none',
+                'bouton' => FALSE,
+                'lien' => 'none'
+            ];
                 
             $actualite = $doctrine->getRepository(Actualite::class)->findOneBy(array('id' => $id));
             
@@ -437,16 +469,14 @@ class AdminController extends AbstractController
                 $manager->persist($actualite);
                 $manager->flush();
 
-                $message = "l'actualité à bien été modifié";
-                $display = "flex";
-                return $this->redirectToRoute('app_admin_actualite_liste', ["message" => $message]);
+                $contenu = "l'actualité à bien été modifié";
+                return $this->redirectToRoute('app_admin_actualite_liste', ["contenu" => $contenu]);
             }
 
             return $this->render('admin/actualite/modifier.html.twig', [
                 'actualite' => $actualite,
                 'form' => $form,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -456,9 +486,7 @@ class AdminController extends AbstractController
         #[Route('/admin/actualite/supprimer/{id}', name: 'app_admin_actualite_supprimer')]
         public function supprimerActualite($id, ManagerRegistry $doctrine): Response
         {
-
-            $message = "l'actualité a bien été supprimé";
-            $display = "flex";
+            $contenu = "l'actualité a bien été supprimé";
 
             $actualite = $doctrine->getRepository(Actualite::class)->findOneBy(array('id' => $id));
             
@@ -466,25 +494,31 @@ class AdminController extends AbstractController
             $manager->remove($actualite);
             $manager->flush();
 
-            return $this->redirectToRoute('app_admin_actualite_liste', [
-                'display' => $display,
-                'message' => $message
-            ]);
+            return $this->redirectToRoute('app_admin_actualite_liste', compact(['contenu']));
         }
 
     /* LISTE IMAGES */
 
-        #[Route('/admin/images/liste/{message?}', name: 'app_admin_images_liste')]
-        public function listeImages($message, ManagerRegistry $doctrine): Response
+        #[Route('/admin/images/liste/{contenu?}', name: 'app_admin_images_liste')]
+        public function listeImages($contenu, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-    
-                if (isset($message)) {
-                    $display = "flex";
+
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             $compteImageDirectory = $this->getParameter('fileDirectory');
@@ -546,8 +580,7 @@ class AdminController extends AbstractController
 
             return $this->render('admin/images/liste.html.twig', [
                 'liste' => $liste,
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }
@@ -585,35 +618,39 @@ class AdminController extends AbstractController
             //Je supprime l'image du dossier
                 $fileSystem->remove($imageDirectory . "/" . $name);
 
-                $message = "l'image a bien été supprimé";
-                $display = "flex";
+                $contenu = "l'image a bien été supprimé";
             
 
-            return $this->redirectToRoute('app_admin_images_liste', [
-                'display' => $display,
-                'message' => $message
-            ]);
+            return $this->redirectToRoute('app_admin_images_liste', compact(['contenu']));
         }
 
     /* LISTE ACHATS */
 
-        #[Route('/admin/achat/liste/{message?}', name: 'app_admin_achat_liste')]
-        public function listeAchat($message, ManagerRegistry $doctrine): Response
+        #[Route('/admin/achat/liste/{contenu?}', name: 'app_admin_achat_liste')]
+        public function listeAchat($contenu, ManagerRegistry $doctrine): Response
         {
 
             /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-    
-                if (isset($message)) {
-                    $display = "flex";
+
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }else{
-                        $message = 'none';
-                        $display = "none";
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
                 }
 
             return $this->render('admin/achat/liste.html.twig', [
                 'liste' => '$liste',
-                'message' => $message,
-                'display' => $display
+                'message' => $message
             ]);
 
         }

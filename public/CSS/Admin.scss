@@ -141,39 +141,6 @@
                 }
 
             /* SUPPRESSION COMPTE */
-
-                .BlocSupprimer{
-                    @include colonneCentre();
-                    position: absolute;
-                    top: 40vh;
-                    left: 30%;
-                    width: 40%;
-                    height: 20vh;
-                    background-color: $couleur1;
-                    color: $couleur3;
-                    z-index: 2;
-                    h3{
-                        margin: 0;
-                    }
-                    .BlocButtons{
-                        @include ligne();
-                        @include alignement(center, space-evenly, center);
-                        width: 50%;
-                        height: fit-content;
-                        .ButtonSupprimer{
-                            background-color: $couleur3;
-                            color: $couleur1;
-                            width: 40px;
-                            border-radius: 10%;
-                            padding: 5px 20px;
-                            text-decoration: none;
-                            &:hover{
-                                cursor: pointer;
-                                background-color: $couleur2;
-                            }
-                        }
-                    }
-                }
                     
                 .Hide{
                     display: none;
