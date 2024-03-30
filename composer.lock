@@ -3373,16 +3373,16 @@
         },
         {
             "name": "symfony/doctrine-messenger",
-            "version": "v7.0.2",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/doctrine-messenger.git",
-                "reference": "edd6c474878bc6a6ee3b79c3210771357f6afad3"
+                "reference": "5a9ebba1b0be17af7b1e6b6433ad2cb6e35e97ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/doctrine-messenger/zipball/edd6c474878bc6a6ee3b79c3210771357f6afad3",
-                "reference": "edd6c474878bc6a6ee3b79c3210771357f6afad3",
+                "url": "https://api.github.com/repos/symfony/doctrine-messenger/zipball/5a9ebba1b0be17af7b1e6b6433ad2cb6e35e97ca",
+                "reference": "5a9ebba1b0be17af7b1e6b6433ad2cb6e35e97ca",
                 "shasum": ""
             },
             "require": {
@@ -3425,7 +3425,7 @@
             "description": "Symfony Doctrine Messenger Bridge",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/doctrine-messenger/tree/v7.0.2"
+                "source": "https://github.com/symfony/doctrine-messenger/tree/v7.0.4"
             },
             "funding": [
                 {
@@ -3441,7 +3441,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-27T08:42:13+00:00"
+            "time": "2024-02-22T20:27:20+00:00"
         },
         {
             "name": "symfony/dotenv",
@@ -4834,16 +4834,16 @@
         },
         {
             "name": "symfony/messenger",
-            "version": "v7.0.1",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/messenger.git",
-                "reference": "457bcafd7a08e0b3ddb87b65ce83e9200a5b8b6b"
+                "reference": "804a8997f93313a8f7ed19e8cca3b44fdd18bdec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/messenger/zipball/457bcafd7a08e0b3ddb87b65ce83e9200a5b8b6b",
-                "reference": "457bcafd7a08e0b3ddb87b65ce83e9200a5b8b6b",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/804a8997f93313a8f7ed19e8cca3b44fdd18bdec",
+                "reference": "804a8997f93313a8f7ed19e8cca3b44fdd18bdec",
                 "shasum": ""
             },
             "require": {
@@ -4900,7 +4900,7 @@
             "description": "Helps applications send and receive messages to/from other applications or via message queues",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/messenger/tree/v7.0.1"
+                "source": "https://github.com/symfony/messenger/tree/v7.0.4"
             },
             "funding": [
                 {
@@ -4916,7 +4916,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-30T11:04:23+00:00"
+            "time": "2024-02-26T07:52:39+00:00"
         },
         {
             "name": "symfony/mime",

@@ -1,5 +1,64 @@
 var input = [false, false, false, false];
 var count = 0;
+var labelcount = 0;
+
+window.addEventListener('load', (event) => {
+    const currentUrl = window.location.href;
+    splittedUrl = currentUrl.split('/');
+    var newUrl = [];
+    for (let i = 0; i < (splittedUrl.length - 1); i++) {
+        var newUrl = newUrl + splittedUrl[i] + '/';
+    }
+    if (newUrl == 'https://localhost:8000/admin/site/modifier/') {
+        var getTimer = document.getElementById('ajout_site_form_timer');
+        if (getTimer.value == 1) {
+            displayTimer(getTimer);
+        }
+        validationdElement(document.getElementById('ajout_site_form_departement'), 0);
+        validationdElement(document.getElementById('ajout_site_form_commune'), 1);
+        validationdElement(document.getElementById('ajout_site_form_lieuxdit'), 2);
+        validationdElement(document.getElementById('ajout_site_form_interethistorique'), 3);
+    }
+});
+
+/* FONCTION D'AFFICHAGE DU TYPE DE TIMER SI LE CHAMP TIMER EST A TRUE */
+
+    function displayTimer(element) {
+        var labeldateinitial = document.getElementById('dateinitial').parentNode;
+        var labeldatefinal = document.getElementById('datefinal').parentNode;
+        if (element.getAttribute('id') == 'ajout_site_form_timer') {
+            var inputdateinitial = document.getElementById('ajout_site_form_dateinitial').parentNode;
+            var inputdatefinal = document.getElementById('ajout_site_form_datefinal').parentNode;
+        } else {
+            id = element.getAttribute('id');
+            splitedID = id.split('_');
+            newID = splitedID[0] + '_';
+            if (newID == 'timer_') {
+                var inputdateinitial = document.getElementById('dateinitial_' + splitedID[1]).parentNode;
+                var inputdatefinal = document.getElementById('datefinal_' + splitedID[1]).parentNode;
+            }
+        }
+        displayDate(labeldateinitial, inputdateinitial, element);
+        displayDate(labeldatefinal, inputdatefinal, element);
+    }
+
+    function displayDate(label, input, element) {
+        if (element.value == 1){
+            labelcount = labelcount + 1;
+            if (label.classList.contains('Hide')) {
+                label.classList.remove('Hide');
+            }
+            input.classList.remove('Hide');
+        }else if(element.value == 0){
+            labelcount = labelcount - 1;
+            if (labelcount < 2) {
+                label.classList.add('Hide');
+            }
+            input.classList.add('Hide');
+        }else{
+            message(false, false, "PROBLEME !")
+        }
+    }
 
 /* FONCTION DE VÉRIFICATION DE LA VALIDITÉ DES CHAMPS DÉPARTEMENT, COMMUNE, LIEUX-DIT ET INTÉRÊT HISTORIQUE */
 
@@ -13,12 +72,14 @@ var count = 0;
         validationFormulaire();
     }
 
-/* FONCTION D'AFFICHAGE DU TYPE DE TIMER SI LE CHAMP TIMER EST A TRUE */
+/* FONCTION DE MESSAGE */
 
-    function displayTimer(element) {
-        var labeltypetimer = document.getElementById('typetimer').parentNode;
-        var inputtypetimer = document.getElementById('ajout_site_form_typetimer').parentNode;
-        displayElement(labeltypetimer, inputtypetimer, element);
+    function buttonValidation() {
+        var checker = arr => arr.every(element => element == true)
+        if (checker(input) == false) {
+            message(false, false, "Vous n'avez pas remplit tout les champs requis !");
+        }
+        validationFormulaire();
     }
 
 /* FONCTION DE VALIDATION DU FORMULAIRE */
@@ -40,16 +101,6 @@ var count = 0;
             }
     }
 
-/* FONCTION DE MESSAGE */
-
-    function buttonValidation() {
-        var checker = arr => arr.every(element => element == true)
-        if (checker(input) == false) {
-            message(false, false, "Vous n'avez pas remplit tout les champs requis !");
-        }
-        validationFormulaire();
-    }
-
     function nombreLigne(action){
         var table_body = document.getElementsByTagName('tbody')[0];
         var button_suppr = document.getElementById('ButtonRemoveSite');
@@ -60,7 +111,7 @@ var count = 0;
                 count++;
                 var tr = document.createElement('tr');
                 tr.classList.add("ajout");
-                tr.innerHTML = '<td><input type="text" name="departement_'+ count +'" class="StyleInput" id="departement_' + count + '"></td><td><input type="text" name="commune_' + count + '" class="StyleInput" id="commune_' + count + '"></td><td><input type="text" name="lieuxdit_' + count + '" class="StyleInput" id="lieuxdit_' + count + '"></td><td><input type="text" name="interethistorique_' + count + '" class="StyleInput" id="interethistorique_' + count + '"></td><td><input type="text" name="lien_' + count + '" class="StyleInput" id="lien_' + count + '"></td><td><select name="timer_' + count + '" class="StyleInput" id="timer_' + count + '"><option value="0" selected="selected">Non</option><option value="1">Oui</option></select></td><td class="Hide"><input type="text" name="typetimer_' + count + '" class="StyleInput" id="typetimer_' + count + '"></td>'
+                tr.innerHTML = '<td><input type="text" name="departement_'+ count +'" class="StyleInput" id="departement_' + count + '"></td><td><input type="text" name="commune_' + count + '" class="StyleInput" id="commune_' + count + '"></td><td><input type="text" name="lieuxdit_' + count + '" class="StyleInput" id="lieuxdit_' + count + '"></td><td><input type="text" name="interethistorique_' + count + '" class="StyleInput" id="interethistorique_' + count + '"></td><td><input type="text" name="lien_' + count + '" class="StyleInput" id="lien_' + count + '"></td><td><select name="timer_' + count + '" class="StyleInput" id="timer_' + count + '" onchange="displayTimer(this)"><option value="0" selected="selected">Non</option><option value="1">Oui</option></select></td><td class="Hide"><input type="datetime-local" name="dateinitial_' + count + '" class="StyleInput" id="dateinitial_' + count + '" format="yyyy/mm/jj HH:mm:ss"></td><td class="Hide"><input type="datetime-local" name="datefinal_' + count + '" class="StyleInput" id="datefinal_' + count + '" format="yyyy/mm/jj HH:mm:ss"></td>'
                 table_body.lastChild.after(tr);
                 button_suppr.classList.remove('Hide');
                 if (count == 9) {

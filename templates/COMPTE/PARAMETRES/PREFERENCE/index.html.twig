@@ -4,8 +4,70 @@
 {% block parametres %}
 
     <!-- FORM -->
-    
-        {{ form_start(form) }}
+
+        {% if preferences %}
+            {% set display = 'content' %}
+            {% set id = preferences.id %}
+            {% set lieux = preferences.lieu|split(', ') %}
+            {% set selectdepartement = lieux[0] %}
+            {% set selectcommune = lieux[1] %}
+            {% set selectlieudit = lieux[2] %}
+            {% set selectinterethistorique = lieux[3] %}
+            {% set selecttimer = lieux[4] %}
+        {% else %}
+            {% set display = 'form' %}
+            {% set id = 'NONE' %}
+            {% set selectdepartement = 'NONE' %}
+            {% set selectcommune = 'NONE' %}
+            {% set selectlieudit = 'NONE' %}
+            {% set selectinterethistorique = 'NONE' %}
+            {% set selecttimer = 'NONE' %}
+        {% endif %}
+        {% if preferences %}
+            <p class="BoutonsPreference Hide" id="BoutonAnnuler" onclick="preferenceChangeDisplay(this)">Annuler</p>
+        {% endif %}
+
+        {% if display == 'content' %}
+            <div class="ContenuPreference">
+        {% else %}
+            <div class="ContenuPreference Hide">
+        {% endif %}
+                <div class="BlocContenu">
+                    <h2>préférences</h2>
+                    <hr>
+                    {% if selectdepartement == 'NONE' %}
+                    {% else %}
+                        <p>Département : {{selectdepartement}}</p>
+                    {% endif %}
+                    {% if selectcommune == 'NONE' %}
+                    {% else %}
+                        <p>Commune : {{selectcommune}}</p>
+                    {% endif %}
+                    {% if selectlieudit == 'NONE' %}
+                    {% else %}
+                        <p>Lieu-dit : {{selectlieudit}}</p>
+                    {% endif %}
+                    {% if selectinterethistorique == 'NONE' %}
+                    {% else %}
+                        <p>Intérêt Historique : {{selectinterethistorique}}</p>
+                    {% endif %}
+                    {% if selecttimer == 'on' %}
+                        <p>Temps Limité : Oui</p>
+                    {% else %}
+                        <p>Temps Limité : Non</p>
+                    {% endif %}
+                </div>
+                <div class="BlocBouton">
+                    <p class="BoutonsPreference" onclick="preferenceChangeDisplay(this)">Modifier les Préférences</p>
+                    <p class="BoutonsPreference" onclick="message(true, '/compte/parametres/preference/supprimer/{{id}}', 'Voulez-vous vraiment supprimer les préférences ?')">Supprimer les Préférences</p>
+                </div>
+            </div>
+
+        {% if display == 'form' %}
+            {{ form_start(form) }}
+        {% else %}
+            {{ form_start(form, {'attr': {'class': 'Hide'}}) }}
+        {% endif %}
 
             <!-- PRÉFÉRENCES -->
         
@@ -15,7 +77,7 @@
                         {% set departementArray = [] %}
                         {% for site in liste %}
                             {% if site.departement not in departementArray %}
-                                <option value="{{ site.departement }}">{{ site.departement }}</option>
+                                <option value="{{ site.departement }}" {% if selectdepartement == site.departement %}selected{% endif %}>{{ site.departement }}</option>
                                 {% set departementArray = departementArray|merge([site.departement]) %}
                             {% endif %}
                         {% endfor %}
@@ -25,39 +87,39 @@
                         {% set communeArray = [] %}
                         {% for site in liste %}
                             {% if site.commune not in communeArray %}
-                            <option value="{{ site.commune }}">{{ site.commune }}</option>
+                            <option value="{{ site.commune }}" {% if selectcommune == site.commune %}selected{% endif %}>{{ site.commune }}</option>
                                 {% set communeArray = communeArray|merge([site.commune]) %}
                             {% endif %}
                         {% endfor %}
                     </select>
                     <select name="lieuxdit" class="StyleInput">
-                        <option value="" selected disabled>Lieux-dit</option>
+                        <option value="" selected>Lieux-dit</option>
                         {% set lieuxDitArray = [] %}
                         {% for site in liste %}
                             {% if site.lieuxdit not in lieuxDitArray %}
-                            <option value="{{ site.lieuxdit }}">{{ site.lieuxdit }}</option>
+                            <option value="{{ site.lieuxdit }}" {% if selectlieudit == site.lieuxdit %}selected{% endif %}>{{ site.lieuxdit }}</option>
                                 {% set lieuxDitArray = lieuxDitArray|merge([site.lieuxdit]) %}
                             {% endif %}
                         {% endfor %}
                     </select>
                     <select name="interethistorique" class="StyleInput">
-                        <option value="" selected disabled>Intérêt Historique</option>
+                        <option value="" selected>Intérêt Historique</option>
                         {% set interetHistoriqueArray = [] %}
                         {% for site in liste %}
                             {% if site.interethistorique not in interetHistoriqueArray %}
-                            <option value="{{ site.interethistorique }}">{{ site.interethistorique }}</option>
+                            <option value="{{ site.interethistorique }}" {% if selectinterethistorique == site.interethistorique %}selected{% endif %}>{{ site.interethistorique }}</option>
                                 {% set interetHistoriqueArray = interetHistoriqueArray|merge([site.interethistorique]) %}
                             {% endif %}
                         {% endfor %}
                     </select>
                     <div class="DureeLimite">
-                        <input type="checkbox" name="limite" class="StyleCheckboxInput" id="IdLimite">
+                        <input type="checkbox" name="limite" class="StyleCheckboxInput" id="IdLimite" {% if selecttimer == 'on' %}checked{% endif %}>
                         <label for="IdLimite" class="StyleCheckboxLabel">Durée Limité</label>
                     </div>
 
                 <!-- GROUPE BOUTONS -->
 
-                    {{ form_widget(form.enregistrer) }}
+                    <input type="submit" value="Valider" class="BoutonsEtapes">
 
                 </div>
 

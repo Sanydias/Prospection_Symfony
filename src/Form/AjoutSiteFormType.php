@@ -8,6 +8,7 @@ use App\Form\DataTransformer\SiteToStringTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -40,7 +41,7 @@ class AjoutSiteFormType extends AbstractType
                 ]
             ])
             ->add('lieuxdit', TextType::class, [
-                'label' => 'Lieux-dit',
+                'label' => 'Lieu-dit',
                 'attr' => [
                     'class' => 'StyleInput',
                     'onchange' => 'validationdElement(this, 2)'
@@ -74,30 +75,26 @@ class AjoutSiteFormType extends AbstractType
                     'onchange' => 'displayTimer(this)'
                 ]
             ])
-            ->add('typetimer', ChoiceType::class, [
-                'label' => 'Type de timer',
+            ->add('dateinitial', DateTimeType::class, [
+                'label' => 'Date Début Affichage',
                 'label_attr' => [
-                    'id' => 'typetimer',
+                    'id' => 'dateinitial',
                     'required' => false
-                ],
-                'choices'  => [
-                    'Jour' => 'Jour',
-                    'Semaine' => 'Semaine',
-                    'Mois' => 'Mois',
                 ],
                 'attr' => [
                     'class' => 'StyleInput'
                 ],
                 'required' => false
             ])
-            ->add('tempsinitial', DateType::class, [
-                'label' => 'Date Initial',
+            ->add('datefinal', DateTimeType::class, [
+                'label' => 'Date Fin Affichage',
                 'label_attr' => [
-                    'id' => 'tempsinitial',
+                    'id' => 'datefinal',
                     'required' => false
                 ],
                 'attr' => [
-                    'class' => 'StyleInput'
+                    'class' => 'StyleInput',
+                    'format' => 'yyyy/mm/jj HH:mm:ss',
                 ],
                 'required' => false
             ])

@@ -99,11 +99,11 @@ form {
   margin-right: 10px;
 }
 
-#ImgRechercher, #ImgFiltre, #ImgCarte {
+#ImgRechercher, #ImgFiltre, #ImgCarte, #ImgSave, #ImgPreference {
   display: flex;
 }
 
-#ImgRechercherHover, #ImgFiltreHover, #ImgCarteHover {
+#ImgRechercherHover, #ImgFiltreHover, #ImgCarteHover, #ImgSaveHover, #ImgPreferenceHover {
   display: none;
 }
 
@@ -135,6 +135,18 @@ form {
   display: none;
 }
 .BoutonsForm:hover #ImgFiltreHover {
+  display: flex;
+}
+.BoutonsForm:hover #ImgSave {
+  display: none;
+}
+.BoutonsForm:hover #ImgSaveHover {
+  display: flex;
+}
+.BoutonsForm:hover #ImgPreference {
+  display: none;
+}
+.BoutonsForm:hover #ImgPreferenceHover {
   display: flex;
 }
 

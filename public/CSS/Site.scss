@@ -72,11 +72,11 @@
                         margin-right: 10px;
                     }
 
-                    #ImgRechercher, #ImgFiltre, #ImgCarte{
+                    #ImgRechercher, #ImgFiltre, #ImgCarte, #ImgSave, #ImgPreference{
                         display: flex;
                     }
 
-                    #ImgRechercherHover, #ImgFiltreHover, #ImgCarteHover{
+                    #ImgRechercherHover, #ImgFiltreHover, #ImgCarteHover, #ImgSaveHover, #ImgPreferenceHover{
                         display: none;
                     }
 
@@ -104,6 +104,18 @@
                                 display: none;
                             }
                             #ImgFiltreHover{
+                                display: flex;
+                            }
+                            #ImgSave{
+                                display: none;
+                            }
+                            #ImgSaveHover{
+                                display: flex;
+                            }
+                            #ImgPreference{
+                                display: none;
+                            }
+                            #ImgPreferenceHover{
                                 display: flex;
                             }
                         }

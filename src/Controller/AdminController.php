@@ -8,6 +8,7 @@ use App\Entity\Utilisateur;
 use App\Form\ActualiteFormType;
 use App\Form\AjoutSiteFormType;
 use App\Form\ModificationDroitUtilisateurFormType;
+use App\Form\ModificationSiteFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -18,27 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+use function Symfony\Component\Clock\now;
+
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin')]
-    public function index(): Response
-    {
-
-        /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
-
-            if (isset($message)) {
-                $display = "flex";
-            }else{
-                    $message = 'none';
-                    $display = "none";
-            }
-
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-            'message' => $message,
-            'display' => $display
-        ]);
-    }
 
     /* LISTE COMPTE */
 
@@ -205,9 +189,18 @@ class AdminController extends AbstractController
                 $site -> setTimer($form->get("timer")->getData());
 
                 if ($form->get("timer")->getData() == 1) {
-                    $site -> setTypetimer($form->get("typetimer")->getData());
-                    $site -> setTempsinitial();
-                    $site -> setTempsrestant();
+
+                    if ($form->get("dateinitial")->getData() == NULL){
+                        $site -> setDateinitial(now());
+                    } else {
+                        $site -> setDateinitial($form->get("dateinitial")->getData());
+                    }
+
+                    if ($form->get("datefinal")->getData() == NULL){
+                        $site -> setDatefinal(now()->modify('+2 day'));
+                    } else {
+                        $site -> setDatefinal($form->get("datefinal")->getData());
+                    }
                 }
 
                 $manager->persist($site);
@@ -226,9 +219,18 @@ class AdminController extends AbstractController
                         $addSite -> setTimer($request->getPayload()->get("timer_".$id_of_site));
         
                         if ($request->getPayload()->get("timer_".$id_of_site) == 1) {
-                            $addSite -> setTypetimer($request->getPayload()->get("typetimer_".$id_of_site));
-                            // $addSite -> setTempsinitial();
-                            // $addSite -> setTempsrestant();
+
+                            if ($request->getPayload()->get("dateinitial_".$id_of_site) == NULL){
+                                $addSite -> setDateinitial(now());
+                            } else {
+                                $addSite -> setDateinitial($request->getPayload()->get("dateinitial_".$id_of_site));
+                            }
+        
+                            if ($request->getPayload()->get("datefinal_".$id_of_site) == NULL){
+                                $addSite -> setDatefinal(now()->modify('+2 day'));
+                            } else {
+                                $addSite -> setDatefinal($request->getPayload()->get("datefinal_".$id_of_site));
+                            }
                         }
                         $multipleSite[$i] = $addSite;
 
@@ -279,10 +281,20 @@ class AdminController extends AbstractController
                 $site -> setInterethistorique($form->get("interethistorique")->getData());
                 $site -> setLien($form->get("lien")->getData());
                 $site -> setTimer($form->get("timer")->getData());
+
                 if ($form->get("timer")->getData() == 1) {
-                    $site -> setTypetimer($form->get("typetimer")->getData());
-                    // $site -> setTempsinitial();
-                    // $site -> setTempsrestant();
+
+                    if ($form->get("dateinitial")->getData() == NULL){
+                        $site -> setDateinitial(now());
+                    } else {
+                        $site -> setDateinitial($form->get("dateinitial")->getData());
+                    }
+
+                    if ($form->get("datefinal")->getData() == NULL){
+                        $site -> setDatefinal(now()->modify('+2 day'));
+                    } else {
+                        $site -> setDatefinal($form->get("datefinal")->getData());
+                    }
                 }
 
                 $manager->persist($site);
@@ -593,11 +605,13 @@ class AdminController extends AbstractController
             if ($directory == "utilisateur") {
                 $imageDirectory = $this->getParameter('fileDirectory');
                 $compte = $doctrine->getRepository(Utilisateur::class)->findOneBy(array('photodeprofil' => $name));
-                $compte->setPhotoDeProfil(NULL);
-            
-                $manager =$doctrine->getManager();
-                $manager->persist($compte);
-                $manager->flush();
+                if ($compte) {
+                    $compte->setPhotoDeProfil(NULL);
+                
+                    $manager =$doctrine->getManager();
+                    $manager->persist($compte);
+                    $manager->flush();
+                }
             } else {
                 $compteImageDirectory = $this->getParameter('fileDirectory');
                 $actualiteImageDirectory = $this->getParameter('ActualitefileDirectory');

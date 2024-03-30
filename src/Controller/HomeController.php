@@ -50,8 +50,7 @@ class HomeController extends AbstractController
                 }
 
                 $timer = [
-                    "timer" => 1,
-                    "typetimer" => "day"
+                    "timer" => 1
                 ];
                 $actualites = $doctrine->getRepository(Actualite::class)->findBy(array('afficher' => '1'));
                 $sites = $doctrine->getRepository(Site::class)->findBy($timer);
@@ -112,8 +111,7 @@ class HomeController extends AbstractController
             ];
 
             $timer = [
-                "timer" => 1,
-                "typetimer" => "day"
+                "timer" => 1
             ];
 
             $sites = $doctrine->getRepository(Site::class)->findBy($timer);

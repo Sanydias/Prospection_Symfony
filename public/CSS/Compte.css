@@ -208,6 +208,56 @@ hr {
   align-items: center;
 }
 
+.ContenuPreference {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.BlocContenu {
+  width: 50%;
+  margin: 0 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: flex-start;
+  align-self: flex-start;
+}
+
+.BlocBouton {
+  width: 50%;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.BoutonsPreference {
+  background-color: #735645;
+  color: #F2E3B3;
+  height: 30px;
+  width: 175px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.BoutonsPreference:hover {
+  background-color: #F2E3B3;
+  color: #735645;
+}
+
+#BoutonAnnuler {
+  margin: 30px;
+}
+
 .Preference {
   margin: 16px 0;
   width: 100%;
@@ -224,6 +274,23 @@ hr {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.Confidentialite {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding: 0 5%;
+}
+.Confidentialite a {
+  color: #735645;
+  text-decoration: none;
+}
+.Confidentialite a:hover {
+  color: #F2E3B3;
+  text-decoration: underline;
 }
 
 /* MODIFICATION COMPTE */

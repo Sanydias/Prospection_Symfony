@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\Put;
 use App\Repository\SiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
@@ -50,14 +51,11 @@ class Site
     #[ORM\Column]
     private ?bool $timer = null;
 
-    #[ORM\Column(length: 5, nullable: true)]
-    private ?string $typetimer = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateinitial = null;
 
-    #[ORM\Column(length: 11, nullable: true)]
-    private ?string $tempsinitial = null;
-
-    #[ORM\Column(length: 11, nullable: true)]
-    private ?string $tempsrestant = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $datefinal = null;
 
     #[ORM\OneToMany(mappedBy: 'site', targetEntity: Favori::class)]
     private Collection $favoris;
@@ -144,38 +142,26 @@ class Site
         return $this;
     }
 
-    public function getTypeTimer(): ?string
+    public function getDateinitial(): ?\DateTimeInterface
     {
-        return $this->typetimer;
+        return $this->dateinitial;
     }
 
-    public function setTypeTimer(?string $typetimer): static
+    public function setDateinitial(?\DateTimeInterface $dateinitial): static
     {
-        $this->typetimer = $typetimer;
+        $this->dateinitial = $dateinitial;
 
         return $this;
     }
 
-    public function getTempsInitial(): ?string
+    public function getDatefinal(): ?\DateTimeInterface
     {
-        return $this->tempsinitial;
+        return $this->datefinal;
     }
 
-    public function setTempsInitial(?string $tempsinitial): static
+    public function setDatefinal(?\DateTimeInterface $datefinal): static
     {
-        $this->tempsinitial = $tempsinitial;
-
-        return $this;
-    }
-
-    public function getTempsRestant(): ?string
-    {
-        return $this->tempsrestant;
-    }
-
-    public function setTempsRestant(?string $tempsrestant): static
-    {
-        $this->tempsrestant = $tempsrestant;
+        $this->datefinal = $datefinal;
 
         return $this;
     }

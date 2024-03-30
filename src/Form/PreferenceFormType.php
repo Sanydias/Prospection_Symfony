@@ -17,12 +17,6 @@ class PreferenceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('enregistrer', SubmitType::class, [
-                'label' => 'Valider',
-                'attr' =>[
-                    'class' => 'BoutonsEtapes',
-                ]
-            ])
         ;
     }
 

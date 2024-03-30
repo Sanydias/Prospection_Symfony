@@ -31,15 +31,15 @@ class Preference
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 11)]
+    #[ORM\Column(length: 56)]
     private ?string $typepreference = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $lieu = null;
 
-    #[ORM\ManyToOne(inversedBy: 'preferences')]
+    #[ORM\OneToOne(inversedBy: 'preference')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $utilisateur = null;
+    private ?Utilisateur $utilisateurpref = null;
 
     public function getId(): ?int
     {
@@ -70,14 +70,14 @@ class Preference
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateurpref(): ?Utilisateur
     {
-        return $this->utilisateur;
+        return $this->utilisateurpref;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setUtilisateurpref(Utilisateur $utilisateurpref): static
     {
-        $this->utilisateur = $utilisateur;
+        $this->utilisateurpref = $utilisateurpref;
 
         return $this;
     }

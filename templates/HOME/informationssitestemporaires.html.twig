@@ -8,10 +8,11 @@
     <h2 class="Titre">Sites à Durée Limité</h2>
     <div class="GroupeCard">
     {% for site in sites %}
-        {% if site.tempsrestant < date('now') %}
+        {% if site.dateinitial < date('now') and site.datefinal > date('now') %}
             <div class="CardSite">
                 <div class="TimerBoutonsFavori">
-                    <h3 class="Limited">{{site.typetimer}}</h3>
+                    <h3 class="Limited">00:00:00</h3>
+                    <div class="Hide">{{site.id}}, {{site.datefinal|date('Y-m-d H:m:s')}}</div>
                     {% if app.user %}
                         <div class="BoutonLienFavoris">
                             {% set est_favori = false %}
@@ -39,8 +40,7 @@
                 <div class="JustifierSite">
                     <p>Département : {{site.departement}}</p>
                     <p>Commune : {{site.commune}}</p>
-                    <p>Lieux-dit : {{site.lieuxdit}}</p>
-                    {# <p>{{site.tempsrestant}}</p> #}
+                    <p>Lieu-dit : {{site.lieuxdit}}</p>
                 </div>
                 <a href="/site/limiteitem/{{site.id}}" class="BoutonsEtapes">
                     Voir

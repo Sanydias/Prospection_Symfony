@@ -97,3 +97,25 @@
             window.location.href = '/favori/modifier/' + text;
         }
     });
+
+    function preferenceChangeDisplay(bouton) {
+        var conteneur = document.getElementsByClassName('ContenuParametres')[0];
+            console.log(conteneur.children[0]);
+        var boutonAnnuler = conteneur.children[0];
+        var conteneurContenu = conteneur.children[1];
+        var conteneurForm = conteneur.children[2];
+        var boutonModifier = conteneurContenu.children[1].children[0];
+
+        if (bouton == boutonAnnuler) {
+            conteneurContenu.classList.remove('Hide');
+            conteneurForm.classList.add('Hide');
+            boutonAnnuler.classList.add('Hide');
+            boutonModifier.classList.remove('Hide');
+        } else if (bouton == boutonModifier) {
+            conteneurContenu.classList.add('Hide');
+            conteneurForm.classList.remove('Hide');
+            boutonAnnuler.classList.remove('Hide');
+            boutonModifier.classList.add('Hide');
+        }
+        
+    }

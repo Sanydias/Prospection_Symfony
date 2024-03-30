@@ -12,7 +12,7 @@
 
     <!-- FORM -->
     
-        <form method="post" action="">
+        {{ form_start(form) }}
             <div class="RechercheType">
                 <input type="text" name="rechercher" class="StyleInput" id="rechercher" placeholder="rechercher">
                 {# <button type="button" class="BoutonsForm" onclick="displayRecherche(this, 'RechercheCarte')">
@@ -42,13 +42,29 @@
                 </map>
                 <img usemap="#CarteDeFrance" src="{{asset('IMG/CARTE/CarteDeFrance.jpg')}}" alt="Carte De France" />
             </div> #}
+            {% if preferences %}
+                {% set id = preferences.id %}
+                {% set lieux = preferences.lieu|split(', ') %}
+                {% set selectdepartement = lieux[0] %}
+                {% set selectcommune = lieux[1] %}
+                {% set selectlieudit = lieux[2] %}
+                {% set selectinterethistorique = lieux[3] %}
+                {% set selecttimer = lieux[4] %}
+            {% else %}
+                {% set id = 'NONE' %}
+                {% set selectdepartement = 'NONE' %}
+                {% set selectcommune = 'NONE' %}
+                {% set selectlieudit = 'NONE' %}
+                {% set selectinterethistorique = 'NONE' %}
+                {% set selecttimer = 'NONE' %}
+            {% endif %}
             <div class="RechercheType Hide" id="RechercheFiltre">
                 <select name="departement" class="StyleInput">
                     <option value="" selected>Département</option>
                     {% set departementArray = [] %}
                     {% for site in liste %}
                         {% if site.departement not in departementArray %}
-                            <option value="{{ site.departement }}">{{ site.departement }}</option>
+                            <option value="{{ site.departement }}" {% if selectdepartement == site.departement %}selected{% endif %}>{{ site.departement }}</option>
                             {% set departementArray = departementArray|merge([site.departement]) %}
                         {% endif %}
                     {% endfor %}
@@ -58,74 +74,83 @@
                     {% set communeArray = [] %}
                     {% for site in liste %}
                         {% if site.commune not in communeArray %}
-                        <option value="{{ site.commune }}">{{ site.commune }}</option>
+                        <option value="{{ site.commune }}" {% if selectcommune == site.commune %}selected{% endif %}>{{ site.commune }}</option>
                             {% set communeArray = communeArray|merge([site.commune]) %}
                         {% endif %}
                     {% endfor %}
                 </select>
                 <select name="lieuxdit" class="StyleInput">
-                    <option value="" selected disabled>Lieux-dit</option>
+                    <option value="" selected>Lieux-dit</option>
                     {% set lieuxDitArray = [] %}
                     {% for site in liste %}
                         {% if site.lieuxdit not in lieuxDitArray %}
-                        <option value="{{ site.lieuxdit }}">{{ site.lieuxdit }}</option>
+                        <option value="{{ site.lieuxdit }}" {% if selectlieudit == site.lieuxdit %}selected{% endif %}>{{ site.lieuxdit }}</option>
                             {% set lieuxDitArray = lieuxDitArray|merge([site.lieuxdit]) %}
                         {% endif %}
                     {% endfor %}
                 </select>
                 <select name="interethistorique" class="StyleInput">
-                    <option value="" selected disabled>Intérêt Historique</option>
+                    <option value="" selected>Intérêt Historique</option>
                     {% set interetHistoriqueArray = [] %}
                     {% for site in liste %}
                         {% if site.interethistorique not in interetHistoriqueArray %}
-                        <option value="{{ site.interethistorique }}">{{ site.interethistorique }}</option>
+                        <option value="{{ site.interethistorique }}" {% if selectinterethistorique == site.interethistorique %}selected{% endif %}>{{ site.interethistorique }}</option>
                             {% set interetHistoriqueArray = interetHistoriqueArray|merge([site.interethistorique]) %}
                         {% endif %}
                     {% endfor %}
                 </select>
-                <input type="checkbox" name="limite" class="StyleCheckboxInput" id="IdLimite">
-                <label for="IdLimite" class="StyleCheckboxLabel">Durée Limité</label>
+                <div class="DureeLimite">
+                    <input type="checkbox" name="limite" class="StyleCheckboxInput" id="IdLimite" {% if selecttimer == 'on' %}checked{% endif %}>
+                    <label for="IdLimite" class="StyleCheckboxLabel">Durée Limité</label>
+                </div>
+                <button type="button" class="BoutonsForm" onclick="savePreferences(this)">
+                    <img src="{{asset('IMG/ICONES/Save.png')}}" alt="Enregistrer les préférences" class="IconesFavoris" id="ImgSave">
+                    <img src="{{asset('IMG/ICONES/SaveHover.png')}}" alt="Enregistrer les préférences" class="IconesFavoris" id="ImgSaveHover">
+                </button>
             </div>
-        </form>
+        {{ form_end(form) }}
         <div class="GroupeListeSite">
             {% for site in liste %}
-                <div class="CardSite" id="SiteID-{{site.id}}">
-                    <div class={% if site.typetimer %}"TimerBoutonsFavori"{% else %}"BoutonsFavori"{% endif %}>
-                        {% if site.typetimer %}
-                            <h3 class="Limited">Durée Limité ! Plus que {{site.typetimer}}</h3>
-                        {% endif %}
-                        <div class="BoutonLienFavoris">
-                            {% set est_favori = false %}
-                            {% for favori in site.favoris %}
-                                {% if favori.utilisateur.id is same as app.user.id %}
-                                    {% set est_favori = true %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if est_favori == true %}
-                                    <a href="/favori/supprimer/{{site.id}}" class="LiensFavori" id="SuppressionFavori">
-                                        <img src="{{asset('IMG/ICONES/PasFavoriHover.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
-                                        <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
-                                    </a>
-                            {% else %}
-                                <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
-                                    <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
-                                    <img src="{{asset('IMG/ICONES/FavoriHover.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
-                                </a>
+                {% if site.timer == 0 or (site.timer == 1 and site.dateinitial < date('now') and site.datefinal > date('now')) %}
+                    <div class="CardSite" id="SiteID-{{site.id}}">
+                        <div class={% if site.timer == 1 %}"TimerBoutonsFavori"{% else %}"BoutonsFavori"{% endif %}>
+                            {% if site.timer == 1 %}
+                                <h3 class="Limited">00:00:00</h3>
+                                <div class="Hide">{{site.id}}, {{site.datefinal|date('Y-m-d H:m:s')}}</div>
                             {% endif %}
+                            <div class="BoutonLienFavoris">
+                                {% set est_favori = false %}
+                                {% for favori in site.favoris %}
+                                    {% if favori.utilisateur.id is same as app.user.id %}
+                                        {% set est_favori = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if est_favori == true %}
+                                        <a href="/favori/supprimer/{{site.id}}" class="LiensFavori" id="SuppressionFavori">
+                                            <img src="{{asset('IMG/ICONES/PasFavoriHover.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                            <img src="{{asset('IMG/ICONES/Favori.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                        </a>
+                                {% else %}
+                                    <a href="/favori/ajouter/{{site.id}}" class="LiensFavori" id="AjoutFavori">
+                                        <img src="{{asset('IMG/ICONES/PasFavori.png')}}" alt="ajout aux favoris" class="IconesFavoris" id="CoeurVide">
+                                        <img src="{{asset('IMG/ICONES/FavoriHover.png')}}" alt="retrait des favoris" class="IconesFavoris" id="CoeurPlein">
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
+                        <h2>{{site.interethistorique}}</h2>
+                        <hr>
+                        <div class="JustifierSite">
+                            <p>Département : {{site.departement}}</p>
+                            <p>Commune : {{site.commune}}</p>
+                            <p>Lieux-dit : {{site.lieuxdit}}</p>
+                            {# <p>{{site.tempsrestant}}</p> #}
+                        </div>
+                        <a href={% if site.timer == 1 %}"/site/limiteitem/{{site.id}}"{% else %}"/site/item/{{site.id}}"{% endif %} class="BoutonsEtapes">
+                            Voir
+                        </a>
                     </div>
-                    <h2>{{site.interethistorique}}</h2>
-                    <hr>
-                    <div class="JustifierSite">
-                        <p>Département : {{site.departement}}</p>
-                        <p>Commune : {{site.commune}}</p>
-                        <p>Lieux-dit : {{site.lieuxdit}}</p>
-                        {# <p>{{site.tempsrestant}}</p> #}
-                    </div>
-                    <a href={% if site.timer == 1 %}"/site/limiteitem/{{site.id}}"{% else %}"/site/item/{{site.id}}"{% endif %} class="BoutonsEtapes">
-                        Voir
-                    </a>
-                </div>
+                {% endif %}
             {% endfor %}
         </div>
 {% endblock %}

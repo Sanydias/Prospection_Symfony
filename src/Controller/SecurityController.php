@@ -5,12 +5,17 @@ namespace App\Controller;
 use App\Entity\Utilisateur;
 use App\Form\OubliFormType;
 use App\Form\UtilisateurFormType;
+use App\Service\MailerService;
 use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Event\FailedMessageEvent;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -212,6 +217,28 @@ class SecurityController extends AbstractController
                 'message' => $message,
                 'form' => $form
             ]);
+        }
+
+    /* ENVOI EMAIL */
+
+        #[Route('/envoiemail/{emailutilisateur}/{code}', name: 'app_envoi_email')]
+        public function envoiEmail($emailutilisateur, $code, MailerInterface $mailer, MailerService $mailerservice): Response
+        {
+            
+            // $mailerservice->sendCodePassword($emailutilisateur, $code);
+            $email = (new Email())
+            ->to($emailutilisateur)
+            ->subject('Code')
+            ->text('Code : ' . $code);
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $e) {
+                // some error prevented the email sending; display an
+                // error message or try to resend the message
+                return new Response($e);
+            }
+
+            return new Response("un mail contenant le code viens de vous être envoyé. Le code est valide pendant 15min.");
         }
         
 }

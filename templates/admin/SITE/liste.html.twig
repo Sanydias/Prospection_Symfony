@@ -9,13 +9,12 @@
                     <th>ID</th>
                     <th>Département</th>
                     <th>Commune</th>
-                    <th>Lieux-dit</th>
+                    <th>Lieu-dit</th>
                     <th>Interêt Historique</th>
                     <th>Lien</th>
                     <th>Timer</th>
-                    <th>Type Timer</th>
-                    <th>Temps Initial</th>
-                    <th>Temps Restant</th>
+                    <th>Date Initial</th>
+                    <th>Date Final</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -29,10 +28,27 @@
                         <td>{{site.lieuxdit}}</td>
                         <td>{{site.interethistorique}}</td>
                         <td>{{site.lien}}</td>
-                        <td>{{site.timer}}</td>
-                        <td>{{site.typetimer}}</td>
-                        <td>{{site.tempsinitial}}</td>
-                        <td>{{site.tempsrestant}}</td>
+                        <td>
+                            {% if site.timer == 0 %}
+                                Non
+                            {% else %}
+                                Oui
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if site.dateinitial == NULL %}
+                                NONE
+                            {% else %}
+                                {{site.dateinitial|date}}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if site.datefinal == NULL %}
+                                NONE
+                            {% else %}
+                                {{site.datefinal|date}}
+                            {% endif %}
+                        </td>
                         <td>
                             <a href="/admin/site/modifier/{{site.id}}">
                                 <img src="{{asset('IMG/ICONES/Modifier.png')}}" alt="modifier" class="Icone">
@@ -55,9 +71,8 @@
                     <th>Interêt Historique</th>
                     <th>Lien</th>
                     <th>Timer</th>
-                    <th>Type Timer</th>
-                    <th>Temps Initial</th>
-                    <th>Temps Restant</th>
+                    <th>Date Initial</th>
+                    <th>Date Final</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>

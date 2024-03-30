@@ -135,7 +135,7 @@ h2 {
   color: #F2E3B3;
 }
 .TableauListe th, .TableauListe td {
-  padding: 15px 15px;
+  padding: 10px 5px;
   min-width: 75px;
   overflow-wrap: anywhere;
 }

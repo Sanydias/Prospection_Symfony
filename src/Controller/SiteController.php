@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Preference;
 use App\Entity\Site;
 use App\Form\AjoutSiteFormType;
+use App\Form\PreferenceFormType;
 use App\Form\RechercheSiteFormType;
 use App\Repository\SiteRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,20 +19,68 @@ class SiteController extends AbstractController
         
     /* RECHERCHE SITE */
     
-        #[Route('/site/rechercher', name: 'app_site_rechercher')]
-        public function index(ManagerRegistry $doctrine, Request $request, SiteRepository $siteRepository): Response
+        #[Route('/site/rechercher/{contenu?}', name: 'app_site_rechercher')]
+        public function index($contenu, ManagerRegistry $doctrine, Request $request): Response
         {
-            $message = [
-                'display' => 'none',
-                'contenu' => 'none',
-                'bouton' => FALSE,
-                'lien' => 'none'
-            ];
+
+            /* RECUPÉRATION D'UN MESSAGE SI EXISTANT */
+    
+                if (isset($contenu)) {
+                    $message = [
+                        'display' => 'flex',
+                        'contenu' => $contenu,
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
+                }else{
+                    $message = [
+                        'display' => 'none',
+                        'contenu' => 'none',
+                        'bouton' => FALSE,
+                        'lien' => 'none'
+                    ];
+                }
 
             $liste = $doctrine->getRepository(Site::class)->findAll();
+            $preferences = $doctrine->getRepository(Preference::class)->findOneBy(array('utilisateurpref' => $this->getUser()));
+
+            $form = $this->createForm(PreferenceFormType::class, $preferences,[
+                'action' => $this->generateUrl('app_site_rechercher'),
+                'method' => 'POST'
+            ]);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $departement = $request->getPayload()->get("departement");
+                if ($departement == '') {
+                    $departement = 'NONE';
+                }
+                $commune = $request->getPayload()->get("commune");
+                if ($commune == '') {
+                    $commune = 'NONE';
+                }
+                $lieuxdit = $request->getPayload()->get("lieuxdit");
+                if ($lieuxdit == '') {
+                    $lieuxdit = 'NONE';
+                }
+                $interethistorique = $request->getPayload()->get("interethistorique");
+                if ($interethistorique == '') {
+                    $interethistorique = 'NONE';
+                }
+                $timer = $request->getPayload()->get("limite");
+                if ($timer == 0) {
+                    $timer = 'NONE';
+                }
+
+                return $this->redirectToRoute('app_preference_ajouter', array('departement' => $departement, 'commune' => $commune, 'lieuxdit' => $lieuxdit, 'interethistorique' => $interethistorique, 'timer' => $timer));
+
+            }
 
             return $this->render('site/liste.html.twig', [
                 'liste' => $liste,
+                'preferences' => $preferences,
+                'form' => $form,
                 'message' => $message
             ]);
         }

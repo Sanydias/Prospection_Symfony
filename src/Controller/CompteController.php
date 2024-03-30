@@ -160,7 +160,9 @@ class CompteController extends AbstractController
                         'lien' => 'none'
                     ];
 
-                    return $this->render('compte/parametres/confidentialite.html.twig', compact(['message' => $message]));
+                    return $this->render('compte/parametres/confidentialite.html.twig', [
+                        'message' => $message
+                    ]);
                 }
 
             /* MODIFICATION COMPTE */

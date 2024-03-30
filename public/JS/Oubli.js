@@ -5,7 +5,7 @@
     var emailValide = "non";
     var codeValide = "non";
     var motDePasseOk = "non";
-    var codeDefinit = Math.floor(Math.random() * 99999);
+    var codeDefinit = null;
 
 /* FONCTION QUI PERMET DE CHANGER LE TYPE D'INPUT */
 
@@ -210,45 +210,105 @@
             emailValide ="non";
         }
     }
-
+var timeout;
 /* FONCTION DE VÉRIFICATION D'EMAIL' */
 
     function envoiCode() {
+        clearTimeout(timeout);
         codeDefinit = Math.floor(Math.random() * 99999);
         document.getElementById("codeJS").setAttribute("value", codeDefinit);
+
         emailUtilisateur = document.getElementById("oubli_form_email").value;
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.set('Authorization', 'Basic ' + btoa('c92d2b84ed1637fcded039f57aa92f43:9e43a9a99025221694f4e116b7c05fc9'));
+        fetch('/envoiemail/' + emailUtilisateur + '/' + codeDefinit, {method: 'GET'})
+        .then(response => response.text())
+        .then(result => 
+                message(false,false, result)
+        )
+        .catch(error => console.log('error', error));
+        
+        // const myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json");
+        // myHeaders.set('Authorization', 'Basic ' + btoa('c92d2b84ed1637fcded039f57aa92f43:9e43a9a99025221694f4e116b7c05fc9'));
       
-        const data = JSON.stringify({
-          "Messages": [{
-            "To": [{"Email": emailUtilisateur}],
-            "Subject": "Code de Vérificaltion",
-            "TextPart": "Code vérification : " + codeDefinit
-          }]
-        });
+        // console.log(myHeaders);
+
+        // const data = JSON.stringify({
+        //   "Messages": [{
+        //     "From" : "marie.dumas2002@gmail.com",
+        //     "To": [{"Email": emailUtilisateur}],
+        //     "Subject": "Code de Vérificaltion",
+        //     "TextPart": "Code vérification : " + codeDefinit
+        //   }]
+        // });
       
-        const requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: data,
-        };
-      
-        fetch("https://api.mailjet.com/v3.1/send", requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-      }
+        // const requestOptions = {
+        //     mode: 'no-cors',
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: data,
+        // };
+
+        // fetch("https://api.mailjet.com/v3.1/send", requestOptions)
+        //   .then(response => response.text())
+        //   .then(result => console.log(result))
+        //   .catch(error => console.log('error', error));
+
+
+        // l'email n'est pas envoyé le code est donc :
+            console.log(codeDefinit);
+
+            // Reset du code après 15 minutes
+                timeout = setTimeout(resetCode, 900000);
+    }
+
+    function resetCode() {
+        codeDefinit = null;
+        console.log(codeDefinit);
+    }
+
+    /* SmtpJS.com - v3.0.0 */
+    // var Email = { 
+    //     send: function (a) { 
+    //         return new Promise(function (n, e) { 
+    //             a.nocache = Math.floor(1e6 * Math.random() + 1), a.Action = "Send"; 
+    //             var t = JSON.stringify(a); 
+    //             Email.ajaxPost("https://smtpjs.com/v3/smtpjs.aspx?", t, function (e) { 
+    //                 n(e) 
+    //             }) 
+    //         }) 
+    //     }, 
+    //     ajaxPost: function (e, n, t) { 
+    //         var a = Email.createCORSRequest("POST", e); 
+    //         a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.onload = function () { 
+    //             var e = a.responseText; 
+    //             null != t && t(e) 
+    //         }, a.send(n) 
+    //     }, 
+    //     ajax: function (e, n) { 
+    //         var t = Email.createCORSRequest("GET", e); 
+    //         t.onload = function () { 
+    //             var e = t.responseText; 
+    //             null != n && n(e) 
+    //         }, t.send() 
+    //     }, createCORSRequest: function (e, n) { 
+    //         var t = new XMLHttpRequest; 
+    //         return "withCredentials" in t ? t.open(e, n, !0) : "undefined" != typeof XDomainRequest ? (t = new XDomainRequest).open(e, n) : t = null, t 
+    //     } 
+    // };
 
 /* FONCTION DE VÉRIFICATION DU CODE */
 
     function verificationCode(codeUtilisateur) {
-        if(codeUtilisateur.value == codeDefinit){
-            codeValide = "oui";
-        }else{
-            message(false, false, "Code non valide");
+        if (codeDefinit == null) {
+            message(false, false, "Aucun code n'a été envoyé. Veuillez cliquer sur le bouton 'Envoyer code'");
             codeValide = "non";
+        } else {
+            if(codeUtilisateur.value == codeDefinit){
+                codeValide = "oui";
+            }else{
+                message(false, false, "Code non valide");
+                codeValide = "non";
+            }
         }
     }
 

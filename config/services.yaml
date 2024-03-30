@@ -6,6 +6,7 @@
 parameters:
     fileDirectory: '../public/IMG/PP'
     ActualitefileDirectory: '../public/IMG/ACTUALITE'
+    senderEmail : 'dumas.sandy2002@outlook.com'
 
 services:
     # default configuration for services in *this* file

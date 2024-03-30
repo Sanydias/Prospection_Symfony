@@ -54,13 +54,13 @@
 
                 <!-- MESSAGE -->
 
-                        <div id="Message" style="display:{% if (app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" )) or app.request.get('_route') == "app_connexion" and error %}'flex'{% else %}{{message.display}}{% endif %}">
+                        <div id="Message" style="display:{% if (app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" or app.request.get('_route') == "app_oubli" )) or app.request.get('_route') == "app_connexion" and error %}'flex'{% else %}{{message.display}}{% endif %}">
                             <div id="EnTeteMessage">
                                 <p>MESSAGE !</p>
                                     <img src="{{asset('IMG/ICONES/Croix.png')}}" alt="Fermer Message" id="IdMessageCroix" onclick="cacherMessage()" style="display:{% if message.bouton %}none{% else %}flex{% endif %}">
                             </div>
                             <p id="ContenuMessage">
-                                {% if app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" ) %}
+                                {% if app.user and (app.request.get('_route') == "app_connexion" or app.request.get('_route') == "app_inscription" or app.request.get('_route') == "app_oubli" ) %}
                                     Vous êtes déjà connecté au compte : <a href='/compte/profil' class='LiensMessage'>{{ app.user.userIdentifier }}</a>.
                                     <br>
                                     Si vous souhaitez vous connecter à un autre compte,

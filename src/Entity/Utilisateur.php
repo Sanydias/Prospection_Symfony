@@ -75,20 +75,19 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datedecreationducompte = null;
 
-    #[ORM\OneToMany(mappedBy: 'idutilisateur', targetEntity: Preference::class)]
-    private Collection $preferences;
-
     #[ORM\OneToMany(mappedBy: 'idemmeteur', targetEntity: Discussion::class)]
     private Collection $discussions;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Favori::class)]
     private Collection $favoris;
 
+    #[ORM\OneToOne(mappedBy: 'utilisateurpref')]
+    private ?Preference $preference = null;
+
 
 
     public function __construct()
     {
-        $this->preferences = new ArrayCollection();
         $this->discussions = new ArrayCollection();
         $this->favoris = new ArrayCollection();
     }
@@ -248,36 +247,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Preference>
-     */
-    public function getPreferences(): Collection
-    {
-        return $this->preferences;
-    }
-
-    public function addPreference(Preference $preference): static
-    {
-        if (!$this->preferences->contains($preference)) {
-            $this->preferences->add($preference);
-            $preference->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePreference(Preference $preference): static
-    {
-        if ($this->preferences->removeElement($preference)) {
-            // set the owning side to null (unless already changed)
-            if ($preference->getUtilisateur() === $this) {
-                $preference->setUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Discussion>
      */
     public function getDiscussions(): Collection
@@ -333,6 +302,23 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
                 $favoris->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPreference(): ?Preference
+    {
+        return $this->preference;
+    }
+
+    public function setPreference(Preference $preference): static
+    {
+        // set the owning side of the relation if necessary
+        if ($preference->getUtilisateurpref() !== $this) {
+            $preference->setUtilisateurpref($this);
+        }
+
+        $this->preference = $preference;
 
         return $this;
     }

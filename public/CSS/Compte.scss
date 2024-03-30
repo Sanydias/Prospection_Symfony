@@ -159,6 +159,42 @@
                     align-items: center;
                 }
 
+                .ContenuPreference{
+                    width: 100%;
+                    @include ligne();
+                    @include alignement(flex-start, space-between, center);
+                }
+
+                .BlocContenu{
+                    width: 50%;
+                    margin: 0 45px;
+                    @include colonne();
+                    @include alignement(flex-start, center, flex-start);
+                    align-self: flex-start;
+                }
+
+                .BlocBouton{
+                    width: 50%;
+                    margin-top: 5px;
+                    @include colonneCentre();
+                }
+
+                .BoutonsPreference{
+                    background-color: $couleur3;
+                    color: $couleur1;
+                    height: 30px;
+                    width: 175px;
+                    @include colonneCentre();
+                    &:hover{
+                        background-color: $couleur1;
+                        color: $couleur3;
+                    }
+                }
+
+                #BoutonAnnuler{
+                    margin: 30px;
+                }
+
                 .Preference{
                     margin: 16px 0;
                     width: 100%;
@@ -167,6 +203,20 @@
 
                 .DureeLimite{
                     @include ligneCentre();
+                }
+
+                .Confidentialite{
+                    @include colonne();
+                    @include alignement(flex-start, center, left);
+                    padding: 0 5%;
+                    a{
+                        color: $couleur3;
+                        text-decoration: none;
+                        &:hover{
+                            color: $couleur1;
+                            text-decoration: underline;
+                        }
+                    }
                 }
 
                 /* MODIFICATION COMPTE */
