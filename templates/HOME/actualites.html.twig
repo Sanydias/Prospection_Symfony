@@ -23,7 +23,7 @@
                 {% if actualite.priorite == 1 %}
                     <a class="LiensActualites NonPrioritaire" href="{{actualite.lien}}">
                         <h2>{{actualite.titre}}</h2>
-                        <div class="ImageActualite">
+                        <div class="ImageActualite1">
                             <img src="{{asset('IMG/ACTUALITE/')}}{{actualite.image}}" alt="{{actualite.titre}}">
                         </div>
                     </a>
@@ -33,7 +33,7 @@
                 {% if actualite.priorite == 0 or actualite.priorite == NULL %}
                     <a class="LiensActualites AucunePriorite" href="{{actualite.lien}}">
                         <h2>{{actualite.titre}}</h2>
-                        <div class="ImageActualite">
+                        <div class="ImageActualite2">
                             <img src="{{asset('IMG/ACTUALITE/')}}{{actualite.image}}" alt="{{actualite.titre}}">
                         </div>
                     </a>

@@ -162,7 +162,7 @@
                     }
 
                     .TextMotDePasse{
-                        width: 35%;
+                        width: 30%;
                         @include colonne();
                         @include alignement(flex-start, center, center);
                         p{

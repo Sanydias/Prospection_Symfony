@@ -67,12 +67,9 @@
                                     <br>
                                     veuillez d'abord vous <a href='/deconnexion' class='LiensMessage'>déconnecter</a>.
                                 {% elseif app.request.get('_route') == "app_connexion" and error %}
-                                    <p>
-                                        {{ error.messageKey|trans(error.messageData, 'security') }}
-                                    </p>
-                                    <p>
-                                        Mauvais Email ou Mot de passe.
-                                    </p>
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                    <br>
+                                    Mauvais Email ou Mot de passe.
                                 {% else %}
                                     {{ message.contenu }}
                                 {% endif %}
@@ -135,7 +132,7 @@
                                         <a href="/site/rechercher">Rechercher</a>
                                         <a href="/quisommesnous">Qui Sommes Nous ?</a>
                                         <a href="/actualites">Actualités</a>
-                                        <a href="/informationssitestemporaires">Informations Sites Temporaires</a>
+                                        <a href="/informationssitestemporaires">Sites à Durée limitée</a>
                                         <a href="/contact">Contact</a>
                                     </div>
 

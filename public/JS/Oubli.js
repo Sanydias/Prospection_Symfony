@@ -368,3 +368,8 @@ var timeout;
             return false;
 
     }
+
+    document.getElementById('oubli_form_email').addEventListener("keyup", () => {
+        codeDefinit = null;
+        codeValide = "non";
+    });

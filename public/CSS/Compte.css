@@ -3,6 +3,7 @@
 /* ALL */
 * {
   border-collapse: collapse;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html, body {
@@ -486,77 +487,63 @@ select {
   display: none;
 }
 
-@media (min-width: 350px) and (min-width: 450px) {
-  .Ligne {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-  }
-  .Ligne a {
-    background-color: #735645;
-    color: #F2E3B3;
-    font-size: 20px;
-    text-decoration: none;
-    padding: 20px;
-    width: 100%;
-    border-bottom: 1px solid #F2E3B3;
-  }
-  .Ligne a:hover {
-    background-color: #BF9B7A;
-    border-bottom: 1px solid #BF9B7A;
-  }
-  .Ligne .SelectedPage {
-    background-color: #BF9B7A;
-    border-bottom: 1px solid #BF9B7A;
-  }
-  .GroupeParametres {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-  .MenuParametres {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    min-height: 75vh;
-    background-color: #735645;
-    overflow-wrap: break-word;
-  }
-  .MenuParametres a {
-    background-color: #735645;
-    color: #F2E3B3;
-    font-size: 20px;
-    text-decoration: none;
-    padding: 20px;
-    width: auto;
-    height: -moz-fit-content;
-    height: fit-content;
-    border-right: 1px solid #F2E3B3;
-  }
-  .MenuParametres a:hover {
-    background-color: #BF9B7A;
-    border-right: 1px solid #BF9B7A;
-  }
-  .MenuParametres .SelectedPage {
-    background-color: #BF9B7A;
-    border-right: 1px solid #BF9B7A;
-  }
+.Ligne {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
-@media (max-width: 450px) {
-  .GroupeParametres {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.Ligne a {
+  background-color: #735645;
+  color: #F2E3B3;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 20px;
+  width: 100%;
+  border-bottom: 1px solid #F2E3B3;
 }
-@media (max-width: 350px) {
-  .GroupeParametres {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.Ligne a:hover {
+  background-color: #BF9B7A;
+  border-bottom: 1px solid #BF9B7A;
+}
+.Ligne .SelectedPage {
+  background-color: #BF9B7A;
+  border-bottom: 1px solid #BF9B7A;
+}
+
+.GroupeParametres {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.MenuParametres {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  min-height: 75vh;
+  background-color: #735645;
+  overflow-wrap: break-word;
+}
+.MenuParametres a {
+  background-color: #735645;
+  color: #F2E3B3;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 20px;
+  width: auto;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-right: 1px solid #F2E3B3;
+}
+.MenuParametres a:hover {
+  background-color: #BF9B7A;
+  border-right: 1px solid #BF9B7A;
+}
+.MenuParametres .SelectedPage {
+  background-color: #BF9B7A;
+  border-right: 1px solid #BF9B7A;
 }/*# sourceMappingURL=Compte.css.map */

@@ -3,6 +3,7 @@
 /* ALL */
 * {
   border-collapse: collapse;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html, body {
@@ -196,7 +197,7 @@ h3 {
 }
 
 .TextMotDePasse {
-  width: 35%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
